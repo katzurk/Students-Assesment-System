@@ -13,6 +13,11 @@ Zespół nr. 2
 Początek: 	 10.03.2024
 Koniec: 	 23.06.2024
 
+## Realizacja projektu:
+baza danych typu relacyjnego: Oracle
+kod aplikacji napisany w języku java z wykorzystaniem framework'u Spring
+frontend: ?
+
 ## Funkcjonalności: 
 //TODO: ilość = 4os * 2 ? lub 3? czy tyle wystarczy?
 
