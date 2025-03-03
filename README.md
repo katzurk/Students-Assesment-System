@@ -4,19 +4,19 @@ Projekt jest ćwiczeniem zespołowym mającym na celu głównie nabycie umiejęt
 
 Zespół nr. 2
 ## Skład zespołu:
-1. Diana Pelin (dalej jako D)
-2. Alesia Filinkova (dalej jako A)
-3. Katarzyna Kanicka (dalej jako K)
-4. Weronika Maślana (dalej jako W)
+* Diana Pelin (dalej jako D)
+* Alesia Filinkova (dalej jako A)
+* Katarzyna Kanicka (dalej jako K)
+* Weronika Maślana (dalej jako W)
 
 ## Czas na wykonanie projektu
 Początek: 	 10.03.2024
 Koniec: 	 23.06.2024
 
 ## Realizacja projektu:
-baza danych typu relacyjnego: Oracle
-kod aplikacji napisany w języku java z wykorzystaniem framework'u Spring
-frontend: ?
+* baza danych typu relacyjnego: Oracle
+* kod aplikacji napisany w języku java z wykorzystaniem framework'u Spring
+* frontend: ?
 
 ## Funkcjonalności: 
 //TODO: ilość = 4os * 2 ? lub 3? czy tyle wystarczy?
@@ -54,12 +54,12 @@ Ocenie podlegają głównie:
 6. terminowość realizacji zadań.
 
 ## Informacje
-Projekty realizowane są w zespołach 5-osobowych. W wyjątkowych wypadkach skład zespołu może różnić się o 1 osobę od tej normy.
+* Projekty realizowane są w zespołach 5-osobowych. W wyjątkowych wypadkach skład zespołu może różnić się o 1 osobę od tej normy.
 
-Treść zadania, harmonogram etapów oraz wszelkie inne szczegółowe aspekty dotyczące projektu są uzgadniane z prowadzącym.
+* Treść zadania, harmonogram etapów oraz wszelkie inne szczegółowe aspekty dotyczące projektu są uzgadniane z prowadzącym.
 
-Nie ma żadnych preferowanych technologii dotyczących realizacji projektu - ani w warstwie bazodanowej, ani aplikacyjnej. Dobór rozwiązań technicznych, ich instalacja i konfiguracja są elementami prac projektowych i leżą w gestii zespołu projektowego.
+* Nie ma żadnych preferowanych technologii dotyczących realizacji projektu - ani w warstwie bazodanowej, ani aplikacyjnej. Dobór rozwiązań technicznych, ich instalacja i konfiguracja są elementami prac projektowych i leżą w gestii zespołu projektowego.
 
-Do tworzenia modeli danych zalecane jest wykorzystanie narzędzia Oracle SQL Developer Data Modeler.
+* Do tworzenia modeli danych zalecane jest wykorzystanie narzędzia Oracle SQL Developer Data Modeler.
 
-Do komunikacji w ramach zespołów projektowych służą prywatne kanały zdefiniowane dla każdego zespołu na uczelnianej platformie Microsoft Teams. Na Microsoft Teams zostały również opublikowane zadania przypisane do poszczególnych zespołów. Jest to miejsce, w którym zespoły umieszczają wszelkie artefakty (dokumentację, kod, etc.) związane z realizacją projektu.
+* Do komunikacji w ramach zespołów projektowych służą prywatne kanały zdefiniowane dla każdego zespołu na uczelnianej platformie Microsoft Teams. Na Microsoft Teams zostały również opublikowane zadania przypisane do poszczególnych zespołów. Jest to miejsce, w którym zespoły umieszczają wszelkie artefakty (dokumentację, kod, etc.) związane z realizacją projektu.
