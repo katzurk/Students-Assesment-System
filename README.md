@@ -15,11 +15,31 @@ Koniec: 	 23.06.2024
 
 ## Realizacja projektu:
 * baza danych typu relacyjnego: Oracle
-* kod aplikacji napisany w języku java z wykorzystaniem framework'u Spring
-* frontend: ?
+* kod aplikacji napisany w języku java z wykorzystaniem framework'u Spring oraz biblioteki Hibernate
+* frontend: React
 
 ## Funkcjonalności: 
-//TODO: ilość = 4os * 2 ? lub 3? czy tyle wystarczy?
+ilość = 4os * 3 = 12
+
+1. rejestracja i logowanie użytkownika
+* role i uprawnienia:
+* * student:
+ 2. zapisywanie się na przedmioty
+ 3. przegląd ocen końcowych
+ 4. przegląd zdobytych punktów z przedmiotu
+ 5. odwołanie się do oceny
+* * wykładowca:
+ 6. wystawienie ocen
+ 7. przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot)
+ 8. utworzenie schematu przedmiotu (np. ilość labów i za ile punktów, czy jest egzamin i za ile punktów)
+ 9. utworzenie rejestracji na przedmiot
+ 10. automatyczne wyliczenie oceny końcowej
+* * wszyscy:
+11. wyświetlanie wykresów (np. przekrój ocen z kolokwium, rozkład ocen końcowych wśród studentów z danego przedmiotu)
+12. harmonogram zajęć
+13. *(dodatkowe) ankiety na temat danego przedmiotu
+
+
 
 ## Etapy projektu 
 Projekt jest realizowany w 3 zasadniczych etapach:
