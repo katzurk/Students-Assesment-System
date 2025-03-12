@@ -1,0 +1,40 @@
+.page{
+    background-color: var(--background);
+}
+
+.container {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
+  .table {
+    width: 100%;
+    background-color: #221544;
+    border: 1px solid var(--foreground);
+    border-radius: 8px;
+  }
+
+  .headerRow {
+    background-color: rgb(100, 88, 61);
+    border-bottom: 2px solidvar(--foreground);
+  }
+
+  .headerCell {
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .row:hover {
+    background-color: #2f234b;
+  }
+
+  .cell {
+    padding: 12px;
+    border-bottom: 1px solid var(--foreground);
+  }

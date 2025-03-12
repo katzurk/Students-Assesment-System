@@ -9,16 +9,23 @@ Zespół nr. 2
 * Katarzyna Kanicka (dalej jako K)
 * Weronika Maślana (dalej jako W)
 
-## Czas na wykonanie projektu
-Początek: 	 10.03.2024
-Koniec: 	 23.06.2024
+## Uruchomienie aplikacji
+spring: clear && ./mvnw spring-boot:run
+react ui: pnpm dev
+
+## Harmonogram prac
+10.03.2025 - początek
+20.03 - uzgodnienie funkcjonalności projektu
+17.04 - ukończenie działającego prototypu
+5.06 - skończenie projektu, czas na uwagi od prowadzącego i naniesienie poprawek
+22.06 - ostateczny termin oddania projektu
 
 ## Realizacja projektu:
 * baza danych typu relacyjnego: Oracle
 * kod aplikacji napisany w języku java z wykorzystaniem framework'u Spring oraz biblioteki Hibernate
 * frontend: React
 
-## Funkcjonalności: 
+## Funkcjonalności:
 ilość = 4os * 3 = 12
 
 1. rejestracja i logowanie użytkownika
@@ -41,7 +48,7 @@ ilość = 4os * 3 = 12
 
 
 
-## Etapy projektu 
+## Etapy projektu
 Projekt jest realizowany w 3 zasadniczych etapach:
 
 1. zdefiniowanie modelu pojęciowego,
