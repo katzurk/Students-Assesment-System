@@ -9,9 +9,25 @@ Zespół nr. 2
 * Katarzyna Kanicka (dalej jako K)
 * Weronika Maślana (dalej jako W)
 
+## Instalacja środowiska
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+install node.js
+nvm install 22
+npm install -g pnpm@latest-10
+nvm use 22
+
 ## Uruchomienie aplikacji
-spring: clear && ./mvnw spring-boot:run
-react ui: pnpm dev
+* just-grades-rest (spring):
+ clear && ./mvnw spring-boot:run
+
+ewentualnie w przeglądarce wchodzimy na stronę:
+ lockalhost:8080
+
+* just-grades-ui (react):
+ pnpm dev
+
+w przeglądarce wchodzimy na stronę:
+ lockalhost:3000
 
 ## Harmonogram prac
 10.03.2025 - początek
@@ -28,24 +44,22 @@ react ui: pnpm dev
 ## Funkcjonalności:
 ilość = 4os * 3 = 12
 
-1. rejestracja i logowanie użytkownika
-* role i uprawnienia:
-* * student:
- 2. zapisywanie się na przedmioty
- 3. przegląd ocen końcowych
- 4. przegląd zdobytych punktów z przedmiotu
- 5. odwołanie się do oceny
-* * wykładowca:
- 6. wystawienie ocen
- 7. przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot)
- 8. utworzenie schematu przedmiotu (np. ilość labów i za ile punktów, czy jest egzamin i za ile punktów)
- 9. utworzenie rejestracji na przedmiot
- 10. automatyczne wyliczenie oceny końcowej
-* * wszyscy:
-11. wyświetlanie wykresów (np. przekrój ocen z kolokwium, rozkład ocen końcowych wśród studentów z danego przedmiotu)
-12. harmonogram zajęć
-13. *(dodatkowe) ankiety na temat danego przedmiotu
-
+1. logowanie użytkownika
+role i uprawnienia:
+* student:
+2. przegląd ocen końcowych,
+3. przegląd zdobytych punktów z przedmiotu,
+4. zapisywanie się na przedmioty
+5. wypisywanie się z przedmiotów
+* wykładowca:
+6. wystawienie ocen,
+7. przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot)
+8. utworzenie schematu przedmiotu (np. ilość labów i za ile punktów, czy jest egzamin i za ile punktów, ile punktów trzeba zdobyć by zaliczyć),
+9.  zamknięcie przedmiotu i automatyczne wyliczenie oceny końcowej,
+10. otwarcie i zamknięcie semestru
+11. otwarcie i zamknięcie rejestracji
+* oboje:
+12. wyświetlanie raportów (np. przekrój ocen z kolokwium, rozkład ocen końcowych wśród studentów z danego przedmiotu)
 
 
 ## Etapy projektu
@@ -58,13 +72,13 @@ Projekt jest realizowany w 3 zasadniczych etapach:
 ## Wymagania projektu
 W ramach projektu wymagane jest wykonanie następujących zadań i produktów:
 
-1. opracowanie modelu pojęciowego (E-R),
-2. na podstawie modelu pojęciowego opracowanie relacyjnego logicznego modelu danych,
+1. opracowanie modelu pojęciowego (E-R), (D)
+2. na podstawie modelu pojęciowego opracowanie relacyjnego logicznego modelu danych, (D)
 3. zaprojektowanie funkcjonalności aplikacji: części operacyjnej (transakcyjnej) oraz części analityczno-raportowej,
 4. optymalizacja modelu logicznego (w szczególności denormalizacja) w celu maksymalizacji wydajności systemu,
 5. opracowanie elementów funkcjonalnych na poziomie bazy danych (triggery, procedury składowane),
-6. dobór technologii bazodanowej, instalacja i konfiguracja środowiska,
-7. dobór technologii realizacji aplikacji, instalacja i konfiguracja środowiska rozwojowego,
+6. dobór technologii bazodanowej, instalacja i konfiguracja środowiska, (D)
+7. dobór technologii realizacji aplikacji, instalacja i konfiguracja środowiska rozwojowego, (W)
 8. opracowanie, wdrożenie i optymalizacja modelu fizycznego,
 9. opracowanie scenariuszy i danych testowych,
 10. opracowanie dokumentacji analityczno-projektowej (w szczególności diagramów modeli danych z opisami),
