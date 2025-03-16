@@ -11,30 +11,38 @@ Zespół nr. 2
 
 ## Instalacja środowiska
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
 install node.js
+
 nvm install 22
+
 npm install -g pnpm@latest-10
+
 nvm use 22
 
 ## Uruchomienie aplikacji
 * just-grades-rest (spring):
+
  clear && ./mvnw spring-boot:run
 
 ewentualnie w przeglądarce wchodzimy na stronę:
+
  lockalhost:8080
 
 * just-grades-ui (react):
+
  pnpm dev
 
 w przeglądarce wchodzimy na stronę:
+
  lockalhost:3000
 
 ## Harmonogram prac
-10.03.2025 - początek
-20.03 - uzgodnienie funkcjonalności projektu
-17.04 - ukończenie działającego prototypu
-5.06 - skończenie projektu, czas na uwagi od prowadzącego i naniesienie poprawek
-22.06 - ostateczny termin oddania projektu
+* 10.03.2025 - początek
+* 20.03 - uzgodnienie funkcjonalności projektu
+* 17.04 - ukończenie działającego prototypu
+* 5.06 - skończenie projektu, czas na uwagi od prowadzącego i naniesienie poprawek
+* 22.06 - ostateczny termin oddania projektu
 
 ## Realizacja projektu:
 * baza danych typu relacyjnego: Oracle
@@ -53,13 +61,13 @@ role i uprawnienia:
 5. wypisywanie się z przedmiotów
 * wykładowca:
 6. wystawienie ocen,
-7. przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot)
-8. utworzenie schematu przedmiotu (np. ilość labów i za ile punktów, czy jest egzamin i za ile punktów, ile punktów trzeba zdobyć by zaliczyć),
+7. przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot) (W)
+8. utworzenie schematu przedmiotu (np. ilość labów i za ile punktów, czy jest egzamin i za ile punktów, ile punktów trzeba zdobyć by zaliczyć), (W)
 9.  zamknięcie przedmiotu i automatyczne wyliczenie oceny końcowej,
 10. otwarcie i zamknięcie semestru
 11. otwarcie i zamknięcie rejestracji
 * oboje:
-12. wyświetlanie raportów (np. przekrój ocen z kolokwium, rozkład ocen końcowych wśród studentów z danego przedmiotu)
+12. wyświetlanie raportów (np. przekrój ocen z kolokwium, rozkład ocen końcowych wśród studentów z danego przedmiotu) (W)
 
 
 ## Etapy projektu
