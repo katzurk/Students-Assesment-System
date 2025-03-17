@@ -56,9 +56,9 @@ ilość = 4os * 3 = 12
 role i uprawnienia:
 * student:
 2. przegląd ocen końcowych,
-3. przegląd zdobytych punktów z przedmiotu,
-4. zapisywanie się na przedmioty
-5. wypisywanie się z przedmiotów
+3. przegląd zdobytych punktów z przedmiotu, (K)
+4. zapisywanie się na przedmioty (K)
+5. wypisywanie się z przedmiotów (K)
 * wykładowca:
 6. wystawienie ocen,
 7. przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot) (W)
