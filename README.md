@@ -51,21 +51,20 @@ w przeglądarce wchodzimy na stronę:
 
 ## Funkcjonalności:
 ilość = 4os * 3 = 12
-
-1. logowanie użytkownika
+1. logowanie użytkownika (D) 
 role i uprawnienia:
 * student:
-2. przegląd ocen końcowych,
+2. przegląd ocen końcowych (D),
 3. przegląd zdobytych punktów z przedmiotu, (K)
 4. zapisywanie się na przedmioty (K)
 5. wypisywanie się z przedmiotów (K)
 * wykładowca:
-6. wystawienie ocen,
+6. wystawienie ocen (D),
 7. przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot) (W)
 8. utworzenie schematu przedmiotu (np. ilość labów i za ile punktów, czy jest egzamin i za ile punktów, ile punktów trzeba zdobyć by zaliczyć), (W)
-9.  zamknięcie przedmiotu i automatyczne wyliczenie oceny końcowej,
-10. otwarcie i zamknięcie semestru
-11. otwarcie i zamknięcie rejestracji
+9.  zamknięcie przedmiotu i automatyczne wyliczenie oceny końcowej (A),
+10. otwarcie i zamknięcie semestru (A)
+11. otwarcie i zamknięcie rejestracji (A)
 * oboje:
 12. wyświetlanie raportów (np. przekrój ocen z kolokwium, rozkład ocen końcowych wśród studentów z danego przedmiotu) (W)
 
