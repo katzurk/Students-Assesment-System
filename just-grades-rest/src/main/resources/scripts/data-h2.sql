@@ -32,8 +32,5 @@ VALUES
 INSERT INTO course_reg (reg_id, regulation_text, courses_id)
 VALUES
     (1, '> 30 ects', 1),
-    (2, 'nothing', 2),
-    (3, 'nothing', 3),
     (4, '> 61 ects', 4),
-    (5, 'complited basics of physics', 4),
-    (6, 'nothing', 5);
+    (5, 'complited basics of physics', 4);
