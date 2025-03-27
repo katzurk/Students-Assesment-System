@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import JustGrades.app.model.User;
-import JustGrades.app.model.UserRepository;
+import JustGrades.app.model.Course;
+import JustGrades.app.model.CourseRepository;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/courses")
+public class CourseController {
     @Autowired
-    private UserRepository userRepository;
+    private CourseRepository courseRepository;
 
     @GetMapping
-    public Iterable<User> findAll() {
-        return userRepository.findAll();
+    public Iterable<Course> findAll() {
+        return courseRepository.findAll();
     }
 }

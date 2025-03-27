@@ -8,12 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 
-@Entity(name = "completition_requierments")
-public class CompletitionRequierment {
+@Entity(name = "completion_req")
+public class CompletionRequirement {
     @Id
     @Column(name = "req_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requiermentsSeq")
-    @SequenceGenerator(name = "requiermentsSeq", sequenceName = "REQUIERMENTS_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requirementsSeq")
+    @SequenceGenerator(name = "requirementsSeq", sequenceName = "REQUIREMENTS_SEQ", allocationSize = 1)
     private long id;
 
     @Column(name = "min_score")
@@ -24,10 +24,10 @@ public class CompletitionRequierment {
     @NotBlank(message = "type is mandatory")
     private String type;
 
-    public CompletitionRequierment() {
+    public CompletionRequirement() {
     }
 
-    public CompletitionRequierment(int minScore, String type) {
+    public CompletionRequirement(int minScore, String type) {
         this.minScore = minScore;
         this.type = type;
     }

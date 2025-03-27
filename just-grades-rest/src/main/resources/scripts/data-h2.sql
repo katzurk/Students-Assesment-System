@@ -12,7 +12,7 @@ INSERT INTO courses (course_id, name, ects)
 VALUES
     (1, 'philosophy', 4),
     (2, 'work ethic', 3),
-    (3, 'lerning methods', 4),
+    (3, 'learning methods', 4),
     (4, 'modern physics', 6),
     (5, 'basics of physics', 5);
 
@@ -27,7 +27,7 @@ VALUES
     (2, 2),
     (3, 2),
     (4, 1),
-    (3, 1);
+    (5, 1);
 
 INSERT INTO course_reg (reg_id, regulation_text, courses_id)
 VALUES

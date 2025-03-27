@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,11 +30,11 @@ public class Course {
     @NotBlank(message = "ects points are mandatory")
     private int ects;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "course_req",
         joinColumns = { @JoinColumn(name = "courses_id") },
         inverseJoinColumns = { @JoinColumn(name = "req_id") })
-    private List<CompletitionRequierment> completitionRequierments;
+    private List<CompletionRequirement> completionRequirements;
 
     public Course() {
     }
@@ -55,12 +56,17 @@ public class Course {
         return this.ects;
     }
 
+
     public void setName(String new_name) {
         this.name = new_name;
     }
 
     public void setEcts(int new_ects) {
         this.ects = new_ects;
+    }
+
+    public List<CompletionRequirement> getCompletionRequirements() {
+        return completionRequirements;
     }
 
 }
