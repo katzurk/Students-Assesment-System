@@ -1,4 +1,8 @@
 package JustGrades.app.repository;
 
-public class RoleRepository {
+import JustGrades.app.model.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoleRepository extends JpaRepository<Role, Long> {
+    Role findByRoleName(String name);
 }

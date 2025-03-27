@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class CustomUserService implements UserDetailsService {
+public class AuthorizationService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    
+
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByEmail(usernameOrEmail);

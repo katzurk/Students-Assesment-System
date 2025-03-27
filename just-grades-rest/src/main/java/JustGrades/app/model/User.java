@@ -1,21 +1,28 @@
 package JustGrades.app.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity(name = "users")
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "users")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq", sequenceName = "USERS_SEQ", allocationSize = 1)
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
-    @SequenceGenerator(name = "userSeq", sequenceName = "USERS_SEQ", allocationSize = 1)
-    private long id;
+    private Long userId;
 
     @Column(name = "first_name")
     @NotBlank(message = "first name is mandatory")
@@ -25,52 +32,25 @@ public class User {
     @NotBlank(message = "last name is mandatory")
     private String lastName;
 
+    @Column(name = "email")
+    @NotBlank(message = "email is mandatory")
     private String email;
 
-    @Column(name = "password_hash")
+    @Column(name = "password")
     @NotBlank(message = "password is mandatory")
-    private String passwordHash;
+    private String password;
 
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String passwordHash) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.passwordHash = passwordHash;
-    }
-
-
-    public long getId() {
-        return this.id;
-    }
-
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public String getPasswordHash() {
-        return this.passwordHash;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setPasswordHash(String newPasswordHash) {
-        this.passwordHash = newPasswordHash;
-    }
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public String toString() {
-        return "User{" + "id=" + this.id + ", first name=" + this.firstName + ", last name=" + this.lastName + ", password='" + this.passwordHash + '}';
+        return "User{" + "id=" + this.userId + ", first name=" + this.firstName + ", last name=" + this.lastName + ", password='" + this.password + '}';
     }
+
 }
