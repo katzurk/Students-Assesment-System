@@ -3,6 +3,8 @@ package JustGrades.app.services;
 
 import JustGrades.app.model.User;
 import JustGrades.app.repository.UserRepository;
+
+
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,15 +23,20 @@ public class AuthorizationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByEmail(usernameOrEmail);
-        if(user.isPresent()){
-            return new org.springframework.security.core.userdetails.User(user.get().getEmail()
-                    , user.get().getPassword(),
-                    user.get().getRoles().stream()
+        System.out.println(";::::;");
+        User user = userRepository.findByEmail(usernameOrEmail);
+        if (user != null) {
+            return org.springframework.security.core.userdetails.User
+                    .withUsername(user.getEmail())
+                    .password(user.getPassword())
+                    .roles(String.valueOf(user.getRoles().stream()
                             .map((role) -> new SimpleGrantedAuthority(role.getRoleName()))
-                            .collect(Collectors.toList()));
-        }else {
+                            .collect(Collectors.toList())))
+                    .build();
+        } else {
             throw new UsernameNotFoundException("Invalid email or password");
         }
+
+
     }
 }

@@ -1,60 +1,45 @@
 package JustGrades.app.controller;
 
-
-import JustGrades.app.services.UserService;
-import jakarta.validation.Valid;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import JustGrades.app.model.User;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import JustGrades.app.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
-//@RestController
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
 //@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
-    public UserController(UserService userService) {
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
-    @GetMapping("findAll")
-    public Iterable<User> findAll() {
-        return userService.findAll();
-    }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "register";
-    }
-
-    @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") User userDto,
-                               BindingResult result,
-                               Model model) {
-        User existingUser = userService.findByEmail(userDto.getEmail());
-        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
-            result.rejectValue("email", null,
-                    "There is already an account registered with the same email");
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+        User existingUser = userService.findByEmail(user.getEmail());
+        if (existingUser != null && passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
+            return "Login successful";
+        } else {
+            return "Invalid credentials";
         }
+    }
 
-        if (result.hasErrors()) {
-            model.addAttribute("user", userDto);
-            return "register";
+
+    @PostMapping("/register")
+    public String register(@RequestBody User user) {
+        User existingUser = userService.findByEmail(user.getEmail());
+        if (existingUser != null) {
+            return "Email already exists";
         }
-        userService.saveUser(userDto);
-        return "redirect:/register?success";
+        userService.saveUser(user);
+        return "User registered successfully";
     }
 
 }
