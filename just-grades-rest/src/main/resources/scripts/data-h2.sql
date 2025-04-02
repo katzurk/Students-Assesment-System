@@ -18,19 +18,26 @@ VALUES
 
 INSERT INTO completion_req (req_id, min_score, type)
 VALUES
-    (1, 51, 'physic'),
-    (2, 31, 'social courses');
+    (1, 51, 'exam'),
+    (2, 21, 'laboratories'),
+    (3, 21, 'tests');
 
 INSERT INTO course_req (courses_id, req_id)
 VALUES
     (1, 2),
-    (2, 2),
-    (3, 2),
+    (1, 3),
+    (2, 3),
+    (3, 3),
     (4, 1),
+    (4, 2),
+    (4, 3),
     (5, 1);
 
-INSERT INTO course_reg (reg_id, regulation_text, courses_id)
+INSERT INTO course_reg (reg_id, min_ects, course_id)
 VALUES
-    (1, '> 30 ects', 1),
-    (4, '> 61 ects', 4),
-    (5, 'complited basics of physics', 4);
+    (1, 30, 1),
+    (4, 60, 4);
+
+INSERT INTO course_reg (reg_id, complited_course_id, course_id)
+VALUES
+    (5, 5, 4);

@@ -35,8 +35,9 @@ ALTER TABLE course_req ADD CONSTRAINT course_req_pk PRIMARY KEY ( courses_id, re
 
 CREATE TABLE course_reg (
     reg_id     INTEGER NOT NULL,
-    regulation_text    VARCHAR2(250) NOT NULL,
-    courses_id INTEGER NOT NULL
+    min_ects NUMBER,
+    complited_course_id INTEGER,
+    course_id INTEGER NOT NULL
 );
 
 ALTER TABLE course_reg ADD CONSTRAINT course_reg_pk PRIMARY KEY ( reg_id );
@@ -140,7 +141,7 @@ ALTER TABLE classes ADD CONSTRAINT classes_courses_fk FOREIGN KEY ( courses_id )
 ALTER TABLE course_req ADD CONSTRAINT course_req_req_fk FOREIGN KEY ( req_id ) REFERENCES completion_req ( req_id );
 ALTER TABLE course_req ADD CONSTRAINT course_req_courses_fk FOREIGN KEY ( courses_id ) REFERENCES courses ( course_id );
 
-ALTER TABLE course_reg ADD CONSTRAINT course_reg_courses_fk FOREIGN KEY ( courses_id ) REFERENCES courses ( course_id );
+ALTER TABLE course_reg ADD CONSTRAINT course_reg_courses_fk FOREIGN KEY ( course_id ) REFERENCES courses ( course_id );
 
 ALTER TABLE courses_lectures ADD CONSTRAINT courses_lectures_courses_fk FOREIGN KEY ( courses_id ) REFERENCES courses ( course_id );
 ALTER TABLE courses_lectures ADD CONSTRAINT courses_lectures_lecturers_fk FOREIGN KEY ( user_id ) REFERENCES lecturers ( user_id );
