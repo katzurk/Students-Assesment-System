@@ -31,9 +31,9 @@ public class UserService{
     }
 
 
-    public User saveUser(User user) {
+    public User saveUser(User user, String roleName) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role role = roleRepository.findByRoleName("ROLE_STUDENT");
+        Role role = roleRepository.findByRoleName(roleName);
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
