@@ -21,10 +21,17 @@ export default function Home() {
       </main>
       <a
         className={styles.primary}
-        href="/users"
+        href="/student"
         rel="noopener noreferrer"
       >
-        Users
+        Student
+      </a>
+      <a
+        className={styles.primary}
+        href="/courses"
+        rel="noopener noreferrer"
+      >
+        Lecturer
       </a>
     </div>
   );

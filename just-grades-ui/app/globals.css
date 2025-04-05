@@ -1,6 +1,7 @@
 :root {
   --background: #150e27;
   --foreground: #c7a458;
+  --button-primary-hover: #9b8453;
 }
 
 html,

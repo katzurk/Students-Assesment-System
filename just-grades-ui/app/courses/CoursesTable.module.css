@@ -1,0 +1,84 @@
+.page{
+    background-color: var(--background);
+}
+
+.container {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .table {
+    width: 100%;
+    background-color: #221544;
+    border: 1px solid var(--foreground);
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  .headerRow {
+    background-color: rgb(100, 88, 61);
+    border-bottom: 2px solidvar(--foreground);
+  }
+
+  .headerCell {
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .row:hover {
+    background-color: #2f234b;
+  }
+
+  .cell {
+    padding: 12px;
+    border-bottom: 1px solid var(--foreground);
+    border-right: 1px solid var(--foreground);
+  }
+
+  /* .logo {
+    margin-left: 10%;
+  } */
+
+  .logo_line {
+    margin-top: 10px;
+    color: var(--foreground);
+    width: full;
+    margin-bottom: 10px;
+  }
+
+  a.add_button {
+    background: var(--foreground);
+    color: var(--background);
+    padding-left: 8px;
+    padding-right: 8px;
+
+    border-radius: 128px;
+    height: 48px;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  a.add_button:hover {
+    background: var(--button-primary-hover);
+    border-color: transparent;
+  }
+
+  .toggle_button {
+    color:  var(--foreground);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer
+  }
