@@ -129,7 +129,7 @@ CREATE TABLE users (
     first_name   VARCHAR2(50) NOT NULL,
     last_name    VARCHAR2(50) NOT NULL,
     email        VARCHAR2(50) NOT NULL,
-    password_hash     VARCHAR2(50) NOT NULL,
+    password     VARCHAR2(50) NOT NULL,
     role_id      INTEGER
 );
 
