@@ -1,7 +1,7 @@
 -- SELECT NEXT VALUE FOR USERS_SEQ;
 SELECT NEXT VALUE FOR USERS_SEQ;
 INSERT INTO USERS
-    (USER_ID, FIRST_NAME, LAST_NAME, PASSWORD_HASH, email)
+    (USER_ID, FIRST_NAME, LAST_NAME, PASSWORD, email)
 VALUES
     (1, 'w', 'm', '1', 'w.m@gmail.com'),
     (2, 'Marie', 'Johnson', '123', 'marie@g.com'),
