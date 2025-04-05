@@ -15,6 +15,7 @@ interface EnrollRequirement {
 }
 
 interface Course {
+  id: number,
   name: string;
   ects: number;
   completionRequirements: Array<CompletionRequirement>;

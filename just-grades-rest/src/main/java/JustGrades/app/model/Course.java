@@ -1,5 +1,6 @@
 package JustGrades.app.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -30,18 +31,18 @@ public class Course {
     private String name;
 
     @Column(name = "ects")
-    @NotBlank(message = "ects points are mandatory")
+    @NotNull(message = "ects points are mandatory")
     private Integer ects;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "course_req",
     joinColumns = { @JoinColumn(name = "courses_id") },
     inverseJoinColumns = { @JoinColumn(name = "req_id") })
     @NotNull(message = "at least one completion requirement is mandatory")
-    private List<CompletionRequirement> completionRequirements;
+    private List<CompletionRequirement> completionRequirements = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "courseId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EnrollRequirement> enrollRequirements;
+    private List<EnrollRequirement> enrollRequirements = new ArrayList<>();
 
     public Course() {
     }
@@ -78,6 +79,12 @@ public class Course {
 
     public List<EnrollRequirement> getEnrollRequirements() {
         return enrollRequirements;
+    }
+
+    @Override
+    public String toString() {
+        return "Course [id=" + id + ", name=" + name + ", ects=" + ects + ", completionRequirements="
+                + completionRequirements + ", enrollRequirements=" + enrollRequirements + "]";
     }
 
 }

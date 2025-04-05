@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity(name = "completion_req")
 public class CompletionRequirement {
@@ -17,7 +18,7 @@ public class CompletionRequirement {
     private long id;
 
     @Column(name = "min_score")
-    @NotBlank(message = "min_score is mandatory")
+    @NotNull(message = "min_score is mandatory")
     private int minScore;
 
     @Column(name = "type")

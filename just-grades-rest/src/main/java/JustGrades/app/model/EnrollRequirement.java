@@ -59,7 +59,7 @@ public class EnrollRequirement {
         return this.courseId;
     }
 
-    public void setComplitedCourseId(Course newcomplitedCourse) {
+    public void setComplitedCourse(Course newcomplitedCourse) {
         this.complitedCourse = newcomplitedCourse;
     }
 
