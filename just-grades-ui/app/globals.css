@@ -2,6 +2,7 @@
   --background: #150e27;
   --foreground: #c7a458;
   --button-primary-hover: #9b8453;
+  --login-panel-background: #312450;
 }
 
 html,
@@ -56,10 +57,31 @@ a {
 
 .button {
   background-color: #4e46b4;
-  color: white;
+  color: var(--foreground);
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
+}
+
+.logo_line {
+  margin-top: 10px;
+  color: var(--foreground);
+  width: full;
+}
+
+.logout_button {
+  background: var(--foreground);
+  color: var(--background);
+  padding-left: 8px;
+  padding-right: 8px;
+
+  border-radius: 128px;
+  justify-content: center;
+}
+
+.logout_button:hover {
+  background: var(--button-primary-hover);
+  border-color: transparent;
 }

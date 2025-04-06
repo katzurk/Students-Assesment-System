@@ -22,6 +22,7 @@ export default function LoginPage() {
     return (
         <div className="login-container">
             <h2>Logowanie</h2>
+            <br></br>
             <form onSubmit={handleLogin} className="login-form">
                 <input
                     className="input"

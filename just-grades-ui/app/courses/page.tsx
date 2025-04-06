@@ -1,7 +1,6 @@
 "use client"
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from './CoursesTable.module.css';
-import Image from "next/image";
 import React from 'react';
 
 interface CompletionRequirement {
@@ -119,9 +118,6 @@ export default function CoursesTable() {
   const [error, setError] = useState<string | null>(null);
   const [openPanel, setOpenPanel] = useState<number | null>(null);
 
-  const togglePanel = (index: number): void => {
-    setOpenPanel((prevIndex: number | null) => (prevIndex === index ? null : index))};
-
   useEffect(() => {
     fetch('http://localhost:8080/courses')
       .then((response) => {
@@ -143,20 +139,50 @@ export default function CoursesTable() {
   if (loading) return <p>Loading data...</p>;
   if (error) return <p>--Error: {error}</p>;
 
+  const togglePanel = (index: number): void => {
+    setOpenPanel((prevIndex: number | null) => (prevIndex === index ? null : index))};
+
+  const courseDetails = async (id: number) => {
+    fetch("http://localhost:8080/courses/" + id)
+  }
+
+  const removeCourse = async (id: number) => {
+    try {
+      fetch("http://localhost:8080/courses/" + id, {
+        method: "DELETE"
+      })
+      .then ((response)  => {
+        if (!response.ok) {
+          throw new Error('Can not delete course, it is needed to complete another course');
+        }
+        fetch('http://localhost:8080/courses')
+          .then((resp) => {
+            if (!resp.ok) {
+              throw new Error('Network response was not ok');
+            }
+            console.info("fetch after del", resp);
+            return resp.json();
+          })
+          .then((data) => {
+            setCourses(data || []);
+            setLoading(false);
+          })
+          .catch((error) => {
+            setError(error.message);
+            setLoading(false);
+          });
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+
   return (
     <div className={styles.container}>
-      <a href="/">
-        <Image
-          className={styles.logo}
-          src="/justgrades_logo.png"
-          alt="JustGrades logo"
-          width= {131}
-          height= {96}
-          priority
-        />
-      </a>
-      <hr className={styles.logo_line}></hr>
-
       <h1 className={styles.title}>My courses list</h1>
       <a
         className={styles.add_button}
@@ -172,6 +198,7 @@ export default function CoursesTable() {
             <th className={styles.headerCell}>Ects points</th>
             <th className={styles.headerCell}>Completion Requirements</th>
             <th className={styles.headerCell}>Requirements to enroll</th>
+            <th className={styles.headerCell}>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -194,6 +221,11 @@ export default function CoursesTable() {
                   isOpen={openPanel === index}
                   toggle={() => togglePanel(index)}
                 />
+              </td>
+              <td className={styles.cell}>
+                <button className={styles.delete_button} onClick={() => removeCourse(course.id)}>Delete</button>
+                <br></br>
+                <button className={styles.details_button} onClick={() => courseDetails(course.id)}>Details</button>
               </td>
             </tr>
           ))}

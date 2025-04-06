@@ -30,6 +30,7 @@ export default function RegisterPage() {
     return (
         <div className="login-container">
             <h2>Registration</h2>
+            <br></br>
             <form onSubmit={handleRegister} className="login-form">
                 <input
                     className="input"
@@ -61,7 +62,7 @@ export default function RegisterPage() {
                 />
                 <select className="input" value={role} onChange={e => setRole(e.target.value)}>
                     <option value="ROLE_STUDENT">Student</option>
-                    <option value="ROLE_LECTURER">Wykładowca</option>
+                    <option value="ROLE_LECTURER">Lecturer</option>
                 </select>
                 <button className="button" type="submit">Register</button>
             </form>
