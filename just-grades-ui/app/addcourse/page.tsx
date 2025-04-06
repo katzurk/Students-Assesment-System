@@ -1,7 +1,6 @@
 "use client"
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from './addCourse.module.css';
-import Image from "next/image";
 
 interface CompletionRequirement {
   type: string;
@@ -105,27 +104,25 @@ export default function FillInForm() {
         },
         body: JSON.stringify(course),
       });
-
-      const result = await response.text();
-      alert(result);
+      window.location.href =('/courses');
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+  const removeCREntry = (index: number) => {
+    course.completionRequirements.splice(index, 1)
+    setCourse(prev => ({...prev}));
+  }
+
+  const removeEREntry = (index: number) => {
+    course.enrollRequirements.splice(index, 1)
+    setCourse(prev => ({...prev}));
+  }
+
+
   return (
     <div className={styles.container}>
-      <a href="/">
-        <Image
-          className={styles.logo}
-          src="/justgrades_logo.png"
-          alt="JustGrades logo"
-          width= {131}
-          height= {96}
-          priority
-        />
-      </a>
-      <hr className={styles.logo_line}></hr>
       <h1 className={styles.title}>Add a new course</h1>
 
       <form onSubmit={handleSubmit} className={styles.from}>
@@ -158,6 +155,9 @@ export default function FillInForm() {
                 <input type="number" name="min_score" value={completionReq.minScore} onChange={ev => handleCRChange(index, ev)} required />
               </label>
             </div>
+            {index === 0 ? "" :
+              <button type="button" className={styles.remove_button} onClick={() => removeCREntry(index)}>Remove above Requirement</button>
+            }
           </div>
          ))}
          <button type="button" className={styles.req_button} onClick={addCompletionRequirement}>Add Requirement to complete</button>
@@ -187,6 +187,7 @@ export default function FillInForm() {
                 </select>
               </label>
             </div>
+            <button type="button" className={styles.remove_button} onClick={() => removeEREntry(index2)}>Remove above Requirement</button>
           </div>
         ))}
         <button type="button" className={styles.req_button} onClick={addEnrollRequirement}>Add Requirement to enroll</button>

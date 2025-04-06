@@ -42,18 +42,7 @@
     border-right: 1px solid var(--foreground);
   }
 
-  /* .logo {
-    margin-left: 10%;
-  } */
-
-  .logo_line {
-    margin-top: 10px;
-    color: var(--foreground);
-    width: full;
-    margin-bottom: 10px;
-  }
-
-  a.add_button {
+  .add_button {
     background: var(--foreground);
     color: var(--background);
     padding-left: 8px;
@@ -65,8 +54,39 @@
     font-size: 24px;
   }
 
-  a.add_button:hover {
+  .add_button:hover {
     background: var(--button-primary-hover);
+    border-color: transparent;
+  }
+
+  .details_button {
+    background: var(--foreground);
+    color: var(--background);
+    padding-left: 8px;
+    padding-right: 8px;
+
+    border-radius: 128px;
+    justify-content: center;
+  }
+
+  .details_button:hover {
+    background: var(--button-primary-hover);
+    border-color: transparent;
+  }
+
+  .delete_button {
+    background: #972752;
+    color: var(--background);
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 1px;
+
+    border-radius: 128px;
+    justify-content: center;
+  }
+
+  .delete_button:hover {
+    background: #671c3a;
     border-color: transparent;
   }
 

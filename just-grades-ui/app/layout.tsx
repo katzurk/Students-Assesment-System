@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
+import Image from "next/image";
 import LogoutButton from './LogoutButton';
 
 const geistSans = Geist({
@@ -27,11 +28,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <nav style={{ padding: '10px', background: '#eee' }}>
-          <Link href="/">Main</Link> |{' '}
+        <nav style={{ padding: '10px'}}>
+          <a href="/">
+            <Image
+              className="logo"
+              src="/justgrades_logo.png"
+              alt="JustGrades logo"
+              width= {109}
+              height= {80}
+              priority
+            />
+          </a>
           <Link href="/login">Login</Link> |{' '}
           <Link href="/register">Registration</Link> |{' '}
-          <LogoutButton />
+          <LogoutButton  />
+        <hr className="logo_line"></hr>
         </nav>
         <main>{children}</main>
       </body>

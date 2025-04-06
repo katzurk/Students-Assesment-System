@@ -29,14 +29,8 @@ a.primary:hover {
   border-color: transparent;
 }
 
-.logo {
+.logo_main {
   margin-left: 30%;
-}
-
-.logo_line {
-  margin-top: 10px;
-  color: var(--foreground);
-  width: full;
 }
 
 .main {
