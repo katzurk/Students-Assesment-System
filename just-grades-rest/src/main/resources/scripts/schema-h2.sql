@@ -87,7 +87,7 @@ ALTER TABLE lecturers ADD CONSTRAINT lecturers_pkv1 UNIQUE ( lecture_id );
 
 CREATE TABLE roles (
     role_id INTEGER NOT NULL,
-    name    VARCHAR2(50) NOT NULL
+    role_name    VARCHAR2(50) NOT NULL
 );
 
 ALTER TABLE roles ADD CONSTRAINT roles_pk PRIMARY KEY ( role_id );

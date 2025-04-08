@@ -1,4 +1,9 @@
 -- SELECT NEXT VALUE FOR USERS_SEQ;
+INSERT INTO roles (role_id, role_name) VALUES
+    (1, 'ROLE_STUDENT'),
+    (2, 'ROLE_LECTURER'),
+    (3, 'ROLE_ADMIN');
+
 SELECT NEXT VALUE FOR USERS_SEQ;
 INSERT INTO USERS
     (USER_ID, FIRST_NAME, LAST_NAME, PASSWORD, email)
@@ -7,6 +12,9 @@ VALUES
     (2, 'Marie', 'Johnson', '123', 'marie@g.com'),
     (3, 'Alicja', 'Kot', '321', 'all.k@g.com'),
     (4, 'Jan', 'Kowalski', 'qwerty', 'king.jan@g.com');
+
+UPDATE users SET role_id = 1 WHERE user_id IN (1, 2);
+UPDATE users SET role_id = 2 WHERE user_id IN (3, 4);
 
 SELECT NEXT VALUE FOR COURSES_SEQ;
 INSERT INTO courses (course_id, name, ects)
