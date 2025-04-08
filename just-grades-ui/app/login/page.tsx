@@ -14,6 +14,13 @@ export default function LoginPage() {
                 withCredentials: true
             });
             setMessage(res.data);
+            if (res.data === "ROLE_STUDENT") {
+                window.location.href = "/student";
+            } else if (res.data === "ROLE_LECTURER") {
+                window.location.href = "/lecturer";
+            }else if(res.data === "ROLE_ADMIN"){
+                window.location.href = "/admin";
+            }
         } catch {
             setMessage('Login Error');
         }

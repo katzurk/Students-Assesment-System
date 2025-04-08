@@ -20,17 +20,10 @@ export default function Home() {
       </main>
       <a
         className={styles.primary}
-        href="/student"
+        href="/login"
         rel="noopener noreferrer"
       >
-        Student
-      </a>
-      <a
-        className={styles.primary}
-        href="/courses"
-        rel="noopener noreferrer"
-      >
-        Lecturer
+        Login
       </a>
     </div>
   );
