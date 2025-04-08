@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/auth/login", "/auth/register", "/error", "/courses", "/courses/*", "/student-courses").permitAll()
+                                .requestMatchers("/auth/login", "/auth/register", "/error", "/courses", "/courses/*", "/student/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex
@@ -56,11 +56,7 @@ public class SecurityConfig {
                             response.setStatus(200);
                             response.getWriter().write("Logged out successfully");
                         })
-                )
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .and()
-                .httpBasic(); // If using basic auth or another authentication method
+                );
 
         return http.build();
     }

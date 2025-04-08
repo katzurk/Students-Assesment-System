@@ -66,5 +66,5 @@ VALUES
 
 INSERT INTO student_courses (id, user_id, course_id, enrolled_on)
 VALUES
-    (1, 1, 1, DATE '2024-10-01'), -- User 1 enrolled in Philosophy
-    (2, 1, 2, DATE '2024-10-01'); -- User 1 in Work Ethic
+    (1, 1, 1, DATE '2024-10-01'),
+    (2, 1, 2, DATE '2024-10-01');

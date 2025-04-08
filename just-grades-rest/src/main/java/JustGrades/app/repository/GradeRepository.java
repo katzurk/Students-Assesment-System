@@ -10,10 +10,9 @@ import java.util.List;
 
 @Repository
 public interface GradeRepository extends CrudRepository<Grade, Long>{
-    @Query("SELECT g.course FROM Grade g JOIN g.course c WHERE g.student.email = :email")
-    List<Course> findByStudentEmail(String email);
+    @Query("SELECT g.course FROM Grade g JOIN g.course c WHERE g.student.userId = :id")
+    List<Course> findByStudentId(Long id);
 
-    @Query("SELECT g.course FROM Grade g JOIN g.course c WHERE g.student.email = :email AND g.course.course_id = :courseId")
-    Course findByStudentEmailCourseId(String email, Long courseId);
+    List<Grade> findByStudentUserIdAndCourseId(Long id, Long courseId);
 
 }
