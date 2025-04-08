@@ -10,7 +10,6 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-//@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -26,8 +25,13 @@ public class UserController {
     @PostMapping("/auth/login")
     public String login(@RequestBody User user) {
         User existingUser = userService.findByEmail(user.getEmail());
-        if (existingUser != null && passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
-            return "Login successful";
+        if (passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
+            if(existingUser.getRole().getRoleName().equals("ROLE_STUDENT")){
+                return  "ROLE_STUDENT";
+            }else if(existingUser.getRole().getRoleName().equals("ROLE_LECTURER")){
+                return  "ROLE_LECTURER";
+            }
+            return "ROLE_ADMIN";
         } else {
             return "Invalid credentials";
         }
@@ -45,7 +49,7 @@ public class UserController {
         if (userService.findByEmail(email) != null) {
             return "Email already exists";
         }
-
+        System.out.println("Controller" + roleName);
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
