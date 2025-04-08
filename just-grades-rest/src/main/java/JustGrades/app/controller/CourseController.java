@@ -16,7 +16,7 @@ import JustGrades.app.exposure.CourseInput;
 import JustGrades.app.exposure.EnrollRequirementInput;
 import JustGrades.app.model.CompletionRequirement;
 import JustGrades.app.model.Course;
-import JustGrades.app.model.CourseRepository;
+import JustGrades.app.repository.CourseRepository;
 import JustGrades.app.model.EnrollRequirement;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
