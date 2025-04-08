@@ -28,7 +28,6 @@ public class StudentController {
 
     @GetMapping("/student")
     public User getStudentInfo() {
-        String email = SecurityConfig.getCurrentUserName();
         return userRepository.findUserByUserId(1L); // later change to current user
     }
 
