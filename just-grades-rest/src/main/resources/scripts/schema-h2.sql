@@ -87,7 +87,7 @@ ALTER TABLE lecturers ADD CONSTRAINT lecturers_pkv1 UNIQUE ( lecture_id );
 
 CREATE TABLE roles (
     role_id INTEGER NOT NULL,
-    name    VARCHAR2(50) NOT NULL
+    role_name    VARCHAR2(50) NOT NULL
 );
 
 ALTER TABLE roles ADD CONSTRAINT roles_pk PRIMARY KEY ( role_id );
@@ -133,6 +133,15 @@ CREATE TABLE users (
     role_id      INTEGER
 );
 
+CREATE TABLE student_courses (
+    id         NUMBER PRIMARY KEY,
+    user_id    NUMBER NOT NULL,
+    course_id  NUMBER NOT NULL,
+    enrolled_on DATE DEFAULT CURRENT_DATE,
+
+    CONSTRAINT fk_student FOREIGN KEY (user_id) REFERENCES students(user_id),
+    CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
 
 ALTER TABLE users ADD CONSTRAINT users_pk PRIMARY KEY ( user_id );
 
