@@ -1,5 +1,7 @@
 package JustGrades.app.config;
 
+import JustGrades.app.model.User;
+import JustGrades.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +29,7 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+    private static UserService userService;
 
     @Bean
     public static PasswordEncoder passwordEncoder(){
@@ -40,7 +43,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/auth/login", "/auth/register", "/error", "/courses", "/courses/*", "/student/**").permitAll()
+                                .requestMatchers("/auth/login", "/auth/register", "/error",
+                                    "/courses", "/courses/*", "/addcourse", "/student/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex
@@ -62,12 +66,11 @@ public class SecurityConfig {
     }
 
 
-
-
-    public static String getCurrentUserName() {
+    public static User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            return ((UserDetails) authentication.getPrincipal()).getUsername();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails userDetails) {
+            String email = userDetails.getUsername();
+            return userService.findByEmail(email);
         }
         return null;
     }
