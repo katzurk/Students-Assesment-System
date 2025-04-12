@@ -70,9 +70,3 @@ VALUES
     (3, 90, DATE '2024-11-01', 2, 3, 4, 'tests'),
     (4, 88, DATE '2024-11-01', 1, 4, 4, 'exam'),
     (5, 72, DATE '2024-11-01', 1, 5, 3, 'laboratories');
-
-
-INSERT INTO student_courses (id, user_id, course_id, enrolled_on)
-VALUES
-    (1, 1, 1, DATE '2024-10-01'),
-    (2, 1, 2, DATE '2024-10-01');
