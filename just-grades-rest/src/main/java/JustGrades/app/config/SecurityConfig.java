@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/auth/login", "/auth/register", "/error",
-                                    "/courses", "/courses/*", "/addcourse", "/student/**").permitAll()
+                                    "/courses", "/courses/*", "/addcourse", "/student/**", "/student-info/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex

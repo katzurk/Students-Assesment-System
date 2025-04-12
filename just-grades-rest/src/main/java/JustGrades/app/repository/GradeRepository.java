@@ -14,5 +14,4 @@ public interface GradeRepository extends CrudRepository<Grade, Long>{
     List<Course> findByStudentId(Long id);
 
     List<Grade> findByStudentUserIdAndCourseId(Long id, Long courseId);
-
 }
