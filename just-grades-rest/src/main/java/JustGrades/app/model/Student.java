@@ -7,12 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Entity(name = "students")
+@Entity
+@Table(name = "students")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@PrimaryKeyJoinColumn(name = "user_id")
 public class Student extends User {
     @Column(name = "student_number")
     @NotBlank(message = "student number is mandatory")
@@ -25,5 +26,4 @@ public class Student extends User {
     @Column(name = "library_card_number")
     @NotBlank(message = "value is mandatory")
     private String libraryCardNumber;
-
 }
