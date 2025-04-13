@@ -17,7 +17,7 @@ UPDATE users SET role_id = 1 WHERE user_id IN (1, 2);
 UPDATE users SET role_id = 2 WHERE user_id IN (3, 4);
 
 SELECT NEXT VALUE FOR COURSES_SEQ;
-INSERT INTO courses (course_id, name, ects)
+INSERT INTO courses (course_id, name, ects_points)
 VALUES
     (1, 'philosophy', 4),
     (2, 'work ethic', 3),

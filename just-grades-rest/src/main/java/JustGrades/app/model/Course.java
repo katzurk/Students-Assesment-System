@@ -30,7 +30,7 @@ public class Course {
     @NotBlank(message = "name is mandatory")
     private String name;
 
-    @Column(name = "ects")
+    @Column(name = "ects_points")
     @NotNull(message = "ects points are mandatory")
     private Integer ects;
 

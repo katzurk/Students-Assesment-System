@@ -17,7 +17,7 @@ export default function LoginPage() {
             if (res.data === "ROLE_STUDENT") {
                 window.location.href = "/student";
             } else if (res.data === "ROLE_LECTURER") {
-                window.location.href = "/lecturer";
+                window.location.href = "/courses";
             }else if(res.data === "ROLE_ADMIN"){
                 window.location.href = "/admin";
             }
