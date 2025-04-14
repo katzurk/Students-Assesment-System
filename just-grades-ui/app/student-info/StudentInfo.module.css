@@ -1,0 +1,7 @@
+.studentinfo {
+    border: dotted 1px #c7a458;
+    display:flex;
+    flex-direction: column;
+    padding: 20px;
+    font-size: 25px;
+}

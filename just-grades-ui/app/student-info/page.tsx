@@ -1,6 +1,5 @@
 "use client"
-import Image from "next/image";
-import styles from "../page.module.css";
+import styles from "./StudentInfo.module.css";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Link from "next/link";
@@ -35,7 +34,7 @@ export default function StudentInfo() {
     if (error) return <p>--Error: {error}</p>;
 
     return (
-        <main className={styles.main}>
+        <div className={styles.studentinfo}>
                 <div>
                     <h1>Student Info</h1>
                     <p>{student?.firstName} {student?.lastName}</p>
@@ -46,6 +45,6 @@ export default function StudentInfo() {
             <Link href="student-info/courses">
                 <button className="button">My courses</button>
             </Link>
-        </main>
+        </div>
     );
 }
