@@ -1,9 +1,8 @@
 "use client"
-import Image from "next/image";
-import styles from "../../page.module.css";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Course} from "./Course"
+import styles from './Course.module.css';
 
 export interface CourseInterface {
     id: number;
@@ -32,13 +31,13 @@ export default function StudentCourses() {
     if (error) return <p>--Error: {error}</p>;
 
     return (
-        <main className={styles.main}>
+        <div className={styles.container}>
             <div>
                 <h1>Student Courses</h1>
                 {courses?.map((course: CourseInterface) => (
                     <Course key={course.id} {...course}/>
                 ))}
             </div>
-        </main>
+        </div>
     );
 }
