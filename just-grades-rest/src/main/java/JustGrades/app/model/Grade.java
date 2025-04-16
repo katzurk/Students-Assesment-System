@@ -27,15 +27,15 @@ public class Grade {
     private Integer grade;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "recorded")
-    private Date recorded;
+    @Column(name = "received_date")
+    private Date receivedDate;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "courses_id")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne
