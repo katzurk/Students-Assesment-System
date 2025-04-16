@@ -45,7 +45,7 @@ ALTER TABLE course_reg ADD CONSTRAINT course_reg_pk PRIMARY KEY ( reg_id );
 CREATE TABLE courses (
     course_id   INTEGER NOT NULL,
     name        VARCHAR2(50) NOT NULL,
-    ects        INTEGER NOT NULL
+    ects_points        INTEGER NOT NULL
 );
 
 ALTER TABLE courses ADD CONSTRAINT courses_pk PRIMARY KEY ( course_id );
