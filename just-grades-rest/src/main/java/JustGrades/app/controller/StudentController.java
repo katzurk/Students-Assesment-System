@@ -3,6 +3,7 @@ package JustGrades.app.controller;
 import JustGrades.app.model.Grade;
 import JustGrades.app.model.Student;
 import JustGrades.app.model.User;
+import JustGrades.app.repository.CourseRegistrationRepository;
 import JustGrades.app.repository.GradeRepository;
 import JustGrades.app.repository.StudentRepository;
 import JustGrades.app.repository.UserRepository;
@@ -21,6 +22,9 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private CourseRegistrationRepository courseRegistrationRepository;
+
     @GetMapping("/student-info")
     public Student getStudentInfo() {
         return studentRepository.findStudentByUserId(1002L); // later change to current user
@@ -28,7 +32,7 @@ public class StudentController {
 
     @GetMapping("/student-info/courses")
     public List<Course> getAllStudentCourses() {
-        return gradeRepository.findByStudentId(1002L);
+        return courseRegistrationRepository.findCoursesByStudentId(1002L);
     }
 
     @GetMapping("/student-info/courses/{courseId}")
