@@ -2,6 +2,7 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from './CoursesTable.module.css';
 import React from 'react';
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 
 interface CompletionRequirement {
   type: string;
@@ -31,7 +32,7 @@ interface CollapsiblePanelProps {
 function CompletionRequiermentsCollapsiblePanel({ isOpen, toggle, course }: CollapsiblePanelProps) {
   return (
     <div className={styles.cell}>
-      <button
+      <Button
         onClick={toggle}
         className={styles.toggle_button}
       >
@@ -39,7 +40,7 @@ function CompletionRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Coll
         <span style={{ transform: isOpen ? "rotate(0deg)" : "rotate(90deg)", transition: "transform 0.3s ease", marginLeft: "10px"}}>
           {"▼"}
         </span>
-      </button>
+      </Button >
       <div
         className={styles.collapsible_pannel}
         style={{
@@ -51,22 +52,22 @@ function CompletionRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Coll
         }}
       >
         <div>
-        <table className={styles.table}>
-          <thead>
-            <tr className={styles.headerRow}>
-              <th className={styles.headerCell}>Type</th>
-              <th className={styles.headerCell}>Min. score</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table className={styles.table}>
+          <TableHead>
+            <TableRow className={styles.headerRow}>
+              <TableCell className={styles.headerCell}>Type</TableCell>
+              <TableCell className={styles.headerCell}>Min. score</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             { course.completionRequirements.map((requirement, index) => (
-              <tr key={index} className={styles.row}>
-                <td className={styles.cell}>{requirement.type}</td>
-                <td className={styles.cell}>{requirement.minScore}</td>
-              </tr>
+              <TableRow key={index} className={styles.row}>
+                <TableCell className={styles.cell}>{requirement.type}</TableCell>
+                <TableCell className={styles.cell}>{requirement.minScore}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
         </div>
       </div>
     </div>
@@ -76,7 +77,7 @@ function CompletionRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Coll
 function EnrollRequiermentsCollapsiblePanel({ isOpen, toggle, course }: CollapsiblePanelProps) {
   return (
     <div className={styles.cell}>
-      <button
+      <Button
         onClick={toggle}
         className={styles.toggle_button}
       >
@@ -84,7 +85,7 @@ function EnrollRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Collapsi
         <span style={{ transform: isOpen ? "rotate(0deg)" : "rotate(90deg)", transition: "transform 0.3s ease", marginLeft: "10px"}}>
           {"▼"}
         </span>
-      </button>
+      </Button >
       <div
         className={styles.collapsible_pannel}
         style={{
@@ -104,7 +105,7 @@ function EnrollRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Collapsi
               {requirement.complitedCourse && <li style={{ marginBottom: "5px" }}>complited course: {requirement.complitedCourse.name}</li>}
               </React.Fragment>
           ))): (
-            <div>No enrollment requirements are needed</div>
+            <Typography>No enrollment requirements are needed</Typography>
           )}
         </div>
       </div>
@@ -136,8 +137,8 @@ export default function CoursesTable() {
       });
   }, []);
 
-  if (loading) return <p>Loading data...</p>;
-  if (error) return <p>--Error: {error}</p>;
+  if (loading) return <Typography>Loading data...</Typography>;
+  if (error) return <Typography>--Error: {error}</Typography>;
 
   const togglePanel = (index: number): void => {
     setOpenPanel((prevIndex: number | null) => (prevIndex === index ? null : index))};
@@ -184,53 +185,53 @@ export default function CoursesTable() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>My courses list</h1>
-      <a
+      <Button
         className={styles.add_button}
         href="/addcourse"
         rel="noopener noreferrer"
       >
         add course
-      </a>
-      <table className={styles.table}>
-        <thead>
-          <tr className={styles.headerRow}>
-            <th className={styles.headerCell}>Name</th>
-            <th className={styles.headerCell}>Ects points</th>
-            <th className={styles.headerCell}>Completion Requirements</th>
-            <th className={styles.headerCell}>Requirements to enroll</th>
-            <th className={styles.headerCell}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      </Button>
+      <Table className={styles.table}>
+        <TableHead>
+          <TableRow className={styles.headerRow}>
+            <TableCell className={styles.headerCell}>Name</TableCell>
+            <TableCell className={styles.headerCell}>Ects points</TableCell>
+            <TableCell className={styles.headerCell}>Completion Requirements</TableCell>
+            <TableCell className={styles.headerCell}>Requirements to enroll</TableCell>
+            <TableCell className={styles.headerCell}>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {courses.map((course, index) => (
-            <tr key={index} className={styles.row}>
-              <td className={styles.cell}>{course.name}</td>
-              <td className={styles.cell}>{course.ects}</td>
-              <td>
+            <TableRow key={index} className={styles.row}>
+              <TableCell className={styles.cell}>{course.name}</TableCell>
+              <TableCell className={styles.cell}>{course.ects}</TableCell>
+              <TableCell>
                 <CompletionRequiermentsCollapsiblePanel
                   key={index}
                   course={course}
                   isOpen={openPanel === index}
                   toggle={() => togglePanel(index)}
                 />
-              </td>
-              <td>
+              </TableCell>
+              <TableCell>
                 <EnrollRequiermentsCollapsiblePanel
                   key={index}
                   course={course}
                   isOpen={openPanel === index}
                   toggle={() => togglePanel(index)}
                 />
-              </td>
-              <td className={styles.cell}>
-                <button className={styles.delete_button} onClick={() => removeCourse(course.id)}>Delete</button>
+              </TableCell>
+              <TableCell className={styles.cell}>
+                <Button  className={styles.delete_button} onClick={() => removeCourse(course.id)}>Delete</Button >
                 <br></br>
-                <button className={styles.details_button} onClick={() => courseDetails(course.id)}>Details</button>
-              </td>
-            </tr>
+                <Button  className={styles.details_button} onClick={() => courseDetails(course.id)}>Details</Button >
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }

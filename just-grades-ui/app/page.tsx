@@ -1,30 +1,32 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import Image from 'next/image';
+import { Box, Typography, Button } from '@mui/material';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <Image
-        className={styles.logo_main}
-        src="/justgrades_logo.png"
-        alt="JustGrades logo"
-        width= {395}
-        height= {288}
-        priority
-      />
-      <main className={styles.main}>
-        <ol>
-            Welcome!
-        </ol>
+    <Box className={styles.page}>
+      <Box className={styles.logo_main}>
+        <Image
+          src="/justgrades_logo.png"
+          alt="JustGrades logo"
+          width={395}
+          height={288}
+          priority
+        />
+      </Box>
 
-      </main>
-      <a
-        className={styles.primary}
+      <Typography component="main" className={styles.main}>
+        Welcome!
+      </Typography>
+
+      <Button
         href="/login"
-        rel="noopener noreferrer"
+        className={styles.primary}
       >
         Login
-      </a>
-    </div>
+      </Button>
+    </Box>
   );
 }

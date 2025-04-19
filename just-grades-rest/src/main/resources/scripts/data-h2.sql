@@ -26,7 +26,7 @@ VALUES
     (5, 'basics of physics', 5);
 
 SELECT NEXT VALUE FOR REQUIREMENTS_SEQ;
-INSERT INTO completion_req (req_id, min_score, type)
+INSERT INTO completion_requirements (req_id, min_score, type)
 VALUES
     (1, 51, 'exam'),
     (2, 21, 'laboratories'),
@@ -44,12 +44,12 @@ VALUES
     (5, 1);
 
 SELECT NEXT VALUE FOR REGISTRATION_SEQ;
-INSERT INTO course_reg (reg_id, min_ects, course_id)
+INSERT INTO course_registration (reg_id, min_ects, course_id)
 VALUES
     (1, 30, 1),
     (4, 60, 4);
 
-INSERT INTO course_reg (reg_id, complited_course_id, course_id)
+INSERT INTO course_registration (reg_id, complited_course_id, course_id)
 VALUES
     (5, 5, 4);
 

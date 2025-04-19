@@ -17,14 +17,14 @@ CREATE TABLE classes (
 
 ALTER TABLE classes ADD CONSTRAINT classes_pk PRIMARY KEY ( class_id );
 
-CREATE TABLE completion_req (
+CREATE TABLE completion_requirements (
     req_id         INTEGER NOT NULL,
     min_score      INTEGER NOT NULL,
     is_mandatory   NUMBER,
     type           VARCHAR2(50) NOT NULL
 );
 
-ALTER TABLE completion_req ADD CONSTRAINT completion_req_pk PRIMARY KEY ( req_id );
+ALTER TABLE completion_requirements ADD CONSTRAINT completion_req_pk PRIMARY KEY ( req_id );
 
 CREATE TABLE course_req (
     courses_id  INTEGER NOT NULL,
@@ -33,14 +33,14 @@ CREATE TABLE course_req (
 
 ALTER TABLE course_req ADD CONSTRAINT course_req_pk PRIMARY KEY ( courses_id, req_id );
 
-CREATE TABLE course_reg (
+CREATE TABLE course_registration (
     reg_id     INTEGER NOT NULL,
     min_ects NUMBER,
     complited_course_id INTEGER,
     course_id INTEGER NOT NULL
 );
 
-ALTER TABLE course_reg ADD CONSTRAINT course_reg_pk PRIMARY KEY ( reg_id );
+ALTER TABLE course_registration ADD CONSTRAINT course_reg_pk PRIMARY KEY ( reg_id );
 
 CREATE TABLE courses (
     course_id   INTEGER NOT NULL,
@@ -137,10 +137,10 @@ ALTER TABLE users ADD CONSTRAINT users_pk PRIMARY KEY ( user_id );
 
 ALTER TABLE classes ADD CONSTRAINT classes_courses_fk FOREIGN KEY ( courses_id ) REFERENCES courses ( course_id );
 
-ALTER TABLE course_req ADD CONSTRAINT course_req_req_fk FOREIGN KEY ( req_id ) REFERENCES completion_req ( req_id );
+ALTER TABLE course_req ADD CONSTRAINT course_req_req_fk FOREIGN KEY ( req_id ) REFERENCES completion_requirements ( req_id );
 ALTER TABLE course_req ADD CONSTRAINT course_req_courses_fk FOREIGN KEY ( courses_id ) REFERENCES courses ( course_id );
 
-ALTER TABLE course_reg ADD CONSTRAINT course_reg_courses_fk FOREIGN KEY ( course_id ) REFERENCES courses ( course_id );
+ALTER TABLE course_registration ADD CONSTRAINT course_reg_courses_fk FOREIGN KEY ( course_id ) REFERENCES courses ( course_id );
 
 ALTER TABLE courses_lectures ADD CONSTRAINT courses_lectures_courses_fk FOREIGN KEY ( courses_id ) REFERENCES courses ( course_id );
 ALTER TABLE courses_lectures ADD CONSTRAINT courses_lectures_lecturers_fk FOREIGN KEY ( user_id ) REFERENCES lecturers ( user_id );

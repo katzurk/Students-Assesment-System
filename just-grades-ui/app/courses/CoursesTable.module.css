@@ -1,104 +1,120 @@
-.page{
-    background-color: var(--background);
+.page {
+  background-color: var(--background);
 }
 
 .container {
-    padding: 24px;
-  }
+  padding: 24px;
+}
 
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 16px;
-    text-align: center;
-  }
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
 
-  .table {
-    width: 100%;
-    background-color: #221544;
-    border: 1px solid var(--foreground);
-    border-radius: 8px;
-    margin-top: 10px;
-  }
+.table {
+  width: 100%;
+  background-color: #221544;
+  border: 1px solid var(--foreground);
+  border-radius: 8px;
+  margin-top: 10px;
+}
 
-  .headerRow {
-    background-color: rgb(100, 88, 61);
-    border-bottom: 2px solidvar(--foreground);
-  }
+:global(.MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeMedium.css-1dc80h3-MuiTableCell-root) {
+  border-bottom: 1px solid var(--foreground) !important;
+}
 
-  .headerCell {
-    padding: 12px;
-    text-align: left;
-    font-weight: bold;
-  }
 
-  .row:hover {
-    background-color: #2f234b;
-  }
+.headerRow {
+  background-color: rgb(100, 88, 61);
+  border-bottom: 2px solid var(--foreground);
+}
 
-  .cell {
-    padding: 12px;
-    border-bottom: 1px solid var(--foreground);
-    border-right: 1px solid var(--foreground);
-  }
+.headerCell {
+  padding: 12px;
+  text-align: left;
+  font-weight: bold !important;
+  font-size: 15px !important;
+  color: var(--background) !important;
 
-  .add_button {
-    background: var(--foreground);
-    color: var(--background);
-    padding-left: 8px;
-    padding-right: 8px;
+}
 
-    border-radius: 128px;
-    height: 48px;
-    justify-content: center;
-    font-size: 24px;
-  }
+.row:hover {
+  background-color: #2f234b;
+}
 
-  .add_button:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
+.cell {
+  padding: 12px;
+  border-bottom: 1px solid var(--foreground) !important;
+  border-right: 1px solid var(--foreground) !important;
+  color: var(--foreground) !important;
+  font-size: 15px !important;
+}
 
-  .details_button {
-    background: var(--foreground);
-    color: var(--background);
-    padding-left: 8px;
-    padding-right: 8px;
+.add_button {
+  background: var(--foreground) !important;
+  color: var(--background) !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 128px !important;
+  height: 48px;
+  justify-content: center;
+  font-size: 24px !important;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
 
-    border-radius: 128px;
-    justify-content: center;
-  }
+.add_button:hover {
+  background: var(--button-primary-hover) !important;
+  border-color: transparent;
+}
 
-  .details_button:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
+.details_button {
+  background: var(--foreground) !important;
+  color: var(--background) !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 128px;
+  justify-content: center;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
 
-  .delete_button {
-    background: #972752;
-    color: var(--background);
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-bottom: 1px;
+.details_button:hover {
+  background: var(--button-primary-hover) !important;
+  border-color: transparent;
+}
 
-    border-radius: 128px;
-    justify-content: center;
-  }
+.delete_button {
+  background: #972752 !important;
+  color: var(--background) !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 3px !important;
+  border-radius: 128px;
+  justify-content: center;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
 
-  .delete_button:hover {
-    background: #671c3a;
-    border-color: transparent;
-  }
+.delete_button:hover {
+  background: #671c3a !important;
+  border-color: transparent;
+}
 
-  .toggle_button {
-    color:  var(--foreground);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    font-size: 16px;
-    background: none;
-    border: none;
-    cursor: pointer
-  }
+.toggle_button {
+  color:  var(--foreground) !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-size: 16px;
+  background: none;
+  border: none;
+  cursor: pointer
+}
