@@ -1,6 +1,8 @@
 "use client"
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from './addCourse.module.css';
+import { Button} from '@mui/material';
+
 
 interface CompletionRequirement {
   type: string;
@@ -156,11 +158,11 @@ export default function FillInForm() {
               </label>
             </div>
             {index === 0 ? "" :
-              <button type="button" className={styles.remove_button} onClick={() => removeCREntry(index)}>Remove above Requirement</button>
+              <Button type="button" className={styles.remove_button} onClick={() => removeCREntry(index)}>Remove above Requirement</Button >
             }
           </div>
          ))}
-         <button type="button" className={styles.req_button} onClick={addCompletionRequirement}>Add Requirement to complete</button>
+         <Button type="button" className={styles.req_button} onClick={addCompletionRequirement}>Add Requirement to complete</Button >
 
 
         <h2 className={styles.subtitle}>Requirements to enroll (optional)</h2>
@@ -187,10 +189,10 @@ export default function FillInForm() {
                 </select>
               </label>
             </div>
-            <button type="button" className={styles.remove_button} onClick={() => removeEREntry(index2)}>Remove above Requirement</button>
+            <Button type="button" className={styles.remove_button} onClick={() => removeEREntry(index2)}>Remove above Requirement</Button >
           </div>
         ))}
-        <button type="button" className={styles.req_button} onClick={addEnrollRequirement}>Add Requirement to enroll</button>
+        <Button type="button" className={styles.req_button} onClick={addEnrollRequirement}>Add Requirement to enroll</Button >
 
         <a
         className={styles.cancel_button}
@@ -199,7 +201,7 @@ export default function FillInForm() {
         >
           Cancel
         </a>
-        <button type="submit" className={styles.submit_button}>Submit</button>
+        <Button type="submit" className={styles.submit_button}>Submit</Button >
       </form>
     </div>
   );
