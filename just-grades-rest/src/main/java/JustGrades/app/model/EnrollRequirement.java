@@ -11,7 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 
-@Entity(name = "course_reg")
+@Entity(name = "enroll_requirements")
 public class EnrollRequirement {
     @Id
     @Column(name = "reg_id")
@@ -22,7 +22,7 @@ public class EnrollRequirement {
     @Column(name = "min_ects")
     private Integer minEcts;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "complited_course_id", referencedColumnName = "course_id")
     private Course complitedCourse;
 

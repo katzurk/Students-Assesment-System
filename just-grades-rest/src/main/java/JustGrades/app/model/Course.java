@@ -35,9 +35,9 @@ public class Course {
     private Integer ects;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "course_req",
-    joinColumns = { @JoinColumn(name = "courses_id") },
-    inverseJoinColumns = { @JoinColumn(name = "req_id") })
+    @JoinTable(name = "course_requirement",
+    joinColumns = { @JoinColumn(name = "course_id") },
+    inverseJoinColumns = { @JoinColumn(name = "completion_req_id") })
     @NotNull(message = "at least one completion requirement is mandatory")
     private List<CompletionRequirement> completionRequirements = new ArrayList<>();
 

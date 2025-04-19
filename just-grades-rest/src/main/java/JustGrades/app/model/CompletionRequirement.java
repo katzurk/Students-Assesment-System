@@ -9,10 +9,10 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-@Entity(name = "completion_req")
+@Entity(name = "completion_requirements")
 public class CompletionRequirement {
     @Id
-    @Column(name = "req_id")
+    @Column(name = "completion_req_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requirementsSeq")
     @SequenceGenerator(name = "requirementsSeq", sequenceName = "REQUIREMENTS_SEQ", allocationSize = 1)
     private long id;
