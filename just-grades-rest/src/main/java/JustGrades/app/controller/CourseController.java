@@ -2,6 +2,7 @@ package JustGrades.app.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,9 @@ import JustGrades.app.model.Course;
 import JustGrades.app.repository.CourseRepository;
 import JustGrades.app.model.EnrollRequirement;
 import jakarta.validation.Valid;
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +34,8 @@ public class CourseController {
     private CourseRepository courseRepository;
 
     @GetMapping("/courses")
-    public Iterable<Course> findAll() {
-        return courseRepository.findAll();
+    public List<Course> getCoursesSortedByNameAsc() {
+        return courseRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     @DeleteMapping("/courses/{id}")
