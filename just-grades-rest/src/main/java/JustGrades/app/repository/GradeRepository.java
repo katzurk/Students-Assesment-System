@@ -14,4 +14,7 @@ public interface GradeRepository extends CrudRepository<Grade, Long>{
     List<Course> findByStudentId(Long id);
 
     List<Grade> findByStudentUserIdAndCourseId(Long id, Long courseId);
+
+    @Query("SELECT g FROM Grade g JOIN g.course c WHERE c.id = :courseId")
+    List<Grade> findByCourseId(Long courseId);
 }

@@ -144,7 +144,7 @@ export default function CoursesTable() {
     setOpenPanel((prevIndex: number | null) => (prevIndex === index ? null : index))};
 
   const courseDetails = async (id: number) => {
-    fetch("http://localhost:8080/courses/" + id)
+    window.location.href =("/course/" + id + "/grades");
   }
 
   const removeCourse = async (id: number) => {
@@ -184,7 +184,7 @@ export default function CoursesTable() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>My courses list</h1>
+      <h1 className={styles.title}>Courses list</h1>
       <Button
         className={styles.add_button}
         href="/addcourse"
