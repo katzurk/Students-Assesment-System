@@ -194,13 +194,13 @@ export default function FillInForm() {
         ))}
         <Button type="button" className={styles.req_button} onClick={addEnrollRequirement}>Add Requirement to enroll</Button >
 
-        <a
+        <Button
         className={styles.cancel_button}
         href="/courses"
         rel="noopener noreferrer"
         >
           Cancel
-        </a>
+        </Button>
         <Button type="submit" className={styles.submit_button}>Submit</Button >
       </form>
     </div>

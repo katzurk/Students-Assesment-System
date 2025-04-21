@@ -28,7 +28,10 @@ public class Course {
     @NotNull(message = "ects points are mandatory")
     private Integer ects;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "status")
+    private String status = "active";
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "course_requirement",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "completion_req_id")
@@ -36,7 +39,7 @@ public class Course {
     @NotNull(message = "at least one completion requirement is mandatory")
     private List<CompletionRequirement> completionRequirements = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "courseId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "courseId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnrollRequirement> enrollRequirements = new ArrayList<>();
 
     public Course() {

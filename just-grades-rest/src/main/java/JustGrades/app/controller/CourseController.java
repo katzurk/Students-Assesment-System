@@ -19,6 +19,9 @@ import JustGrades.app.model.Course;
 import JustGrades.app.repository.CourseRepository;
 import JustGrades.app.model.EnrollRequirement;
 import jakarta.validation.Valid;
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +33,8 @@ public class CourseController {
     private CourseRepository courseRepository;
 
     @GetMapping("/courses")
-    public Iterable<Course> findAll() {
-        return courseRepository.findAll();
+    public List<Course> getCoursesSortedByNameAsc() {
+        return courseRepository.findAllByOrderByNameAsc();
     }
 
     @DeleteMapping("/courses/{id}")
