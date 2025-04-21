@@ -1,6 +1,7 @@
 package JustGrades.app.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import JustGrades.app.exposure.CompletionRequirementInput;
-import JustGrades.app.exposure.CourseInput;
 import JustGrades.app.exposure.GradeInput;
-import JustGrades.app.model.CompletionRequirement;
 import JustGrades.app.model.Course;
 import JustGrades.app.model.Grade;
 import JustGrades.app.model.Student;
+import JustGrades.app.repository.CourseRepository;
 import JustGrades.app.repository.GradeRepository;
 import JustGrades.app.repository.StudentRepository;
 import jakarta.validation.Valid;
@@ -31,11 +30,14 @@ public class GradeController {
 
     @Autowired
     private GradeRepository gradeRepository;
+    @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private CourseRepository courseRepository;
 
     @GetMapping("/course/{id}/grades")
     public List<Grade> getGradesList(@PathVariable("id") long courseId) {
-        return gradeRepository.findByCourseId(courseId);
+        return gradeRepository.findByCourseIdOrderByStudentLastNameAsc(courseId);
     }
 
     @DeleteMapping("/course/{courseId}/grades/{gradeId}")
@@ -51,7 +53,7 @@ public class GradeController {
     }
 
     @PostMapping("/course/{courseId}/addgrades")
-    public ResponseEntity<String> addGrade(@RequestBody @Valid GradeInput gradeIn, @PathVariable("courseId") long courseId, BindingResult result) {
+    public ResponseEntity<String> addGrade(@RequestBody @Valid GradeInput gradeIn, @PathVariable("courseId") Long courseId, BindingResult result) {
         if (result.hasErrors()) {
             logger.warn("-- add grade has errors: " + result.getAllErrors());
             return ResponseEntity.badRequest().body("Form NOT submitted");
@@ -62,15 +64,21 @@ public class GradeController {
         return ResponseEntity.ok("Form submitted successfully");
     }
 
-    private Grade mapToGrade(GradeInput gradeIn, long courseId) {
+    private Grade mapToGrade(GradeInput gradeIn, Long courseId) {
         Grade grade = new Grade();
         grade.setType(gradeIn.getType());
         grade.setGrade(gradeIn.getGrade());
-        grade.setCourse(gradeIn.getCourse());
 
-        // Student student = gradeRepository.findStudentByStudentNumber(gradeIn.getStudentNumber);
-        grade.setStudent(gradeIn.getStudent());
+        logger.info("----------- input grade: " + gradeIn);
 
+        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        if (!optionalCourse.isEmpty()){
+            Course course = optionalCourse.get();
+            grade.setCourse(course);
+        }
+
+        Student student = studentRepository.findStudentByStudentNumber(gradeIn.getStudentNumber());
+        grade.setStudent(student);
         return grade;
     }
 }

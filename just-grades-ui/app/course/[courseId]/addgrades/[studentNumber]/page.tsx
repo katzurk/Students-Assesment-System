@@ -7,14 +7,9 @@ import { useRouter, useParams } from 'next/navigation';
 interface Grade {
     id: number;
     grade: number;
-    recorded: Date | null;
-    student: Student | null;
+    studentNumber: String | null;
     type: string;
     courseId: number;
-  }
-
-  interface Student {
-    studentNumber: string;
   }
 
 export default function FillInFormAddGrades() {
@@ -23,14 +18,11 @@ export default function FillInFormAddGrades() {
     const courseId = Number(params.courseId);
     const studentNumber = String(params.studentNumber);
     const [grade, setGrade] = useState<Grade>({
-    id: 0,
-    grade: 0,
-    recorded: null,
-    student: {
-        studentNumber: studentNumber,
-      },
-    type: "",
-    courseId: courseId
+      id: 0,
+      grade: 0,
+      studentNumber: studentNumber,
+      type: "",
+      courseId: courseId
     });
     const [error, setError] = useState<string | null>(null);
 
@@ -47,6 +39,7 @@ export default function FillInFormAddGrades() {
     e.preventDefault();
 
     try {
+      console.log('Sending data:', grade);
       const response = await fetch("http://localhost:8080/course/" + courseId + "/addgrades", {
         method: "POST",
         headers: {
@@ -54,7 +47,6 @@ export default function FillInFormAddGrades() {
         },
         body: JSON.stringify(grade),
       });
-      console.log('Sending data:', grade);
       window.location.href =('/course/' + courseId + '/grades');
     } catch (error) {
       console.error("Error:", error);

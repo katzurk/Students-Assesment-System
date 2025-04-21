@@ -2,6 +2,7 @@ package JustGrades.app.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class Grade {
     private Long id;
 
     @Column(name = "grade")
-    @NotBlank(message = "grade is mandatory")
+    @NotNull(message = "grade is mandatory")
     private Integer grade;
 
     @Temporal(TemporalType.DATE)

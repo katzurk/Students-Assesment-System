@@ -2,7 +2,6 @@ package JustGrades.app.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,7 +34,7 @@ public class CourseController {
 
     @GetMapping("/courses")
     public List<Course> getCoursesSortedByNameAsc() {
-        return courseRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        return courseRepository.findAllByOrderByNameAsc();
     }
 
     @DeleteMapping("/courses/{id}")

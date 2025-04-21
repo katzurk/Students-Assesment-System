@@ -109,9 +109,9 @@ function GradesForCourseTable({ courseId }: { courseId: number }) {
       <Table className={styles.table}>
         <TableHead>
           <TableRow className={styles.headerRow}>
+            <TableCell className={styles.headerCell}>Student ID</TableCell>
             <TableCell className={styles.headerCell}>Surname</TableCell>
             <TableCell className={styles.headerCell}>Name</TableCell>
-            <TableCell className={styles.headerCell}>Student ID</TableCell>
             <TableCell className={styles.headerCell}>Grades</TableCell>
             <TableCell className={styles.headerCell}>Actions</TableCell>
           </TableRow>
@@ -121,9 +121,9 @@ function GradesForCourseTable({ courseId }: { courseId: number }) {
             const student = studentGrades[0].student!;
             return (
               <TableRow key={studentNumber} className={styles.row}>
+                <TableCell className={styles.cell}>{student.studentNumber}</TableCell>
                 <TableCell className={styles.cell}>{student.lastName}</TableCell>
                 <TableCell className={styles.cell}>{student.firstName}</TableCell>
-                <TableCell className={styles.cell}>{student.studentNumber}</TableCell>
                 <TableCell className={styles.cell}>
                   {studentGrades.map((g) => `${g.type}: ${g.grade}`).join(', ')}
                 </TableCell>
