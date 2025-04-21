@@ -53,7 +53,7 @@ w przeglądarce wchodzimy na stronę:
 
 ## Funkcjonalności:
 ilość = 4os * 3 = 12
-1. logowanie użytkownika (D) 
+1. logowanie użytkownika (D - done) 
 role i uprawnienia:
 * student:
 2. przegląd ocen końcowych (D),
@@ -62,8 +62,8 @@ role i uprawnienia:
 5. wypisywanie się z przedmiotów (K)
 * wykładowca:
 6. wystawienie ocen (D),
-7. przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot) (W)
-8. utworzenie schematu przedmiotu (np. ilość labów i za ile punktów, czy jest egzamin i za ile punktów, ile punktów trzeba zdobyć by zaliczyć), (W)
+7. przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot) (W - done)
+8. utworzenie schematu przedmiotu (np. ilość labów i za ile punktów, czy jest egzamin i za ile punktów, ile punktów trzeba zdobyć by zaliczyć), (W - done)
 9.  zamknięcie przedmiotu i automatyczne wyliczenie oceny końcowej (A),
 10. otwarcie i zamknięcie semestru (A)
 11. otwarcie i zamknięcie rejestracji (A)
@@ -74,7 +74,7 @@ role i uprawnienia:
 ## Etapy projektu
 Projekt jest realizowany w 3 zasadniczych etapach:
 
-1. zdefiniowanie modelu pojęciowego,
+1. zdefiniowanie modelu pojęciowego, (done)
 2. zdefiniowanie logicznego modelu danych dla bazy relacyjnej oraz projekt aplikacji, przy czym część logiki aplikacyjnej powinna być zrealizowana w formie procedur składowanych w bazie danych;
 3. stworzenie modelu fizycznego, implementacja bazy danych i aplikacji, zapewnienie danych testowych, testy.
 
