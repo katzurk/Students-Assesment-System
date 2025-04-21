@@ -50,43 +50,6 @@ public class Course {
         this.ects = ects;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getStatus() {
-        return this.status;
-    }
-
-    public Integer getEcts() {
-        return this.ects;
-    }
-
-
-    public void setName(String new_name) {
-        this.name = new_name;
-    }
-
-    public void setStatus(String new_status) {
-        this.status = new_status;
-    }
-
-    public void setEcts(Integer new_ects) {
-        this.ects = new_ects;
-    }
-
-    public List<CompletionRequirement> getCompletionRequirements() {
-        return completionRequirements;
-    }
-
-    public List<EnrollRequirement> getEnrollRequirements() {
-        return enrollRequirements;
-    }
-
     @Override
     public String toString() {
         return "Course [id=" + id + ", name=" + name + ", ects=" + ects + ", completionRequirements="
