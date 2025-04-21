@@ -22,16 +22,12 @@ public class AuthorizationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        System.out.println("+++++++");
         User user = userRepository.findByEmail(usernameOrEmail);
-        System.out.println(user.getUserId());
-        System.out.println(user.getFirstName());
-        System.out.println(user.getRole().getRoleName());
         if (user != null) {
             return org.springframework.security.core.userdetails.User
                     .withUsername(user.getEmail())
                     .password(user.getPassword())
-                    .roles(String.valueOf(new SimpleGrantedAuthority(user.getRole().getRoleName())))
+                    .roles(user.getRole().getRoleName().replace("ROLE_", ""))
                     .build();
         } else {
             throw new UsernameNotFoundException("Invalid email or password");

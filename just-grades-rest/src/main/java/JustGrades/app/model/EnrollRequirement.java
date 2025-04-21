@@ -1,17 +1,12 @@
 package JustGrades.app.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity(name = "enroll_requirements")
+@Getter
+@Setter
 public class EnrollRequirement {
     @Id
     @Column(name = "reg_id")
@@ -40,34 +35,5 @@ public class EnrollRequirement {
     public EnrollRequirement(Integer minEcts, Long courseId) {
         this.minEcts = minEcts;
         this.courseId = courseId;
-    }
-
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Course getComplitedCourse() {
-        return this.complitedCourse;
-    }
-
-    public Integer getMinEcts() {
-        return this.minEcts;
-    }
-
-    public Long getCourseId() {
-        return this.courseId;
-    }
-
-    public void setComplitedCourse(Course newcomplitedCourse) {
-        this.complitedCourse = newcomplitedCourse;
-    }
-
-    public void setMinEcts(Integer newMinEcts) {
-        this.minEcts = newMinEcts;
-    }
-
-    public void setCourseId(Long newCourse) {
-        this.courseId = newCourse;
     }
 }

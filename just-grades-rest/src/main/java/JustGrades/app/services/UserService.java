@@ -34,7 +34,6 @@ public class UserService{
     private final LecturerService lecturerService;
 
 
-
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }

@@ -14,7 +14,7 @@ export default function RegisterPage() {
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:8080/auth/register', {
+            const res = await axios.post('http://localhost:8080/register', {
                 firstName,
                 lastName,
                 email,
