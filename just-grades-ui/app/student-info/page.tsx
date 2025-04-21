@@ -19,7 +19,10 @@ export default function StudentInfo() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/student-info')
+        axios.get('http://localhost:8080/student-info', {
+            withCredentials: true
+        })
+
             .then((response) => {
                 setStudent(response.data);
                 setLoading(false);
@@ -44,6 +47,9 @@ export default function StudentInfo() {
                 </div>
             <Link href="student-info/courses">
                 <button className="button">My courses</button>
+            </Link>
+            <Link href="student-info/final-grades">
+                <button className="button">Final grades</button>
             </Link>
         </div>
     );

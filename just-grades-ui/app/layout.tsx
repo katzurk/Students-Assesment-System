@@ -4,6 +4,9 @@ import "./globals.css";
 import Link from 'next/link';
 import Image from "next/image";
 import LogoutButton from './LogoutButton';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

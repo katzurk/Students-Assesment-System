@@ -1,25 +1,40 @@
 'use client';
+
 import { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const router = useRouter(); // ⬅️ użycie routera
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:8080/auth/login', { email, password }, {
+            const res = await axios.post('http://localhost:8080/login', {
+                email,
+                password
+            }, {
                 withCredentials: true
             });
-            setMessage(res.data);
-            if (res.data === "ROLE_STUDENT") {
-                window.location.href = "/student-info";
-            } else if (res.data === "ROLE_LECTURER") {
-                window.location.href = "/courses";
-            }else if(res.data === "ROLE_ADMIN"){
-                window.location.href = "/admin";
+
+            const role = res.data;
+
+            // ✅ ZAMIANA window.location.href → router.push
+            switch (role) {
+                case 'ROLE_STUDENT':
+                    router.push('/student-info');
+                    break;
+                case 'ROLE_LECTURER':
+                    router.push('/courses');
+                    break;
+                case 'ROLE_ADMIN':
+                    router.push('/admin');
+                    break;
+                default:
+                    setMessage('Nieznana rola użytkownika');
             }
         } catch {
             setMessage('Login Error');
@@ -29,7 +44,7 @@ export default function LoginPage() {
     return (
         <div className="login-container">
             <h2>Logowanie</h2>
-            <br></br>
+            <br />
             <form onSubmit={handleLogin} className="login-form">
                 <input
                     className="input"
