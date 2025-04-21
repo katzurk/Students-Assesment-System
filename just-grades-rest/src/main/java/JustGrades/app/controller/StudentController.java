@@ -35,6 +35,9 @@ public class StudentController {
     @Autowired
     private CourseRegistrationRepository courseRegistrationRepository;
 
+    @Autowired
+    private CourseRegistrationRepository courseRegistrationRepository;
+
     @GetMapping("/student-info")
     public Student getStudentInfo() {
         return studentRepository.findStudentByUserId(1002L); // later change to current user

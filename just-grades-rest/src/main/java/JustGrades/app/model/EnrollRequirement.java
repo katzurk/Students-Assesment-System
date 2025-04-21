@@ -17,7 +17,7 @@ public class EnrollRequirement {
     @Column(name = "min_ects")
     private Integer minEcts;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "complited_course_id", referencedColumnName = "course_id")
     private Course complitedCourse;
 
