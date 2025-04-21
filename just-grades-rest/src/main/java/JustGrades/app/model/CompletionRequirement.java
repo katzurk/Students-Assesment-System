@@ -1,15 +1,15 @@
 package JustGrades.app.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity(name = "completion_requirements")
+@Entity
+@Table(name = "completion_requirements")
+@Setter
+@Getter
 public class CompletionRequirement {
     @Id
     @Column(name = "completion_req_id")
@@ -32,25 +32,4 @@ public class CompletionRequirement {
         this.minScore = minScore;
         this.type = type;
     }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public int getMinScore() {
-        return this.minScore;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public void setMinScore(int newMinScore) {
-        this.minScore = newMinScore;
-    }
-
-    public void setType(String newType) {
-        this.type = newType;
-    }
-
 }

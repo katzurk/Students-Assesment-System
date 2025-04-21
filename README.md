@@ -20,6 +20,8 @@ npm install -g pnpm@latest-10
 
 nvm use 22
 
+npm install @mui/material @emotion/react @emotion/styled
+
 ## Uruchomienie aplikacji
 * just-grades-rest (spring):
 

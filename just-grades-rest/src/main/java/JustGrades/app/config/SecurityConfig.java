@@ -2,6 +2,7 @@ package JustGrades.app.config;
 
 import JustGrades.app.model.User;
 import JustGrades.app.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,14 +23,16 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
-    private static UserService userService;
 
     @Bean
     public static PasswordEncoder passwordEncoder(){
@@ -41,9 +44,14 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors()
                 .and()
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .securityContext(context -> context
+                .requireExplicitSave(false)
+                        .securityContextRepository(securityContextRepository())
+        )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/auth/login", "/auth/register", "/error",
+                                .requestMatchers("/login", "/register", "/error",
                                     "/courses", "/courses/*", "/addcourse", "/student/**", "/student-info/**", "/course/**").permitAll()
                                 .anyRequest().authenticated()
                 )
@@ -53,7 +61,7 @@ public class SecurityConfig {
                         })
                 )
                 .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "GET"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessHandler((request, response, authentication) -> {
@@ -66,15 +74,6 @@ public class SecurityConfig {
     }
 
 
-    public static User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails userDetails) {
-            String email = userDetails.getUsername();
-            return userService.findByEmail(email);
-        }
-        return null;
-    }
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(userDetailsService)
@@ -85,6 +84,12 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        return new HttpSessionSecurityContextRepository();
+    }
+
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {

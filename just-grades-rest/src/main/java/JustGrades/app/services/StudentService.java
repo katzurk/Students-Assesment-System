@@ -1,5 +1,6 @@
 package JustGrades.app.services;
 
+import JustGrades.app.config.AuthHelper;
 import JustGrades.app.config.SecurityConfig;
 import JustGrades.app.model.Course;
 import JustGrades.app.model.CourseRegistration;
@@ -8,6 +9,7 @@ import JustGrades.app.model.User;
 import JustGrades.app.repository.CourseRegistrationRepository;
 import JustGrades.app.repository.StudentRepository;
 import lombok.AllArgsConstructor;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +28,7 @@ import java.util.Optional;
 public class StudentService {
     private final StudentRepository studentRepository;
     private CourseRegistrationRepository courseRegistrationRepository;
+    private final AuthHelper authHelper;
 
     public Student saveStudent(User user){
         Student student = new Student();
@@ -55,13 +58,16 @@ public class StudentService {
     }
 
     public Map<String, Double> getFinalGrades() {
-        System.out.println("+++++=");
-        System.out.println(studentRepository.findByEmail(SecurityConfig.getCurrentUser().getEmail()));
-        Student student = studentRepository.findByEmail(SecurityConfig.getCurrentUser().getEmail());
+        System.out.println("Start getFinal grades");
+        Student student = studentRepository.findByEmail(authHelper.getCurrentUser().getEmail());
+        System.out.println("Find student correct!!!!!!!");
         Map<String, Double> finalGrades = new HashMap<>();
-        List<CourseRegistration> courses = courseRegistrationRepository.findByStudentIdAndStatus(student.getUserId(), "Active");
+        List<CourseRegistration> courses = courseRegistrationRepository.findByStudentIdAndStatus(student.getUserId(), "ACTIVE");
+        System.out.println("CourseRegistration correct!!!");
+        courses.forEach(e -> System.out.println(e.getCourse().getName()+e.getCourse().getId()));
         for(CourseRegistration course : courses) {
             Optional<Double> grade = studentRepository.getFinalGrade(student.getUserId(), course.getCourse().getId());
+            System.out.println("Find grade correct!!!!!!");
             grade.ifPresent(aDouble -> finalGrades.put(course.getCourse().getName(), aDouble));
         }
         return finalGrades;
