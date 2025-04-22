@@ -4,16 +4,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "next/navigation";
 import {Container, Stack, Typography} from "@mui/material";
-import {Grade} from "@/app/student-info/courses/[courseId]/components/Grade";
-import {ICourse} from "@/app/student-info/courses/page";
-
-export interface IGrade {
-    id: number;
-    grade: number;
-    receivedDate: Date;
-    type: string;
-    course: ICourse;
-}
+import {Grade, IGrade} from "@/app/student-info/courses/[courseId]/components/Grade";
 
 export default function CourseGrades() {
     const { courseId } = useParams();

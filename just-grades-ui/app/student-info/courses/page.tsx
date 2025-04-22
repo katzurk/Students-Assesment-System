@@ -1,14 +1,8 @@
 "use client"
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Course} from "./components/Course"
+import {Course, ICourse} from "./components/Course"
 import {Container, Stack, Typography} from "@mui/material";
-
-export interface ICourse {
-    id: number;
-    name: string;
-    ects: number;
-}
 
 export default function StudentCourses() {
     const [courses, setCourses] = useState<ICourse[] | []>([]);

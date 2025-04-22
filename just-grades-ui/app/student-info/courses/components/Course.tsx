@@ -1,7 +1,12 @@
-import {ICourse} from "@/app/student-info/courses/page";
 import styles from './Course.module.css';
-import {Box, Button, Card, CardActions, CardContent, ListItem, ListItemText, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import Link from "next/link";
+
+export interface ICourse {
+    id: number;
+    name: string;
+    ects: number;
+}
 
 export const Course = (props: ICourse) => {
     return (
