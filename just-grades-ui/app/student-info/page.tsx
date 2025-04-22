@@ -1,56 +1,29 @@
 "use client"
-import styles from "./StudentInfo.module.css";
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import Link from "next/link";
-
-interface Student {
-    userId: number;
-    firstName: string;
-    lastName: string;
-    studentNumber: string;
-    status: string;
-    libraryCardNumber: string;
-}
+import {Container, Grid, Button, Box, Typography} from "@mui/material";
+import {StudentCard} from "@/app/student-info/student-card";
 
 export default function StudentInfo() {
-    const [student, setStudent] = useState<Student | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        axios.get('http://localhost:8080/student-info', {
-            withCredentials: true
-        })
-
-            .then((response) => {
-                setStudent(response.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                setError(error.message);
-                setLoading(false);
-            });
-    }, []);
-
-    if (loading) return <p>Loading data...</p>;
-    if (error) return <p>--Error: {error}</p>;
-
     return (
-        <div className={styles.studentinfo}>
-                <div>
-                    <h1>Student Info</h1>
-                    <p>{student?.firstName} {student?.lastName}</p>
-                    <p>Student Number: {student?.studentNumber}</p>
-                    <p>Status: {student?.status}</p>
-                    <p>Library Card Number: {student?.libraryCardNumber}</p>
-                </div>
-            <Link href="student-info/courses">
-                <button className="button">My courses</button>
-            </Link>
-            <Link href="student-info/final-grades">
-                <button className="button">Final grades</button>
-            </Link>
-        </div>
+        <Container maxWidth="xl">
+            <Grid container spacing={2}>
+                <Grid size={4}>
+                    <StudentCard />
+                    <br></br>
+                    <Box display="flex" gap={2}>
+                        <Link href="student-info/courses">
+                            <Button variant="contained">My courses</Button>
+                        </Link>
+                        <Link href="student-info/final-grades">
+                            <Button variant="contained">Final grades</Button>
+                        </Link>
+                    </Box>
+                </Grid>
+                <Grid size={6}>
+                    <Typography variant="h5">Courses</Typography>
+                </Grid>
+            </Grid>
+        </Container>
     );
 }

@@ -1,0 +1,10 @@
+.container {
+    margin: 5px;
+    font-size: 20px;
+}
+
+.course {
+    border: solid 1px #c7a458;
+    border-radius: 10px;
+    margin: 5px;
+}
