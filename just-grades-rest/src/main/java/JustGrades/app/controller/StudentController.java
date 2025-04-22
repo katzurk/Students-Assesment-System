@@ -25,10 +25,7 @@ import java.util.Map;
 public class StudentController {
 
     private final GradeRepository gradeRepository;
-
-
     private final StudentRepository studentRepository;
-
     private final StudentService studentService;
 
 
@@ -37,18 +34,17 @@ public class StudentController {
 
     @GetMapping("/student-info")
     public Student getStudentInfo() {
-        return studentRepository.findStudentByUserId(1002L); // later change to current user
+        return studentService.getStudentInfo();
     }
-
 
     @GetMapping("/student-info/courses")
     public List<Course> getAllStudentCourses() {
-        return courseRegistrationRepository.findCoursesByStudentId(1002L);
+        return studentService.getAllStudentCourses();
     }
 
     @GetMapping("/student-info/courses/{courseId}")
     public List<Grade> getStudentGradesByCourse(@PathVariable Long courseId) {
-        return gradeRepository.findByStudentUserIdAndCourseId(1002L, courseId);
+        return studentService.getStudentGradesByCourse(courseId);
     }
 
     @GetMapping("/student-info/final-grades")

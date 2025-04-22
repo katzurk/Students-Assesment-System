@@ -16,7 +16,9 @@ export default function StudentCourses() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/student-info/courses')
+        axios.get('http://localhost:8080/student-info/courses', {
+            withCredentials: true
+        })
             .then((response) => {
                 setCourses(response.data || []);
                 setLoading(false);
