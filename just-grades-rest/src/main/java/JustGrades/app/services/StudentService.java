@@ -2,11 +2,9 @@ package JustGrades.app.services;
 
 import JustGrades.app.config.AuthHelper;
 import JustGrades.app.config.SecurityConfig;
-import JustGrades.app.model.Course;
-import JustGrades.app.model.CourseRegistration;
-import JustGrades.app.model.Student;
-import JustGrades.app.model.User;
+import JustGrades.app.model.*;
 import JustGrades.app.repository.CourseRegistrationRepository;
+import JustGrades.app.repository.GradeRepository;
 import JustGrades.app.repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.hibernate.validator.internal.util.stereotypes.Lazy;
@@ -14,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.SecureRandom;
 import java.time.LocalDate;
@@ -28,6 +27,7 @@ import java.util.Optional;
 public class StudentService {
     private final StudentRepository studentRepository;
     private CourseRegistrationRepository courseRegistrationRepository;
+    private GradeRepository gradeRepository;
     private final AuthHelper authHelper;
 
     public Student saveStudent(User user){
@@ -56,6 +56,19 @@ public class StudentService {
         }
         return sb.toString();
     }
+
+    public Student getStudentInfo() {
+        return studentRepository.findByEmail(authHelper.getCurrentUser().getEmail());
+    }
+
+    public List<Course> getAllStudentCourses() {
+        return courseRegistrationRepository.findCoursesByStudentEmail(authHelper.getCurrentUser().getEmail());
+    }
+
+    public List<Grade> getStudentGradesByCourse(Long courseId) {
+        return gradeRepository.findByStudentEmailAndCourseId(authHelper.getCurrentUser().getEmail(), courseId);
+    }
+
 
     public Map<String, Double> getFinalGrades() {
         System.out.println("Start getFinal grades");

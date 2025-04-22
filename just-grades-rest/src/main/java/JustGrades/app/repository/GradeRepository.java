@@ -11,10 +11,7 @@ import java.util.List;
 
 @Repository
 public interface GradeRepository extends CrudRepository<Grade, Long>{
-    @Query("SELECT g.course FROM Grade g JOIN g.course c WHERE g.student.userId = :id")
-    List<Course> findByStudentId(Long id);
-
-    List<Grade> findByStudentUserIdAndCourseId(Long id, Long courseId);
+    List<Grade> findByStudentEmailAndCourseId(String email, Long courseId);
 
     List<Grade> findByCourseIdOrderByStudentLastNameAsc(Long courseId);
 
