@@ -1,10 +1,10 @@
-"use client"
+import {List, ListItem, ListItemText} from "@mui/material";
+import styles from './StudentInfo.module.css';
 import React, {useEffect, useState} from "react";
+import {ICourse} from "@/app/student-info/courses/components/Course";
 import axios from "axios";
-import {Course, ICourse} from "./components/Course"
-import {Container, Stack, Typography} from "@mui/material";
 
-export default function StudentCourses() {
+export const CoursesView = () => {
     const [courses, setCourses] = useState<ICourse[] | []>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -13,9 +13,9 @@ export default function StudentCourses() {
         axios.get('http://localhost:8080/student-info/courses', {
             withCredentials: true
         }).then((response) => {
-                setCourses(response.data || []);
-                setLoading(false);
-            })
+            setCourses(response.data || []);
+            setLoading(false);
+        })
             .catch((error) => {
                 setError(error.message);
                 setLoading(false);
@@ -26,14 +26,12 @@ export default function StudentCourses() {
     if (error) return <p>--Error: {error}</p>;
 
     return (
-        <Container maxWidth="xl">
-            <Typography variant="h4">Student Courses</Typography>
-            <br></br>
-            <Stack spacing={2}>
-                {courses?.map((course: ICourse) => (
-                    <Course key={course.id} {...course}/>
-                ))}
-            </Stack>
-        </Container>
-    );
+        <List>
+            {courses.map((course, index) => (
+                <ListItem className={styles.course} key={index}>
+                    <ListItemText primary={course.name} />
+                </ListItem>
+            ))}
+        </List>
+    )
 }
