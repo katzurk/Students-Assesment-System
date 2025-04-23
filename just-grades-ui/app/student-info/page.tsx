@@ -14,10 +14,10 @@ export default function StudentInfo() {
                     <StudentCard />
                     <Box display="flex" gap={2} sx={{mt: 2}}>
                         <Link href="student-info/courses">
-                            <Button variant="contained">My courses</Button>
+                            <Button className={styles.button} variant="contained">My courses</Button>
                         </Link>
                         <Link href="student-info/final-grades">
-                            <Button variant="contained">Final grades</Button>
+                            <Button className={styles.button} variant="contained">Final grades</Button>
                         </Link>
                     </Box>
                 </Grid>

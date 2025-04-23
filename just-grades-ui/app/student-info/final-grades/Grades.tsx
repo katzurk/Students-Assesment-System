@@ -9,6 +9,7 @@ import {
     TableRow,
     Paper
 } from '@mui/material';
+import styles from '../StudentInfo.module.css';
 
 export interface GradesInterface {
     name: string;
@@ -20,7 +21,7 @@ export const Grades = ({ data }: { data: GradesInterface[] }) => {
         <TableContainer component={Paper}>
             <Table>
                 <TableHead>
-                    <TableRow>
+                    <TableRow className={styles.headerRow}>
                         <TableCell><strong>Course Name</strong></TableCell>
                         <TableCell><strong>Final Grade</strong></TableCell>
                     </TableRow>

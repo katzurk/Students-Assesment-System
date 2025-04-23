@@ -1,7 +1,7 @@
 package JustGrades.app.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -31,16 +31,16 @@ public class Course {
     @Column(name = "status")
     private String status = "active";
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "course_requirement",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "completion_req_id")
     )
     @NotNull(message = "at least one completion requirement is mandatory")
-    private List<CompletionRequirement> completionRequirements = new ArrayList<>();
+    private Set<CompletionRequirement> completionRequirements = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "courseId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EnrollRequirement> enrollRequirements = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "courseId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<EnrollRequirement> enrollRequirements = new HashSet<>();
 
     public Course() {
     }
