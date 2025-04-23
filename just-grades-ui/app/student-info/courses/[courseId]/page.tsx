@@ -5,6 +5,7 @@ import axios from "axios";
 import {useParams} from "next/navigation";
 import {Container, Stack, Typography} from "@mui/material";
 import {Grade, IGrade} from "@/app/student-info/courses/[courseId]/components/Grade";
+import {StudentService} from "@/app/services/StudentService";
 
 export default function CourseGrades() {
     const { courseId } = useParams();
@@ -13,16 +14,10 @@ export default function CourseGrades() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/student-info/courses/${courseId}`, {
-            withCredentials: true
-        }).then((response) => {
-            setGrades(response.data || []);
-            setLoading(false);
-        })
-            .catch((error) => {
-                setError(error.message);
-                setLoading(false);
-            });
+        StudentService.getStudentGradesByCourse(courseId)
+            .then(setGrades)
+            .catch((err) => setError(err.message))
+            .finally(() => setLoading(false));
     }, []);
 
     if (loading) return <p>Loading data...</p>;

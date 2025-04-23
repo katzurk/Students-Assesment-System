@@ -3,8 +3,8 @@ import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import styles from './StudentInfo.module.css';
 import {Container, Grid, Button, Box, Typography} from "@mui/material";
-import {StudentCard} from "@/app/student-info/student-card";
-import {CoursesView} from "@/app/student-info/courses-view";
+import {StudentCard} from "@/app/student-info/components/studentCard";
+import {CoursesView} from "@/app/student-info/components/coursesView";
 
 export default function StudentInfo() {
     return (
