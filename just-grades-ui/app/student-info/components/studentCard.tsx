@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import {Card, CardContent, Typography} from "@mui/material";
+import {StudentService} from "@/app/services/StudentService";
 
-interface IStudent {
+export interface IStudent {
     userId: number;
     firstName: string;
     lastName: string;
@@ -17,17 +17,10 @@ export const StudentCard = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/student-info', {
-            withCredentials: true
-        })
-            .then((response) => {
-                setStudent(response.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                setError(error.message);
-                setLoading(false);
-            });
+        StudentService.getStudentInfo()
+            .then(setStudent)
+            .catch((err) => setError(err.message))
+            .finally(() => setLoading(false));
     }, []);
 
     if (loading) return <p>Loading data...</p>;
