@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Card, CardContent, Typography} from "@mui/material";
 import {StudentService} from "@/app/services/StudentService";
+import styles from '../StudentInfo.module.css';
 
 export interface IStudent {
     userId: number;
@@ -28,7 +29,7 @@ export const StudentCard = () => {
 
     return (
         <Card>
-            <CardContent>
+            <CardContent  className={styles.studentCard}>
                 <Typography variant="h4">Student Info</Typography>
                 <Typography variant="h6">{student?.firstName} {student?.lastName}</Typography>
                 <Typography>Student Number: {student?.studentNumber}</Typography>
