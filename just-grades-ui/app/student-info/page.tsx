@@ -1,10 +1,10 @@
 "use client"
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Link from "next/link";
 import styles from './StudentInfo.module.css';
 import {Container, Grid, Button, Box, Typography} from "@mui/material";
-import {StudentCard} from "@/app/student-info/components/studentCard";
-import {CoursesView} from "@/app/student-info/components/coursesView";
+import {StudentCard} from "@/app/student-info/components/StudentCard";
+import {StudentCoursesView} from "@/app/student-info/components/StudentCoursesView";
 
 export default function StudentInfo() {
     return (
@@ -24,7 +24,7 @@ export default function StudentInfo() {
                 <Grid size={{xs: 12, md: 8}}>
                     <Box className={styles.coursesContainer}>
                         <Typography variant="h5">Courses</Typography>
-                        <CoursesView/>
+                        <StudentCoursesView/>
                     </Box>
                 </Grid>
             </Grid>

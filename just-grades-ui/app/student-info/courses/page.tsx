@@ -2,7 +2,7 @@
 import React from "react";
 import {Course, ICourse} from "./components/Course"
 import {Container, Stack, Typography} from "@mui/material";
-import {useStudentCourses} from "@/app/student-info/hooks/useStudentCourses";
+import {useStudentCourses} from "@/hooks/useStudentCourses";
 
 export default function StudentCourses() {
     const {courses, loading, error} = useStudentCourses();

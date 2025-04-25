@@ -17,7 +17,7 @@ export const Course = (props: ICourse) => {
             </Box>
             <Box>
                 <Button size="small" variant="contained" sx={{ mr: 1 }}>Classes</Button>
-                <Link href={`courses/${props.id}`}>
+                <Link href={`grades/${props.id}`}>
                     <Button size="small" variant="contained">Grades</Button>
                 </Link>
             </Box>
