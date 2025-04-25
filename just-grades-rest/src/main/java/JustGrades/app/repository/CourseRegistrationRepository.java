@@ -20,4 +20,6 @@ public interface CourseRegistrationRepository extends JpaRepository<CourseRegist
 
     @Query("SELECT r.course FROM CourseRegistration r WHERE r.student.email = :email")
     List<Course> findCoursesByStudentEmail(@Param("email") String email);
+
+    CourseRegistration findByStudentEmailAndCourseId(String email, Long courseId);
 }

@@ -13,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CourseRegistration {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "registration_seq")
+    @SequenceGenerator(name = "registration_seq", sequenceName = "REGISTRATION_SEQ", allocationSize = 1)
     @Column(name = "course_reg_id")
     private Long courseRegId;
 
