@@ -42,7 +42,7 @@ public class StudentController {
         return studentService.getAllStudentCourses();
     }
 
-    @GetMapping("/student-info/courses/{courseId}")
+    @GetMapping("/student-info/grades/{courseId}")
     public List<Grade> getStudentGradesByCourse(@PathVariable Long courseId) {
         return studentService.getStudentGradesByCourse(courseId);
     }

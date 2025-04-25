@@ -1,4 +1,4 @@
-import styles from "@/app/student-info/courses/[courseId]/components/Grade.module.css";
+import styles from "@/app/student-info/grades/[courseId]/components/Grade.module.css";
 import {Box, Typography} from "@mui/material";
 import {ICourse} from "@/app/student-info/courses/components/Course";
 

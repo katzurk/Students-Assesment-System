@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StudentService } from "@/app/services/StudentService";
+import { StudentService } from "@/services/StudentService";
 import { ICourse } from "@/app/student-info/courses/components/Course";
 
 export const useStudentCourses = () => {

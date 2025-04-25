@@ -1,11 +1,9 @@
 import {List, ListItem, ListItemText} from "@mui/material";
 import styles from '../StudentInfo.module.css';
-import React, {useEffect, useState} from "react";
-import {ICourse} from "@/app/student-info/courses/components/Course";
-import {StudentService} from "@/app/services/StudentService";
-import {useStudentCourses} from "@/app/student-info/hooks/useStudentCourses";
+import React from "react";
+import {useStudentCourses} from "@/hooks/useStudentCourses";
 
-export const CoursesView = () => {
+export const StudentCoursesView = () => {
     const {courses, loading, error} = useStudentCourses();
 
     if (loading) return <p>Loading data...</p>;
