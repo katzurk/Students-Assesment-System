@@ -1,5 +1,6 @@
 package JustGrades.app.repository;
 
+import JustGrades.app.dto.CourseRegisteredDTO;
 import JustGrades.app.model.Course;
 import JustGrades.app.model.CourseRegistration;
 import JustGrades.app.model.Student;
@@ -22,4 +23,10 @@ public interface CourseRegistrationRepository extends JpaRepository<CourseRegist
     List<Course> findCoursesByStudentEmail(@Param("email") String email);
 
     CourseRegistration findByStudentEmailAndCourseId(String email, Long courseId);
+
+    @Query("SELECT new JustGrades.app.dto.CourseRegisteredDTO(c, (cr IS NOT NULL)) " +
+            "FROM Course c " +
+            "LEFT JOIN CourseRegistration cr ON cr.course.id = c.id AND cr.student.email = :email " +
+            "WHERE c.status = 'opened'")
+    List<CourseRegisteredDTO> findCoursesRegisteredByStudentEmail(String email);
 }

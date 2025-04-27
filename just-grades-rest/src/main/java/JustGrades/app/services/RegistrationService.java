@@ -1,6 +1,7 @@
 package JustGrades.app.services;
 
 import JustGrades.app.config.AuthHelper;
+import JustGrades.app.dto.CourseRegisteredDTO;
 import JustGrades.app.model.CourseRegistration;
 import JustGrades.app.repository.CourseRegistrationRepository;
 import JustGrades.app.repository.CourseRepository;
@@ -9,6 +10,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class RegistrationService {
@@ -16,6 +19,10 @@ public class RegistrationService {
     private final CourseRepository courseRepository;
     private final StudentRepository studentRepository;
     private final AuthHelper authHelper;
+
+    public List<CourseRegisteredDTO> getCourseRegistered() {
+        return registrationRepository.findCoursesRegisteredByStudentEmail(authHelper.getCurrentUser().getEmail());
+    }
 
     public CourseRegistration registerForCourse(Long courseId) {
         CourseRegistration courseRegistration = new CourseRegistration();
