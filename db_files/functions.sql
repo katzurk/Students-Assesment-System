@@ -85,7 +85,33 @@ END;
 END;
 / */
 
+CREATE OR REPLACE TRIGGER update_avg_grade_after_closing
+AFTER UPDATE OF status ON courses
+FOR EACH ROW
+WHEN (NEW.status = 'closed')
+DECLARE
+    CURSOR student_cursor IS
+        SELECT DISTINCT student_id FROM grades;
+    avg_grade NUMBER;
+BEGIN
+    FOR student_rec IN student_cursor LOOP
+        BEGIN
+            SELECT AVG(grade) INTO avg_grade
+            FROM grades
+            WHERE student_id = student_rec.student_id
+              AND type = 'FINAL';
 
+            UPDATE grades
+            SET grade = NVL(avg_grade, 0)
+            WHERE student_id = student_rec.student_id
+              AND type = 'AVG';
+        EXCEPTION
+            WHEN NO_DATA_FOUND THEN
+                NULL;
+        END;
+    END LOOP;
+END;
+/
 
 
 
