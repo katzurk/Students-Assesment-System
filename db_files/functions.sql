@@ -136,6 +136,35 @@ DEFERRABLE INITIALLY DEFERRED;*/
 --INSERT INTO users VALUES (1201, 'b', 'b', 'b.b@pw.edu.pl', 'p', 1);
 
 
+CREATE OR REPLACE PROCEDURE close_course(p_course_id IN NUMBER) AS
+    v_status courses.status%TYPE;
+BEGIN
+    SELECT status INTO v_status
+    FROM courses
+    WHERE course_id = p_course_id;
+
+    IF v_status != 'active' THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Course exists but is not open');
+    ELSE
+        UPDATE courses
+        SET status = 'closed'
+        WHERE course_id = p_course_id;
+
+        DBMS_OUTPUT.PUT_LINE('Course was successfully closed.');
+    END IF;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Course does not exist');
+END;
+/
+
+/*BEGIN
+  close_course(41);
+END;
+/ */
+
+
 commit;
 
 
