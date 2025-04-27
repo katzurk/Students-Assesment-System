@@ -1,8 +1,10 @@
 "use client"
 import React from "react";
 import {Course, ICourse} from "./components/Course"
-import {Container, Stack, Typography} from "@mui/material";
+import {Box, Button, Container, Stack, Typography} from "@mui/material";
 import {useStudentCourses} from "@/hooks/useStudentCourses";
+import styles from './components/Course.module.css';
+import Link from "next/link";
 
 export default function StudentCourses() {
     const {courses, loading, error} = useStudentCourses();
@@ -16,7 +18,15 @@ export default function StudentCourses() {
             <br></br>
             <Stack spacing={2}>
                 {courses?.map((course: ICourse) => (
-                    <Course key={course.id} {...course}/>
+                    <Box className={styles.course} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1}}>
+                        <Course key={course.id} {...course}/>
+                        <Box>
+                            <Button size="small" variant="contained" sx={{ mr: 1 }}>Classes</Button>
+                            <Link href={`grades/${course.id}`}>
+                                <Button size="small" variant="contained">Grades</Button>
+                            </Link>
+                        </Box>
+                    </Box>
                 ))}
             </Stack>
         </Container>
