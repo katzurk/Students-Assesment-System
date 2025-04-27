@@ -85,25 +85,7 @@ END;
 END;
 / */
 
-CREATE OR REPLACE FUNCTION count_avg_grade(p_student_id IN NUMBER)
-RETURN NUMBER
-IS
-    avg_grade NUMBER;
-BEGIN
-    SELECT AVG(grade)
-    INTO avg_grade
-    FROM grades
-    WHERE student_id = p_student_id
-      AND type = 'FINAL';
 
-    RETURN avg_grade;
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        RETURN NULL; 
-END;
-/
-
---SELECT count_avg_grade(1040) FROM dual;
 
 
 
