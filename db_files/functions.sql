@@ -113,6 +113,29 @@ BEGIN
 END;
 /
 
+CREATE OR REPLACE TRIGGER add_avg_grade
+AFTER INSERT ON users
+FOR EACH ROW
+DECLARE
+    new_grade_id NUMBER;
+BEGIN
+    IF :NEW.role_id = 1 THEN
+        SELECT NVL(MAX(grade_id), 0) + 1 INTO new_grade_id FROM grades;
+        INSERT INTO grades(grade_id, student_id, type, grade, received_date)
+        VALUES (new_grade_id, :NEW.user_id, 'AVG', 0, SYSDATE);
+    END IF;
+END;
+/
 
+/*ALTER TABLE grades DROP CONSTRAINT grades_student_fk;
+
+ALTER TABLE grades ADD CONSTRAINT grades_student_fk
+FOREIGN KEY (student_id) REFERENCES users(user_id)
+DEFERRABLE INITIALLY DEFERRED;*/
+
+--INSERT INTO users VALUES (1201, 'b', 'b', 'b.b@pw.edu.pl', 'p', 1);
+
+
+commit;
 
 
