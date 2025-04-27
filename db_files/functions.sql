@@ -67,34 +67,23 @@ CREATE OR REPLACE PROCEDURE close_semester AS
 BEGIN
   SELECT COUNT(*) INTO cnt
   FROM courses
-  WHERE status NOT IN ('closed', 'closed registration');
+  WHERE status NOT IN ('closed', 'closed registration', 'null');
 
   IF cnt = 0 THEN
     UPDATE courses
     SET status = 'closed'
     WHERE status IN ('opened', 'closed_registration');
-
-    FOR rec IN (SELECT DISTINCT student_id FROM grades) LOOP
-        DECLARE
-            avg_result NUMBER;
-        BEGIN
-            avg_result := count_avg_grade(rec.student_id);
-            DBMS_OUTPUT.PUT_LINE('Student ID: ' || rec.student_id || ' | Final Average: ' || NVL(TO_CHAR(avg_result), 'No final grades'));
-        END;
-    END LOOP;
-
   ELSE
     RAISE_APPLICATION_ERROR(-20001, 'Semester can only be closed if all courses have status ''closed'' or ''closed registration''.');
   END IF;
 END;
 /
 
-/*
-BEGIN
+
+/*BEGIN
   close_semester;
 END;
-/
-*/
+/ */
 
 CREATE OR REPLACE FUNCTION count_avg_grade(p_student_id IN NUMBER)
 RETURN NUMBER
