@@ -164,6 +164,46 @@ END;
 END;
 / */
 
+CREATE OR REPLACE TRIGGER count_grade
+AFTER UPDATE OF status ON courses
+FOR EACH ROW
+WHEN (OLD.status = 'active' AND NEW.status = 'closed')
+DECLARE
+    CURSOR c_students IS
+        SELECT student_id, AVG(grade) AS total_grade
+        FROM grades
+        WHERE course_id = :NEW.course_id
+          AND type != 'FINAL'
+        GROUP BY student_id;
+    rounded_grade NUMBER;
+BEGIN
+    FOR r IN c_students LOOP
+        DELETE FROM grades
+        WHERE student_id = r.student_id
+          AND course_id = :NEW.course_id
+          AND type = 'FINAL';
+
+        rounded_grade := FLOOR(r.total_grade * 2) / 2;
+
+        INSERT INTO grades (grade_id, student_id, course_id, grade, type)
+        VALUES (grades_seq.NEXTVAL, r.student_id, :NEW.course_id, rounded_grade, 'FINAL');
+    END LOOP;
+END;
+/
+
+
+/* drop sequence grades_seq;
+
+CREATE SEQUENCE grades_seq
+    START WITH 700
+    INCREMENT BY 1;
+
+UPDATE courses
+SET status = 'active'
+WHERE course_id = 2082;
+
+delete from grades where course_id = 2082 and type = 'FINAL';
+*/
 
 commit;
 
