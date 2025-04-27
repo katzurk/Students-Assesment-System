@@ -61,8 +61,11 @@ function GradesForCourseTable({ courseId }: { courseId: number }) {
   if (error) return <Typography>--Error: {error}</Typography>;
 
   const addGrade = async (courseId: number, studentNumber: string) => {
-
     window.location.href = `/course/${courseId}/addgrades/${studentNumber}`;
+  }
+
+  const goToGradeReport = async (courseId: number) => {
+    window.location.href = `/course/${courseId}/gradereport`;
   }
 
   const removeGrade = async (id: number, courseId: number) => {
@@ -106,6 +109,12 @@ function GradesForCourseTable({ courseId }: { courseId: number }) {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Grades list for course: {grades[0]?.course.name}</h1>
+      <Button
+        className={styles.details_button}
+        onClick={() => goToGradeReport(courseId)}
+      >
+        Show report
+      </Button>
       <Table className={styles.table}>
         <TableHead>
           <TableRow className={styles.headerRow}>

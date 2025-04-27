@@ -46,5 +46,31 @@ border-color: transparent;
 
 .headerRow {
 background-color: rgb(100, 88, 61) !important;
-border-bottom: 2px solid var(--foreground) !important;
+border: 2px solid var(--foreground) !important;
 }
+
+.headerCell {
+    padding: 12px;
+    text-align: left;
+    font-weight: bold !important;
+    font-size: 15px !important;
+    color: var(--background) !important;
+
+}
+
+.row:hover {
+    background-color: #2f234b;
+}
+
+.cell {
+    padding: 12px;
+    border: 1px solid var(--foreground) !important;
+    /* border-right: 1px solid var(--foreground) !important; */
+    color: var(--foreground) !important;
+    font-size: 15px !important;
+    background-color: var(--background);
+}
+
+:global(.MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeMedium.css-1dc80h3-MuiTableCell-root) {
+    border: 2px solid var(--foreground) !important;
+  }
