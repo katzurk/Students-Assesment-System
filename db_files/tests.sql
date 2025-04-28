@@ -130,3 +130,111 @@ BEGIN
   ROLLBACK TO test3_start;
 END;
 /
+
+
+----------------------------------------------
+-- TESTS TO PROCEDURE open_registration
+----------------------------------------------
+
+-- TEST 1: Opening registration for a course with status 'closed'
+BEGIN
+  SAVEPOINT test_start;
+
+  BEGIN
+    UPDATE courses
+    SET status = 'closed'
+    WHERE course_id = 2001;
+
+    open_registration(2001);
+
+    DECLARE
+      v_status courses.status%TYPE;
+    BEGIN
+      SELECT status INTO v_status
+      FROM courses
+      WHERE course_id = 2001;
+
+      IF v_status = 'opened registration' THEN
+        DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED: Registration successfully opened for closed course.');
+      ELSE
+        DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: Course status is ' || v_status);
+      END IF;
+    END;
+  EXCEPTION
+    WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: ' || SQLERRM);
+  END;
+  ROLLBACK TO test_start;
+END;
+/
+
+
+-- TEST 2: Attempt to open registration for a course with status 'opened registration' (should be rejected)
+BEGIN
+  SAVEPOINT test_start;
+  BEGIN
+    UPDATE courses
+    SET status = 'opened registration'
+    WHERE course_id = 2002;
+
+    BEGIN
+      open_registration(2002);
+      DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: Registration should not be opened for already opened course.');
+    EXCEPTION
+      WHEN OTHERS THEN
+        IF SQLCODE = -20002 THEN
+          DBMS_OUTPUT.PUT_LINE('TEST 2 PASSED: Correct error raised for course already in opened registration.');
+        ELSE
+          DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: Unexpected error: ' || SQLERRM);
+        END IF;
+    END;
+  END;
+  ROLLBACK TO test_start;
+END;
+/
+
+
+-- TEST 3: Attempt to open registration for a course with status 'active' (should be rejected)
+BEGIN
+  SAVEPOINT test_start;
+  BEGIN
+    UPDATE courses
+    SET status = 'active'
+    WHERE course_id = 2001;
+
+    BEGIN
+      open_registration(2001);
+      DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: Registration should not be opened for course with active status.');
+    EXCEPTION
+      WHEN OTHERS THEN
+        IF SQLCODE = -20002 THEN
+          DBMS_OUTPUT.PUT_LINE('TEST 3 PASSED: Correct error raised for active course.');
+        ELSE
+          DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: Unexpected error: ' || SQLERRM);
+        END IF;
+    END;
+  END;
+  ROLLBACK TO test_start;
+END;
+/
+
+-- TEST 4: Attempt to open registration for a non-existent course (should be rejected)
+BEGIN
+  SAVEPOINT test_start;
+  BEGIN
+    BEGIN
+      open_registration(9999);
+      DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: Registration should not be opened for non-existing course.');
+    EXCEPTION
+      WHEN OTHERS THEN
+        IF SQLCODE = -20003 THEN
+          DBMS_OUTPUT.PUT_LINE('TEST 4 PASSED: Correct error raised for non-existing course.');
+        ELSE
+          DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: Unexpected error: ' || SQLERRM);
+        END IF;
+    END;
+  END;
+
+  ROLLBACK TO test_start;
+END;
+/
