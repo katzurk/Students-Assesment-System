@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from './StudentInfo.module.css';
-import {Container, Grid, Button, Box, Typography} from "@mui/material";
+import {Container, Grid, Button, Box, Typography, ButtonGroup} from "@mui/material";
 import {StudentCard} from "@/app/student-info/components/StudentCard";
 import {StudentCoursesView} from "@/app/student-info/components/StudentCoursesView";
 

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {Card, CardContent, Typography} from "@mui/material";
+import {Box, Card, CardContent, Typography} from "@mui/material";
 import {StudentService} from "@/services/StudentService";
 import styles from '../StudentInfo.module.css';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export interface IStudent {
     userId: number;
@@ -30,7 +31,10 @@ export const StudentCard = () => {
     return (
         <Card>
             <CardContent  className={styles.studentCard}>
-                <Typography variant="h4">Student Info</Typography>
+                <Box component="span" sx={{ display: "flex", alignItems: "center", gap: 1}}>
+                    <AccountCircleIcon sx={{fontSize: 40}}/>
+                    <Typography variant="h4">Student Info</Typography>
+                </Box>
                 <Typography variant="h6">{student?.firstName} {student?.lastName}</Typography>
                 <Typography>Student Number: {student?.studentNumber}</Typography>
                 <Typography>Status: {student?.status}</Typography>
