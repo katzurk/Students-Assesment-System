@@ -20,6 +20,9 @@ export const Course = (props: ICourse) => {
                 <Link href={`courses/${props.id}`}>
                     <Button size="small" variant="contained" className={styles.grades_button} >Grades</Button>
                 </Link>
+                <Link href={`/course/${props.id}/coursereport`}>
+                    <Button size="small" variant="contained" className={styles.report_button} >Finals Report</Button>
+                </Link>
             </Box>
         </Box>
     );

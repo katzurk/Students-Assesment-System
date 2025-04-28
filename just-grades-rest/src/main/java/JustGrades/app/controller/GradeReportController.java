@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import JustGrades.app.model.GradeCrossSectionDTO;
+import JustGrades.app.model.GradesCrossSectionDTO;
 import JustGrades.app.services.GradeReportService;
 
 @RestController
@@ -21,7 +21,7 @@ public class GradeReportController {
     }
 
     @GetMapping("/course/{courseId}/gradereport/{gradeType}")
-    public Set<GradeCrossSectionDTO> getReport(
+    public Set<GradesCrossSectionDTO> getReport(
             @PathVariable int courseId,
             @PathVariable String gradeType) {
         return gradeReportService.getGradesCrossSection(courseId, gradeType);

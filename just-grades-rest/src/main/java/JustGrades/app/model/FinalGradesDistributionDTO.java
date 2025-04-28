@@ -35,16 +35,16 @@ import lombok.Setter;
 //     resultSetMappings = "GradeCrossSectionDTOMapping"
 // )
 // @Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class GradeCrossSectionDTO {
-    private BigDecimal grade;
+public class FinalGradesDistributionDTO {
+    private String gradeStatus;
     private BigDecimal studentsCount;
 
-    public GradeCrossSectionDTO(BigDecimal grade, BigDecimal studentsCount) {
-        this.grade = grade;
+    public FinalGradesDistributionDTO(String gradeStatus, BigDecimal studentsCount) {
+        this.gradeStatus = gradeStatus;
         this.studentsCount = studentsCount;
     }
 }
-

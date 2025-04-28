@@ -147,6 +147,10 @@ export default function CoursesTable() {
     window.location.href =("/course/" + id + "/grades");
   }
 
+  const courseReport = async (id: number) => {
+    window.location.href =("/course/" + id + "/coursereport");
+  }
+
   const removeCourse = async (id: number) => {
     try {
       fetch("http://localhost:8080/courses/" + id, {
@@ -199,6 +203,7 @@ export default function CoursesTable() {
             <TableCell className={styles.headerCell}>Ects points</TableCell>
             <TableCell className={styles.headerCell}>Completion Requirements</TableCell>
             <TableCell className={styles.headerCell}>Requirements to enroll</TableCell>
+            <TableCell className={styles.headerCell}>Finals Reports</TableCell>
             <TableCell className={styles.headerCell}>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -222,6 +227,9 @@ export default function CoursesTable() {
                   isOpen={openPanel === index}
                   toggle={() => togglePanel(index)}
                 />
+              </TableCell>
+              <TableCell className={styles.cell}>
+                <Button  className={styles.report_button} onClick={() => courseReport(course.id)}>Report</Button >
               </TableCell>
               <TableCell className={styles.cell}>
                 <Button  className={styles.delete_button} onClick={() => removeCourse(course.id)}>Delete</Button >

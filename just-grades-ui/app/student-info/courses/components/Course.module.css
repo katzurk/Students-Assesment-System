@@ -44,3 +44,21 @@
     background: #704d9a !important;
     border-color: transparent;
   }
+
+.report_button {
+    background: #486ec7 !important;
+    color: var(--background) !important;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 128px;
+    justify-content: center;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    margin: 5px !important;
+  }
+
+.report_button:hover {
+    background: #4d5d97 !important;
+    border-color: transparent;
+  }

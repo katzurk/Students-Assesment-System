@@ -39,25 +39,30 @@ BEGIN
 END;
 
 
-CREATE or REPLACE PROCEDURE get_final_grades_distribution(
-   p_course_id  number,
-   p_cursor      OUT SYS_REFCURSOR
+CREATE OR REPLACE PROCEDURE get_final_grades_distribution(
+   p_course_id  NUMBER,
+   p_cursor     OUT SYS_REFCURSOR
 ) AS
 BEGIN
    OPEN p_cursor FOR
    SELECT
-      CASE
-         WHEN g.grade = 2 THEN 'failed'
-         ELSE 'passed'
-      END AS grade_status,
+      grade_status,
       COUNT(*) AS students_count
-   FROM
-      grades g
-   WHERE
-      g.type = 'FINAL'
-      and g.course_id = p_course_id
+   FROM (
+      SELECT
+         CASE
+            WHEN g.grade = 2 THEN 'failed'
+            ELSE 'passed'
+         END AS grade_status
+      FROM
+         grades g
+      WHERE
+         g.type = 'FINAL'
+         AND g.course_id = p_course_id
+   )
    GROUP BY
       grade_status
    ORDER BY
       grade_status;
 END;
+

@@ -106,6 +106,22 @@
   border-color: transparent;
 }
 
+.report_button {
+  background: #486ec7 !important;
+  color: var(--background) !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 128px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.report_button:hover {
+  background: #4d5d97 !important;
+  border-color: transparent;
+}
+
 .toggle_button {
   color:  var(--foreground) !important;
   width: 100%;
@@ -128,5 +144,11 @@
 }
 
 .chartContainer {
-  margin: 30px;
+  margin: 10%;
+  margin-top: 10px;
+}
+
+.pieChartContainer {
+  margin: 20%;
+  margin-top: 10px;
 }

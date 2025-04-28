@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import JustGrades.app.controller.CourseController;
+import JustGrades.app.model.FinalGradesDistributionDTO;
 import JustGrades.app.model.GradesCrossSectionDTO;
 import JustGrades.app.repository.GradeRepository;
 import oracle.jdbc.OracleTypes;
@@ -25,20 +26,20 @@ import java.math.BigDecimal;
 import java.sql.Types;
 
 @Service
-public class GradeReportService {
-    Logger logger = LoggerFactory.getLogger(GradeReportService.class);
+public class CourseReportService {
+    Logger logger = LoggerFactory.getLogger(CourseReportService.class);
 
     private final JdbcTemplate jdbcTemplate;
     @Autowired
     private GradeRepository repository;
 
     @Autowired
-    public GradeReportService(JdbcTemplate jdbcTemplate) {
+    public CourseReportService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Transactional
-    public Set<GradesCrossSectionDTO> getGradesCrossSection(int courseId, String gradeType) {
+    public Set<FinalGradesDistributionDTO> getFinalGradesDistribution(int courseId) {
         // SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
         //     .withCatalogName("ADMIN")
         //     .withProcedureName("get_grades_cross_section")
@@ -63,11 +64,11 @@ public class GradeReportService {
         // List<GradeCrossSectionDTO> gradesList = (List<GradeCrossSectionDTO>) result.get("p_cursor");
 
         // return new HashSet<>(gradesList);
-        List<Object> result = repository.getGradesCrossSection(courseId, gradeType);
+        List<Object> result = repository.getFinalGradesDistribution(courseId);
         logger.info("============ precedure result: " + result);
 
         // return new HashSet<>();
-        return Set.of(new GradesCrossSectionDTO(new BigDecimal(5), new BigDecimal(77)), new GradesCrossSectionDTO(new BigDecimal(3), new BigDecimal(33)),  new GradesCrossSectionDTO(new BigDecimal(4), new BigDecimal(65)));
+        return Set.of(new FinalGradesDistributionDTO(new String("passed"), new BigDecimal(77)), new FinalGradesDistributionDTO(new String("failed"), new BigDecimal(33)));
 
     }
 }
