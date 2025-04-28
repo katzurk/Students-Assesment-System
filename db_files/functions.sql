@@ -241,6 +241,32 @@ INSERT INTO course_requirement (course_id, completion_req_id)
 VALUES (2082, 2082);
 */
 
+CREATE OR REPLACE PROCEDURE close_registration(p_course_id IN courses.course_id%TYPE)
+IS
+    v_application_count NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_application_count
+    FROM course_registrations
+    WHERE course_id = p_course_id
+      AND status = 'application submitted';
+
+    IF v_application_count < 10 THEN
+        UPDATE courses
+        SET status = 'closed'
+        WHERE course_id = p_course_id;
+    ELSE
+        UPDATE courses
+        SET status = 'active'
+        WHERE course_id = p_course_id;
+    END IF;
+
+    COMMIT;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20020, 'Course not found.');
+END;
+/
 
 commit;
 
