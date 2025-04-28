@@ -11,6 +11,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseRegisteredDTO {
-    Course course;
+    Long id;
+    String name;
+    Integer ects;
     Boolean registered;
+
+    public CourseRegisteredDTO(Course course, Boolean registered) {
+        this.id = course.getId();
+        this.name = course.getName();
+        this.ects = course.getEcts();
+        this.registered = registered;
+    }
 }

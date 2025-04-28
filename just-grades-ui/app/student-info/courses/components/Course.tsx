@@ -6,6 +6,10 @@ export interface ICourse {
     ects: number;
 }
 
+export interface ICourseRegistered extends ICourse {
+    registered: boolean;
+}
+
 export const Course = (props: ICourse) => {
     return (
         <Box>

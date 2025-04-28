@@ -18,8 +18,8 @@ export default function StudentCourses() {
             <br></br>
             <Stack spacing={2}>
                 {courses?.map((course: ICourse) => (
-                    <Box className={styles.course} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1}}>
-                        <Course key={course.id} {...course}/>
+                    <Box key={course.id} className={styles.course} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1}}>
+                        <Course {...course}/>
                         <Box>
                             <Button size="small" variant="contained" sx={{ mr: 1 }}>Classes</Button>
                             <Link href={`grades/${course.id}`}>
