@@ -5,7 +5,7 @@ import {useParams} from "next/navigation";
 import {Button, Container, Stack, Typography} from "@mui/material";
 import {Grade, IGrade} from "@/app/student-info/grades/[courseId]/components/Grade";
 import {StudentService} from "@/services/StudentService";
-import styles from '../components/Course.module.css';
+import styles from '../../courses/components/Course.module.css';
 
 export default function CourseGrades() {
     const { courseId } = useParams();
