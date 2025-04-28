@@ -16,9 +16,12 @@ export const Course = (props: ICourse) => {
                 <Typography variant="body2">ECTS: {props.ects}</Typography>
             </Box>
             <Box>
-                <Button size="small" variant="contained" sx={{ mr: 1 }}>Classes</Button>
+                <Button size="small" variant="contained" className={styles.classes_button}>Classes</Button>
                 <Link href={`grades/${props.id}`}>
-                    <Button size="small" variant="contained">Grades</Button>
+                    <Button size="small" variant="contained" className={styles.grades_button} >Grades</Button>
+                </Link>
+                <Link href={`/course/${props.id}/coursereport`}>
+                    <Button size="small" variant="contained" className={styles.report_button} >Finals Report</Button>
                 </Link>
             </Box>
         </Box>

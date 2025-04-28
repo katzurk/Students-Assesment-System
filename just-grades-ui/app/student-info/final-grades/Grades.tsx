@@ -22,15 +22,15 @@ export const Grades = ({ data }: { data: GradesInterface[] }) => {
             <Table>
                 <TableHead>
                     <TableRow className={styles.headerRow}>
-                        <TableCell><strong>Course Name</strong></TableCell>
-                        <TableCell><strong>Final Grade</strong></TableCell>
+                        <TableCell className={styles.headerCell}><strong>Course Name</strong></TableCell>
+                        <TableCell className={styles.headerCell}><strong>Final Grade</strong></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {data.map((row, index) => (
                         <TableRow key={index}>
-                            <TableCell>{row.name}</TableCell>
-                            <TableCell>{row.grade}</TableCell>
+                            <TableCell className={styles.cell}>{row.name}</TableCell>
+                            <TableCell className={styles.cell}>{row.grade}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

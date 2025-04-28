@@ -22,6 +22,8 @@ nvm use 22
 
 npm install @mui/material @emotion/react @emotion/styled
 
+npm install chart.js react-chartjs-2
+
 ## Uruchomienie aplikacji
 * just-grades-rest (spring):
 
@@ -53,7 +55,7 @@ w przeglądarce wchodzimy na stronę:
 
 ## Funkcjonalności:
 ilość = 4os * 3 = 12
-1. logowanie użytkownika (D - done) 
+1. logowanie użytkownika (D - done)
 role i uprawnienia:
 * student:
 2. przegląd ocen końcowych (D),
@@ -83,13 +85,13 @@ W ramach projektu wymagane jest wykonanie następujących zadań i produktów:
 
 1. opracowanie modelu pojęciowego (E-R), (D)
 2. na podstawie modelu pojęciowego opracowanie relacyjnego logicznego modelu danych, (D)
-3. zaprojektowanie funkcjonalności aplikacji: części operacyjnej (transakcyjnej) oraz części analityczno-raportowej,
+3. zaprojektowanie funkcjonalności aplikacji: części operacyjnej (transakcyjnej) oraz części analityczno-raportowej,(wszyscy)
 4. optymalizacja modelu logicznego (w szczególności denormalizacja) w celu maksymalizacji wydajności systemu,
-5. opracowanie elementów funkcjonalnych na poziomie bazy danych (triggery, procedury składowane),
+5. opracowanie elementów funkcjonalnych na poziomie bazy danych (triggery, procedury składowane),(A)
 6. dobór technologii bazodanowej, instalacja i konfiguracja środowiska, (D)
 7. dobór technologii realizacji aplikacji, instalacja i konfiguracja środowiska rozwojowego, (W)
 8. opracowanie, wdrożenie i optymalizacja modelu fizycznego,
-9. opracowanie scenariuszy i danych testowych,
+9. opracowanie scenariuszy i danych testowych, (D)
 10. opracowanie dokumentacji analityczno-projektowej (w szczególności diagramów modeli danych z opisami),
 11. opracowanie dokumentacji użytkowej aplikacji.
 
