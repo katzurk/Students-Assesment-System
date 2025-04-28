@@ -173,29 +173,56 @@ FOR EACH ROW
 WHEN (OLD.status = 'active' AND NEW.status = 'closed')
 DECLARE
     CURSOR c_students IS
-        SELECT student_id, AVG(grade) AS total_grade
+        SELECT student_id, SUM(grade) AS total_points
         FROM grades
         WHERE course_id = :NEW.course_id
           AND type != 'FINAL'
         GROUP BY student_id;
-    rounded_grade NUMBER;
+
+    v_min_score completion_requirements.min_score%TYPE;
+    v_max_score NUMBER;
+    v_step NUMBER;
+    v_final_grade NUMBER;
 BEGIN
+    BEGIN
+        SELECT cr.min_score
+        INTO v_min_score
+        FROM completion_requirements cr
+        JOIN course_requirement link
+          ON cr.completion_req_id = link.completion_req_id
+        WHERE link.course_id = :NEW.course_id;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20010, 'No course requirement defined for this course.');
+    END;
+
+    v_max_score := (v_min_score - 1) * 2; 
+    v_step := v_max_score / 10;       
+
     FOR r IN c_students LOOP
         DELETE FROM grades
         WHERE student_id = r.student_id
           AND course_id = :NEW.course_id
           AND type = 'FINAL';
 
-        rounded_grade := FLOOR(r.total_grade * 2) / 2;
+        IF r.total_points < v_min_score THEN
+            v_final_grade := 2;
+        ELSE
+            v_final_grade := 3 + FLOOR((r.total_points - v_min_score) / v_step) * 0.5;
+
+            IF v_final_grade > 5 THEN
+                v_final_grade := 5;
+            END IF;
+        END IF;
 
         INSERT INTO grades (grade_id, student_id, course_id, grade, type)
-        VALUES (grades_seq.NEXTVAL, r.student_id, :NEW.course_id, rounded_grade, 'FINAL');
+        VALUES (grades_seq.NEXTVAL, r.student_id, :NEW.course_id, v_final_grade, 'FINAL');
     END LOOP;
 END;
 /
 
-
-/* drop sequence grades_seq;
+/*
+drop sequence grades_seq;
 
 CREATE SEQUENCE grades_seq
     START WITH 700
@@ -206,6 +233,12 @@ SET status = 'active'
 WHERE course_id = 2082;
 
 delete from grades where course_id = 2082 and type = 'FINAL';
+
+INSERT INTO completion_requirements (completion_req_id, min_score, type)
+VALUES (2082, 10, 'exam');
+
+INSERT INTO course_requirement (course_id, completion_req_id)
+VALUES (2082, 2082);
 */
 
 commit;
