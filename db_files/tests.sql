@@ -908,4 +908,177 @@ END;
 /
 
 
+-------------------------------------------
+-- TESTS TO PROCEDURE close_registration
+-------------------------------------------
+-- TEST 1: Less than 10 applications ➔ course is closed (status = 'closed')
+BEGIN
+  INSERT INTO courses (course_id, name, ects_points, status)
+  VALUES (9001, 'Test Course 1', 5, 'active');
+
+  INSERT INTO completion_requirements (completion_req_id, min_score, type)
+  VALUES (10001, 20, 'exam');
+
+  INSERT INTO course_requirement (course_id, completion_req_id)
+  VALUES (9001, 10001);
+
+  FOR i IN 1..5 LOOP
+    INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
+    VALUES (9000 + i, 1000 + i, 9001, 'application submitted');
+  END LOOP;
+
+  close_registration(9001);
+
+  DECLARE
+    v_status VARCHAR2(25);
+  BEGIN
+    SELECT status INTO v_status FROM courses WHERE course_id = 9001;
+
+    IF v_status = 'closed' THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED: Course correctly closed.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: Course status is ' || v_status);
+    END IF;
+  END;
+  
+  delete from course_requirement where course_id = 9001;
+  delete from course_registrations where course_id = 9001;
+  delete from courses where course_id = 9001;
+  delete from completion_requirements where completion_req_id = 10001;
+  
+  ROLLBACK;
+END;
+/
+
+
+-- TEST 2: Exactly 10 applications ➔ course active (status = 'active')
+BEGIN
+  INSERT INTO courses (course_id, name, ects_points, status)
+  VALUES (9002, 'Test Course 2', 5, 'closed');
+
+  INSERT INTO completion_requirements (completion_req_id, min_score, type)
+  VALUES (10002, 20, 'exam');
+
+  INSERT INTO course_requirement (course_id, completion_req_id)
+  VALUES (9002, 10002);
+
+  FOR i IN 1..10 LOOP
+    INSERT INTO users (user_id)
+    VALUES (2000 + i);
+  END LOOP;
+
+  FOR i IN 1..10 LOOP
+    INSERT INTO students (user_id)
+    VALUES (2000 + i);
+  END LOOP;
+
+  FOR i IN 1..10 LOOP
+    INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
+    VALUES (9200 + i, 2000 + i, 9002, 'application submitted');
+  END LOOP;
+
+  close_registration(9002);
+
+  DECLARE
+    v_status VARCHAR2(25);
+  BEGIN
+    SELECT status INTO v_status FROM courses WHERE course_id = 9002;
+
+    IF v_status = 'active' THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 2 PASSED: Course correctly activated.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: Course status is ' || v_status);
+    END IF;
+  END;
+  delete from course_requirement where course_id = 9002;
+  delete from course_registrations where course_id = 9002;
+  delete from courses where course_id = 9002;
+  delete from completion_requirements where completion_req_id = 10002;
+  delete from students where user_id between 2001 and 2010;
+  delete from users where user_id between 2001 and 2010;
+END;
+/
+
+
+-- TEST 3: More than 10 applications ➔ course is active (status = 'active')
+BEGIN
+  INSERT INTO courses (course_id, name, ects_points, status)
+  VALUES (9003, 'Test Course 2', 5, 'closed');
+
+  INSERT INTO completion_requirements (completion_req_id, min_score, type)
+  VALUES (10003, 20, 'exam');
+
+  INSERT INTO course_requirement (course_id, completion_req_id)
+  VALUES (9003, 10003);
+  
+  FOR i IN 1..15 LOOP
+    INSERT INTO users (user_id)
+    VALUES (3000 + i);
+  END LOOP;
+
+  FOR i IN 1..15 LOOP
+    INSERT INTO students (user_id)
+    VALUES (3000 + i);
+  END LOOP;
+
+  FOR i IN 1..15 LOOP
+    INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
+    VALUES (9000 + i, 3000 + i, 9003, 'application submitted');
+  END LOOP;
+
+  EXECUTE IMMEDIATE 'BEGIN close_registration(9003); END;';
+
+  DECLARE
+    v_status VARCHAR2(25);
+  BEGIN
+    SELECT status INTO v_status FROM courses WHERE course_id = 9003;
+
+    IF v_status = 'active' THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 3 PASSED: Course correctly activated with >10 applications.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: Course status is ' || v_status);
+    END IF;
+  END;
+
+  delete from course_requirement where course_id = 9003;
+  delete from course_registrations where course_id = 9003;
+  delete from courses where course_id = 9003;
+  delete from completion_requirements where completion_req_id = 10003;
+  delete from students where user_id between 3001 and 3015;
+  delete from users where user_id between 3001 and 3015;
+END;
+/
+
+
+-- TEST 4: There are no applications ➔ the course is closing (status = 'closed')
+BEGIN
+
+  INSERT INTO courses (course_id, name, ects_points, status)
+  VALUES (9004, 'Test Course 4', 5, 'active');
+
+  INSERT INTO completion_requirements (completion_req_id, min_score, type)
+  VALUES (10004, 20, 'exam');
+
+  INSERT INTO course_requirement (course_id, completion_req_id)
+  VALUES (9004, 10004);
+
+  EXECUTE IMMEDIATE 'BEGIN close_registration(9004); END;';
+
+  DECLARE
+    v_status VARCHAR2(25);
+  BEGIN
+    SELECT status INTO v_status FROM courses WHERE course_id = 9004;
+
+    IF v_status = 'closed' THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 4 PASSED: Course correctly closed with no applications.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: Course status is ' || v_status);
+    END IF;
+  END;
+  delete from course_requirement where course_id = 9004;
+  delete from courses where course_id = 9004;
+  delete from completion_requirements where completion_req_id = 10004;
+END;
+/
+
 commit;
