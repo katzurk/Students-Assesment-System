@@ -534,3 +534,122 @@ BEGIN
   ROLLBACK TO test4_start;
 END;
 /
+
+
+-------------------------------------
+-- TESTS TO TRIGGER add_avg_grade
+-------------------------------------
+-- TEST 1: User with role_id = 1 ➔ a row should be added to grades
+BEGIN
+  SAVEPOINT test1_start;
+
+  INSERT INTO users (user_id, role_id, first_name)
+  VALUES (99901, 1, 'test_student');
+
+  DECLARE
+    v_count NUMBER;
+  BEGIN
+    SELECT COUNT(*)
+    INTO v_count
+    FROM grades
+    WHERE student_id = 99901
+      AND type = 'AVG';
+
+    IF v_count = 1 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED: AVG grade added for student.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: AVG grade not added.');
+    END IF;
+  END;
+
+  ROLLBACK TO test1_start;
+END;
+/
+
+
+-- TEST 2: User with role_id ≠ 1 ➔ should not add an entry to grades
+BEGIN
+  SAVEPOINT test2_start;
+
+  INSERT INTO users (user_id, role_id, first_name)
+  VALUES (99902, 2, 'test_teacher');
+
+  DECLARE
+    v_count NUMBER;
+  BEGIN
+    SELECT COUNT(*)
+    INTO v_count
+    FROM grades
+    WHERE student_id = 99902
+      AND type = 'AVG';
+
+    IF v_count = 0 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 2 PASSED: No AVG grade created for non-student.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: Unexpected AVG grade created.');
+    END IF;
+  END;
+
+  ROLLBACK TO test2_start;
+END;
+/
+
+
+-- TEST 3: Several users in a row ➔ generation of new grade_id should be handled correctly
+BEGIN
+  SAVEPOINT test3_start;
+
+  INSERT INTO users (user_id, role_id, first_name)
+  VALUES (99903, 1, 'student_one');
+
+  INSERT INTO users (user_id, role_id, first_name)
+  VALUES (99904, 1, 'student_two');
+
+  DECLARE
+    v_count NUMBER;
+  BEGIN
+    SELECT COUNT(*)
+    INTO v_count
+    FROM grades
+    WHERE student_id IN (99903, 99904)
+      AND type = 'AVG';
+
+    IF v_count = 2 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 3 PASSED: AVG grades correctly created for both students.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: Expected 2 AVG grades, found ' || v_count || '.');
+    END IF;
+  END;
+
+  ROLLBACK TO test3_start;
+END;
+/
+
+
+-- TEST 4: Checking the correctness of field values ​​in grades (grade = 0, date set)
+BEGIN
+  SAVEPOINT test4_start;
+
+  INSERT INTO users (user_id, role_id, first_name)
+  VALUES (99905, 1, 'student_test');
+
+  DECLARE
+    v_grade NUMBER;
+    v_date  DATE;
+  BEGIN
+    SELECT grade, received_date
+    INTO v_grade, v_date
+    FROM grades
+    WHERE student_id = 99905
+      AND type = 'AVG';
+
+    IF v_grade = 0 AND v_date IS NOT NULL THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 4 PASSED: AVG grade initialized correctly.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: Grade = ' || v_grade || ', Date = ' || TO_CHAR(v_date, 'YYYY-MM-DD'));
+    END IF;
+  END;
+
+  ROLLBACK TO test4_start;
+END;
+/
