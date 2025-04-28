@@ -653,3 +653,108 @@ BEGIN
   ROLLBACK TO test4_start;
 END;
 /
+
+
+-----------------------------------------------
+-- TESTS TO PROCEDURE close_course
+-----------------------------------------------
+-- TEST 1: Course exists, status 'active' ➔ must be closed successfully
+BEGIN
+  SAVEPOINT test1_start;
+
+  INSERT INTO courses (course_id, status)
+  VALUES (88801, 'active');
+
+  BEGIN
+    close_course(88801);
+  EXCEPTION
+    WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: Unexpected error: ' || SQLERRM);
+  END;
+
+  DECLARE
+    v_status courses.status%TYPE;
+  BEGIN
+    SELECT status INTO v_status
+    FROM courses
+    WHERE course_id = 88801;
+
+    IF v_status = 'closed' THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED: Course successfully closed.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: Course status = ' || v_status);
+    END IF;
+  END;
+
+  ROLLBACK TO test1_start;
+END;
+/
+
+
+-- TEST 2: The course exists, but the status is 'closed' ➔ there should be an error -20004
+BEGIN
+  SAVEPOINT test2_start;
+
+  INSERT INTO courses (course_id, status)
+  VALUES (88802, 'closed');
+
+  BEGIN
+    close_course(88802);
+    DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: Expected exception, but none was raised.');
+  EXCEPTION
+    WHEN OTHERS THEN
+      IF SQLCODE = -20004 THEN
+        DBMS_OUTPUT.PUT_LINE('TEST 2 PASSED: Correct exception - Course exists but not open.');
+      ELSE
+        DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: Unexpected exception: ' || SQLERRM);
+      END IF;
+  END;
+
+  ROLLBACK TO test2_start;
+END;
+/
+
+
+-- TEST 3: The course does NOT exist ➔ there should be an error -20003
+BEGIN
+  SAVEPOINT test3_start;
+
+  BEGIN
+    close_course(99999);
+    DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: Expected exception, but none was raised.');
+  EXCEPTION
+    WHEN OTHERS THEN
+      IF SQLCODE = -20003 THEN
+        DBMS_OUTPUT.PUT_LINE('TEST 3 PASSED: Correct exception - Course does not exist.');
+      ELSE
+        DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: Unexpected exception: ' || SQLERRM);
+      END IF;
+  END;
+
+  ROLLBACK TO test3_start;
+END;
+/
+
+
+--TEST 4: The course exists, status 'opened registration' ➔ there should be an error -20004
+BEGIN
+  SAVEPOINT test4_start;
+
+  INSERT INTO courses (course_id, status)
+  VALUES (88803, 'opened registration');
+
+  BEGIN
+    close_course(88803);
+    DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: Expected exception, but none was raised.');
+  EXCEPTION
+    WHEN OTHERS THEN
+      IF SQLCODE = -20004 THEN
+        DBMS_OUTPUT.PUT_LINE('TEST 4 PASSED: Correct exception - Course exists but not open.');
+      ELSE
+        DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: Unexpected exception: ' || SQLERRM);
+      END IF;
+  END;
+
+  ROLLBACK TO test4_start;
+END;
+/
