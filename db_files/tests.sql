@@ -238,3 +238,164 @@ BEGIN
   ROLLBACK TO test_start;
 END;
 /
+
+
+---------------------------------------------
+-- TESTS TO PROCEDURE close_semester
+---------------------------------------------
+
+-- TEST 1: All courses are closed ('closed' or 'closed registration')
+BEGIN
+  SAVEPOINT test_start;
+  BEGIN
+    UPDATE courses
+    SET status = 'closed';
+
+    BEGIN
+      close_semester;
+      DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED: Semester closed successfully when all courses were closed.');
+    EXCEPTION
+      WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: Unexpected error: ' || SQLERRM);
+    END;
+  END;
+  ROLLBACK TO test_start;
+END;
+/
+
+
+-- TEST 2: One course 'opened' - there must be an error
+BEGIN
+  SAVEPOINT test_start;
+  BEGIN
+    UPDATE courses
+    SET status = 'closed';
+
+    UPDATE courses
+    SET status = 'opened'
+    WHERE course_id = (SELECT MIN(course_id) FROM courses);
+
+    BEGIN
+      close_semester;
+      DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: Procedure should have raised an error due to opened course.');
+    EXCEPTION
+      WHEN OTHERS THEN
+        IF SQLCODE = -20001 THEN
+          DBMS_OUTPUT.PUT_LINE('TEST 2 PASSED: Correct error raised for opened course.');
+        ELSE
+          DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: Unexpected error: ' || SQLERRM);
+        END IF;
+    END;
+  END;
+  ROLLBACK TO test_start;
+END;
+/
+
+
+-- TEST 3: One course 'active' - there must be an error
+BEGIN
+  SAVEPOINT test_start;
+  BEGIN
+    UPDATE courses
+    SET status = 'closed';
+
+    UPDATE courses
+    SET status = 'active'
+    WHERE course_id = (SELECT MIN(course_id) FROM courses);
+
+    BEGIN
+      close_semester;
+      DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: Procedure should have raised an error due to active course.');
+    EXCEPTION
+      WHEN OTHERS THEN
+        IF SQLCODE = -20001 THEN
+          DBMS_OUTPUT.PUT_LINE('TEST 3 PASSED: Correct error raised for active course.');
+        ELSE
+          DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: Unexpected error: ' || SQLERRM);
+        END IF;
+    END;
+  END;
+  ROLLBACK TO test_start;
+END;
+/
+
+
+-- TEST 4: One NULL course - the procedure must complete successfully
+BEGIN
+  SAVEPOINT test_start;
+  BEGIN
+    UPDATE courses
+    SET status = 'closed';
+
+    UPDATE courses
+    SET status = NULL
+    WHERE course_id = (SELECT MIN(course_id) FROM courses);
+
+    BEGIN
+      close_semester;
+      DBMS_OUTPUT.PUT_LINE('TEST 4 PASSED: Semester closed successfully even with NULL status course.');
+    EXCEPTION
+      WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: Unexpected error: ' || SQLERRM);
+    END;
+  END;
+  ROLLBACK TO test_start;
+END;
+/
+
+
+-- TEST 5: Mixed statuses: part 'closed', part 'closed registration', part 'opened'
+BEGIN
+  SAVEPOINT test_start;
+  BEGIN
+    UPDATE courses
+    SET status = 'closed';
+
+    UPDATE courses
+    SET status = 'closed registration'
+    WHERE course_id = (SELECT MIN(course_id) FROM courses);
+
+    UPDATE courses
+    SET status = 'opened'
+    WHERE course_id = (SELECT MAX(course_id) FROM courses);
+
+    BEGIN
+      close_semester;
+      DBMS_OUTPUT.PUT_LINE('TEST 5 FAILED: Procedure should have raised an error due to opened course.');
+    EXCEPTION
+      WHEN OTHERS THEN
+        IF SQLCODE = -20001 THEN
+          DBMS_OUTPUT.PUT_LINE('TEST 5 PASSED: Correct error raised for mixed statuses.');
+        ELSE
+          DBMS_OUTPUT.PUT_LINE('TEST 5 FAILED: Unexpected error: ' || SQLERRM);
+        END IF;
+    END;
+  END;
+  ROLLBACK TO test_start;
+END;
+/
+
+
+-- TEST 6: Mixed statuses: only 'closed' and 'closed registration'
+BEGIN
+  SAVEPOINT test_start;
+  BEGIN
+    UPDATE courses
+    SET status = 'closed';
+
+    UPDATE courses
+    SET status = 'closed registration'
+    WHERE MOD(course_id, 2) = 0; 
+
+    BEGIN
+      close_semester;
+      DBMS_OUTPUT.PUT_LINE('TEST 6 PASSED: Semester closed successfully with closed and closed registration statuses.');
+    EXCEPTION
+      WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('TEST 6 FAILED: Unexpected error: ' || SQLERRM);
+    END;
+  END;
+
+  ROLLBACK TO test_start;
+END;
+/
