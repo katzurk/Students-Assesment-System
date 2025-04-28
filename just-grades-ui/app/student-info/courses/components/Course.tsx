@@ -17,7 +17,7 @@ export const Course = (props: ICourse) => {
             </Box>
             <Box>
                 <Button size="small" variant="contained" className={styles.classes_button}>Classes</Button>
-                <Link href={`courses/${props.id}`}>
+                <Link href={`grades/${props.id}`}>
                     <Button size="small" variant="contained" className={styles.grades_button} >Grades</Button>
                 </Link>
                 <Link href={`/course/${props.id}/coursereport`}>

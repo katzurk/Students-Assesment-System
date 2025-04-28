@@ -1,11 +1,10 @@
 "use client"
 
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import {useParams} from "next/navigation";
 import {Button, Container, Stack, Typography} from "@mui/material";
-import {Grade, IGrade} from "@/app/student-info/courses/[courseId]/components/Grade";
-import {StudentService} from "@/app/services/StudentService";
+import {Grade, IGrade} from "@/app/student-info/grades/[courseId]/components/Grade";
+import {StudentService} from "@/services/StudentService";
 import styles from '../components/Course.module.css';
 
 export default function CourseGrades() {

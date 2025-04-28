@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Card, CardContent, Typography} from "@mui/material";
-import {StudentService} from "@/app/services/StudentService";
+import {StudentService} from "@/services/StudentService";
 import styles from '../StudentInfo.module.css';
 
 export interface IStudent {

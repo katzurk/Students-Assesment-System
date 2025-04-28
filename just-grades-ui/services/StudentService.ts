@@ -1,8 +1,7 @@
 import axios from "axios";
-import {IStudent} from "@/app/student-info/components/studentCard"
+import {IStudent} from "@/app/student-info/components/StudentCard"
 import {ICourse} from "@/app/student-info/courses/components/Course";
-import {useEffect} from "react";
-import {IGrade} from "@/app/student-info/courses/[courseId]/components/Grade";
+import {IGrade} from "@/app/student-info/grades/[courseId]/components/Grade";
 
 async function getStudentInfo(): Promise<IStudent> {
     const res = await axios.get('http://localhost:8080/student-info', {
@@ -19,7 +18,7 @@ async function getAllStudentCourses(): Promise<ICourse[]> {
 }
 
 async function getStudentGradesByCourse(courseId: string | Array<string> | undefined): Promise<IGrade[]> {
-    const res = await axios.get(`http://localhost:8080/student-info/courses/${courseId}`, {
+    const res = await axios.get(`http://localhost:8080/student-info/grades/${courseId}`, {
         withCredentials: true
     });
     return res.data || [];
