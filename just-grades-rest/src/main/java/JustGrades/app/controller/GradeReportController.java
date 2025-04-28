@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import JustGrades.app.model.FinalGradesDistributionDTO;
 import JustGrades.app.model.GradesCrossSectionDTO;
 import JustGrades.app.services.GradeReportService;
 
@@ -25,6 +26,11 @@ public class GradeReportController {
             @PathVariable int courseId,
             @PathVariable String gradeType) {
         return gradeReportService.getGradesCrossSection(courseId, gradeType);
+    }
+
+    @GetMapping("/course/{courseId}/coursereport")
+    public List<FinalGradesDistributionDTO> getReport(@PathVariable int courseId) {
+        return gradeReportService.getFinalGradesDistribution(courseId);
     }
 }
 
