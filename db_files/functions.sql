@@ -91,12 +91,15 @@ FOR EACH ROW
 WHEN (NEW.status = 'closed')
 DECLARE
     CURSOR student_cursor IS
-        SELECT DISTINCT student_id FROM grades;
+        SELECT DISTINCT g.student_id
+        FROM grades g
+        WHERE g.course_id = :NEW.course_id;
     avg_grade NUMBER;
 BEGIN
     FOR student_rec IN student_cursor LOOP
         BEGIN
-            SELECT AVG(grade) INTO avg_grade
+            SELECT AVG(grade)
+            INTO avg_grade
             FROM grades
             WHERE student_id = student_rec.student_id
               AND type = 'FINAL';
