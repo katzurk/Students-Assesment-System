@@ -401,3 +401,136 @@ END;
 /
 
 
+-----------------------------------------------------
+-- TESTS TO TRIGGER update_avg_grade_after_closing  
+-----------------------------------------------------
+
+--TEST 1: Checking the recalculation of the average grade when there are several FINAL grades
+BEGIN
+  SAVEPOINT test1_start;
+
+  INSERT INTO courses (course_id, status) VALUES (9991, 'closed registration');
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9991, 101, 9991, 80, 'FINAL');
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9992, 101, 9991, 90, 'FINAL');
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9993, 101, 9991, 0, 'AVG'); -- стартовое значение
+
+  UPDATE courses
+  SET status = 'closed'
+  WHERE course_id = 9991;
+
+  DECLARE
+    v_avg_grade NUMBER;
+  BEGIN
+    SELECT grade INTO v_avg_grade
+    FROM grades
+    WHERE student_id = 101 AND type = 'AVG';
+  
+    IF v_avg_grade = 85 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED: AVG grade correctly recalculated.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: AVG grade = ' || v_avg_grade);
+    END IF;
+  END;
+
+  ROLLBACK TO test1_start;
+END;
+/
+
+-- TEST 2: Student without FINAL grades - AVG should be 0
+BEGIN
+  SAVEPOINT test2_start;
+
+  INSERT INTO courses (course_id, status) VALUES (9992, 'closed registration');
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9999, 102, 9992, 0, 'AVG');
+
+  UPDATE courses
+  SET status = 'closed'
+  WHERE course_id = 9992;
+
+  DECLARE
+    v_avg_grade NUMBER;
+  BEGIN
+    SELECT grade INTO v_avg_grade
+    FROM grades
+    WHERE student_id = 102 AND type = 'AVG';
+
+    IF v_avg_grade = 0 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 2 PASSED: AVG grade correctly set to 0.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: AVG grade = ' || v_avg_grade);
+    END IF;
+  END;
+
+  ROLLBACK TO test2_start;
+END;
+/
+
+
+-- TEST 3: Student with one FINAL grade
+BEGIN
+  SAVEPOINT test3_start;
+
+  INSERT INTO courses (course_id, status) VALUES (9993, 'closed registration');
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9999, 103, 9993, 75, 'FINAL');
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9998, 103, 9993, 0, 'AVG');
+
+  UPDATE courses
+  SET status = 'closed'
+  WHERE course_id = 9993;
+
+  DECLARE
+    v_avg_grade NUMBER;
+  BEGIN
+    SELECT grade INTO v_avg_grade
+    FROM grades
+    WHERE student_id = 103 AND type = 'AVG';
+
+    IF v_avg_grade = 75 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 3 PASSED: AVG grade correctly set to FINAL grade.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: AVG grade = ' || v_avg_grade);
+    END IF;
+  END;
+
+  ROLLBACK TO test3_start;
+END;
+/
+
+
+-- TEST 4: Course closes but student is not associated with course - AVG should not change
+BEGIN
+  SAVEPOINT test4_start;
+
+  INSERT INTO courses (course_id, status) VALUES (9994, 'closed registration');
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9999, 104, 2001, 70, 'FINAL'); -- другой курс
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9998, 104, null, 0, 'AVG');
+
+  DECLARE
+    v_old_avg NUMBER;
+  BEGIN
+    SELECT grade INTO v_old_avg
+    FROM grades
+    WHERE student_id = 104 AND type = 'AVG';
+
+    UPDATE courses
+    SET status = 'closed'
+    WHERE course_id = 9994;
+
+    DECLARE
+      v_new_avg NUMBER;
+    BEGIN
+      SELECT grade INTO v_new_avg
+      FROM grades
+      WHERE student_id = 104 AND type = 'AVG';
+
+      IF v_old_avg = v_new_avg THEN
+        DBMS_OUTPUT.PUT_LINE('TEST 4 PASSED: Unrelated student AVG grade unchanged.');
+      ELSE
+        DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: AVG grade changed unexpectedly.');
+      END IF;
+    END;
+  END;
+
+  ROLLBACK TO test4_start;
+END;
+/
