@@ -1,48 +1,19 @@
 package JustGrades.app.model;
 
-import java.math.BigDecimal;
-
-import jakarta.persistence.SqlResultSetMapping;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ColumnResult;
-import jakarta.persistence.ConstructorResult;
-import jakarta.persistence.NamedStoredProcedureQuery;
-import jakarta.persistence.StoredProcedureParameter;
-import jakarta.persistence.ParameterMode;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-// @SqlResultSetMappings(
-//     name = "GradeCrossSectionDTOMapping",
-//     classes = @ConstructorResult(
-//         targetClass = GradeCrossSectionDTO.class,
-//         columns = {
-//             @ColumnResult(name = "grade", type = String.class),
-//             @ColumnResult(name = "students_count", type = Integer.class)
-//         }
-//     )
-// )
-// @NamedStoredProcedureQuery(
-//     name = "getGradesCrossSection",
-//     procedureName = "get_grades_cross_section",
-//     parameters = {
-//         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_course_id", type = Integer.class),
-//         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_grade_type", type = String.class),
-//         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_cursor", type = java.sql.ResultSet.class)
-//     },
-//     resultSetMappings = "GradeCrossSectionDTOMapping"
-// )
-// @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class GradesCrossSectionDTO {
-    private BigDecimal grade;
-    private BigDecimal studentsCount;
+    private int grade;
+    private int studentsCount;
 
-    public GradesCrossSectionDTO(BigDecimal grade, BigDecimal studentsCount) {
+    public GradesCrossSectionDTO(int grade, int studentsCount) {
         this.grade = grade;
         this.studentsCount = studentsCount;
     }

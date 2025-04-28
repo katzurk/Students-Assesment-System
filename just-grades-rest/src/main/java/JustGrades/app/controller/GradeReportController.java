@@ -1,6 +1,6 @@
 package JustGrades.app.controller;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class GradeReportController {
     }
 
     @GetMapping("/course/{courseId}/gradereport/{gradeType}")
-    public Set<GradesCrossSectionDTO> getReport(
+    public List<GradesCrossSectionDTO> getReport(
             @PathVariable int courseId,
             @PathVariable String gradeType) {
         return gradeReportService.getGradesCrossSection(courseId, gradeType);
