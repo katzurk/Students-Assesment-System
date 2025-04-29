@@ -34,10 +34,10 @@ export const FilterButtons = ({filter, setFilter}: IFilterButtons) => {
             value={filter}
             exclusive
             onChange={handleFilter}
-            sx={{ color: 'white' }}
         >
             <FilterToggleButton value="all">All</FilterToggleButton>
             <FilterToggleButton value="registered">Registered</FilterToggleButton>
+            <FilterToggleButton value="pending">Pending</FilterToggleButton>
             <FilterToggleButton value="not registered">Not Registered</FilterToggleButton>
         </ToggleButtonGroup>
     )

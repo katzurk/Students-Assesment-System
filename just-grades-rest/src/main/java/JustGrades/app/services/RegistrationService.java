@@ -28,7 +28,7 @@ public class RegistrationService {
         CourseRegistration courseRegistration = new CourseRegistration();
         courseRegistration.setCourse(courseRepository.findById(courseId).get());
         courseRegistration.setStudent(studentRepository.findByEmail(authHelper.getCurrentUser().getEmail()));
-        courseRegistration.setStatus("ACTIVE");
+        courseRegistration.setStatus("application submitted");
         return registrationRepository.save(courseRegistration);
     }
 

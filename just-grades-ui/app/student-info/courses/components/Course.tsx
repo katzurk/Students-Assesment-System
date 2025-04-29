@@ -7,7 +7,7 @@ export interface ICourse {
 }
 
 export interface ICourseRegistered extends ICourse {
-    registered: boolean;
+    status: string;
 }
 
 export const Course = (props: ICourse) => {

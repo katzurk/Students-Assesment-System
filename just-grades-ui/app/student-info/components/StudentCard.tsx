@@ -33,9 +33,9 @@ export const StudentCard = () => {
             <CardContent  className={styles.studentCard}>
                 <Box component="span" sx={{ display: "flex", alignItems: "center", gap: 1}}>
                     <AccountCircleIcon sx={{fontSize: 40}}/>
-                    <Typography variant="h4">Student Info</Typography>
+                    <Typography variant="h4">{student?.firstName} {student?.lastName}</Typography>
                 </Box>
-                <Typography variant="h6">{student?.firstName} {student?.lastName}</Typography>
+                <Typography variant="h6">Student</Typography>
                 <Typography>Student Number: {student?.studentNumber}</Typography>
                 <Typography>Status: {student?.status}</Typography>
                 <Typography>Library Card Number: {student?.libraryCardNumber}</Typography>

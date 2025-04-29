@@ -14,12 +14,12 @@ public class CourseRegisteredDTO {
     Long id;
     String name;
     Integer ects;
-    Boolean registered;
+    String status;
 
-    public CourseRegisteredDTO(Course course, Boolean registered) {
+    public CourseRegisteredDTO(Course course, String status) {
         this.id = course.getId();
         this.name = course.getName();
         this.ects = course.getEcts();
-        this.registered = registered;
+        this.status = status;
     }
 }
