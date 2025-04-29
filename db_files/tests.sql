@@ -1081,4 +1081,195 @@ BEGIN
 END;
 /
 
+
+----------------------------------------
+-- TESTS TO TRIGGER register_students
+----------------------------------------
+-- TEST 1: The base case is 10 students in the required specialty, all pass.
+BEGIN
+  SAVEPOINT test1_start;
+
+  INSERT INTO courses (course_id, name, ects_points, status) VALUES (99101, 'Test Course 1', 5, 'closed');
+  INSERT INTO specializations (specialization_id, name) VALUES (99501, 'TestSpec1');
+  INSERT INTO courses_special (course_id, specialization_id) VALUES (99101, 99501);
+
+  INSERT INTO completion_requirements (completion_req_id, min_score, type) VALUES (910001, 20, 'exam');
+  INSERT INTO course_requirement (course_id, completion_req_id) VALUES (99101, 910001);
+
+  FOR i IN 1..10 LOOP
+    INSERT INTO users (user_id, role_id) VALUES (103000 + i, 1);
+    INSERT INTO students (user_id) VALUES (103000 + i);
+    INSERT INTO student_specializations (student_id, specialization_id) VALUES (103000 + i, 99501);
+    INSERT INTO grades (grade_id, student_id, type, grade)
+      VALUES (30+i, 103000 + i, 'AVG', 3 + MOD(i, 3));
+    INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
+      VALUES (109300 + i, 103000 + i, 99101, 'application submitted');
+  END LOOP;
+
+  UPDATE courses SET status = 'active' WHERE course_id = 99101;
+
+  DECLARE
+    v_cnt NUMBER;
+  BEGIN
+    SELECT COUNT(*) INTO v_cnt FROM course_registrations
+    WHERE course_id = 99101 AND status = 'ACTIVE';
+
+    IF v_cnt = 10 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: registered = ' || v_cnt);
+    END IF;
+  END;
+
+  ROLLBACK TO test1_start;
+END;
+/
+
+
+-- TEST 2: Students outside their specialty are excluded
+BEGIN
+  SAVEPOINT test2_start;
+
+  INSERT INTO courses (course_id, name, ects_points, status) VALUES (99102, 'Test Course 2', 5, 'closed');
+  INSERT INTO specializations (specialization_id, name) VALUES (99502, 'Spec2');
+  INSERT INTO courses_special (course_id, specialization_id) VALUES (99102, 99502);
+
+  FOR i IN 1..10 LOOP
+    INSERT INTO users (user_id, role_id) VALUES (104000 + i, 1);
+    INSERT INTO students (user_id) VALUES (104000 + i);
+    INSERT INTO grades (grade_id, student_id, type, grade)
+      VALUES (300 + i, 104000 + i, 'AVG', 3 + MOD(i, 2));
+    INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
+      VALUES (109400 + i, 104000 + i, 99102, 'application submitted');
+  END LOOP;
+
+  UPDATE courses SET status = 'active' WHERE course_id = 99102;
+
+  DECLARE
+    v_cnt NUMBER;
+  BEGIN
+    SELECT COUNT(*) INTO v_cnt FROM course_registrations
+    WHERE course_id = 99102 AND status = 'ACTIVE';
+
+    IF v_cnt = 10 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 2 PASSED (all are not registered in their specialty)');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: were registered = ' || v_cnt);
+    END IF;
+  END;
+
+  ROLLBACK TO test2_start;
+END;
+/
+
+
+-- TEST 3: There are more students than the limit (20 people), the best are selected
+BEGIN
+  SAVEPOINT test3_start;
+
+  INSERT INTO courses (course_id, name, ects_points, status) VALUES (99103, 'Test Course 3', 5, 'closed');
+  INSERT INTO specializations (specialization_id, name) VALUES (99503, 'Spec3');
+  INSERT INTO courses_special (course_id, specialization_id) VALUES (99103, 99503);
+
+  FOR i IN 1..20 LOOP
+    INSERT INTO users (user_id, role_id) VALUES (105000 + i, 1);
+    INSERT INTO students (user_id) VALUES (105000 + i);
+    INSERT INTO student_specializations (student_id, specialization_id) VALUES (105000 + i, 99503);
+    INSERT INTO grades (grade_id, student_id, type, grade)
+      VALUES (400 + i, 105000 + i, 'AVG', 2 + MOD(i, 4)); -- Разные оценки
+    INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
+      VALUES (109500 + i, 105000 + i, 99103, 'application submitted');
+  END LOOP;
+
+  UPDATE courses SET status = 'active' WHERE course_id = 99103;
+
+  DECLARE
+    v_cnt NUMBER;
+  BEGIN
+    SELECT COUNT(*) INTO v_cnt FROM course_registrations
+    WHERE course_id = 99103 AND status = 'ACTIVE';
+
+    IF v_cnt = 15 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 3 PASSED (the best 15 are selected)');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 3 FAILED: were registered = ' || v_cnt);
+    END IF;
+  END;
+
+  ROLLBACK TO test3_start;
+END;
+/
+
+
+-- TEST 4: The course falls into two specializations
+BEGIN
+  SAVEPOINT test4_start;
+
+  INSERT INTO courses (course_id, name, ects_points, status) VALUES (99104, 'Test Course 4', 5, 'closed');
+  INSERT INTO specializations (specialization_id, name) VALUES (99504, 'Spec4a');
+  INSERT INTO specializations (specialization_id, name) VALUES (99505, 'Spec4b');
+  INSERT INTO courses_special (course_id, specialization_id) VALUES (99104, 99504);
+  INSERT INTO courses_special (course_id, specialization_id) VALUES (99104, 99505);
+
+  FOR i IN 1..10 LOOP
+    INSERT INTO users (user_id, role_id) VALUES (106000 + i, 1);
+    INSERT INTO students (user_id) VALUES (106000 + i);
+    IF MOD(i, 2) = 0 THEN
+      INSERT INTO student_specializations (student_id, specialization_id) VALUES (106000 + i, 99504);
+    ELSE
+      INSERT INTO student_specializations (student_id, specialization_id) VALUES (106000 + i, 99505);
+    END IF;
+    INSERT INTO grades (grade_id, student_id, type, grade)
+      VALUES (500 + i, 106000 + i, 'AVG', 3 + MOD(i, 2));
+    INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
+      VALUES (109600 + i, 106000 + i, 99104, 'application submitted');
+  END LOOP;
+
+  UPDATE courses SET status = 'active' WHERE course_id = 99104;
+
+  DECLARE
+    v_cnt NUMBER;
+  BEGIN
+    SELECT COUNT(*) INTO v_cnt FROM course_registrations
+    WHERE course_id = 99104 AND status = 'ACTIVE';
+
+    IF v_cnt = 10 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 4 PASSED (two specializations, all admitted)');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: were registered = ' || v_cnt);
+    END IF;
+  END;
+
+  ROLLBACK TO test4_start;
+END;
+/
+
+-- TEST 5: There are no candidates (no one has applied)
+BEGIN
+  SAVEPOINT test5_start;
+
+  INSERT INTO courses (course_id, name, ects_points, status) VALUES (99105, 'Test Course 5', 5, 'closed');
+  INSERT INTO specializations (specialization_id, name) VALUES (99506, 'Spec5');
+  INSERT INTO courses_special (course_id, specialization_id) VALUES (99105, 99506);
+
+  UPDATE courses SET status = 'active' WHERE course_id = 99105;
+
+  DECLARE
+    v_cnt NUMBER;
+  BEGIN
+    SELECT COUNT(*) INTO v_cnt FROM course_registrations
+    WHERE course_id = 99105 AND status = 'ACTIVE';
+
+    IF v_cnt = 0 THEN
+      DBMS_OUTPUT.PUT_LINE('TEST 5 PASSED (no one has applied)');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('TEST 5 FAILED: were registered = ' || v_cnt);
+    END IF;
+  END;
+
+  ROLLBACK TO test5_start;
+END;
+/
+
+
 commit;
