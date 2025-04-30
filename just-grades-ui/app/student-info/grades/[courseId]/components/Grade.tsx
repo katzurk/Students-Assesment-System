@@ -5,7 +5,7 @@ import {ICourse} from "@/app/student-info/courses/components/Course";
 export interface ILecturer {
     firstName: string;
     lastName: string;
-    academic_title: string;
+    academic_title: string | null;
 }
 
 export interface IGrade {
@@ -23,9 +23,11 @@ export const Grade = (props: IGrade) => {
                 <Box>
                     <Typography variant="h6">{props.type}</Typography>
                     <Typography variant="body2">Uploaded: {new Date(props.receivedDate).toLocaleDateString()}</Typography>
-                    <Typography variant="body2">
-                        By: {props.lecturer.academic_title} {props.lecturer.firstName} {props.lecturer.lastName}
-                    </Typography>
+                    {props.lecturer &&
+                        <Typography variant="body2">
+                            By: {props.lecturer.academic_title} {props.lecturer.firstName} {props.lecturer.lastName}
+                        </Typography>
+                    }
                 </Box>
                 <Typography variant="h3">{props.grade}</Typography>
             </Box>
