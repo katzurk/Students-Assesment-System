@@ -1,10 +1,20 @@
 import {Alert, Snackbar} from "@mui/material";
 import {SyntheticEvent, useEffect, useState} from "react";
+import { styled } from "@mui/material/styles";
 
 interface IAlertSnackBar {
     status: string | null,
     onClose: () => void,
 }
+
+const CustomAlert = styled(Alert)(() => ({
+    backgroundColor: 'var(--foreground)',
+    color: 'var(--background)',
+    borderRadius: 'var(--border-radius)',
+    '& .MuiAlert-icon': {
+        color: 'var(--background)',
+    },
+}));
 
 export const AlertSnackbar = (props: IAlertSnackBar) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -28,9 +38,9 @@ export const AlertSnackbar = (props: IAlertSnackBar) => {
             onClose={handleClose}
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
-            <Alert onClose={handleClose} sx={{ width: "100%" }}>
+            <CustomAlert onClose={handleClose} sx={{ width: "100%" }}>
                 {props.status}
-            </Alert>
+            </CustomAlert>
         </Snackbar>
     );
 }
