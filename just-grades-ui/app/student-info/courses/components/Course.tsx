@@ -1,6 +1,4 @@
-import styles from './Course.module.css';
-import {Box, Button, Typography} from "@mui/material";
-import Link from "next/link";
+import {Box, Typography} from "@mui/material";
 
 export interface ICourse {
     id: number;
@@ -8,22 +6,15 @@ export interface ICourse {
     ects: number;
 }
 
+export interface ICourseRegistered extends ICourse {
+    status: string;
+}
+
 export const Course = (props: ICourse) => {
     return (
-        <Box className={styles.course} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1}}>
-            <Box>
-                <Typography variant="h6">{props.name}</Typography>
-                <Typography variant="body2">ECTS: {props.ects}</Typography>
-            </Box>
-            <Box>
-                <Button size="small" variant="contained" className={styles.classes_button}>Classes</Button>
-                <Link href={`grades/${props.id}`}>
-                    <Button size="small" variant="contained" className={styles.grades_button} >Grades</Button>
-                </Link>
-                <Link href={`/course/${props.id}/coursereport`}>
-                    <Button size="small" variant="contained" className={styles.report_button} >Finals Report</Button>
-                </Link>
-            </Box>
+        <Box>
+            <Typography variant="h6">{props.name}</Typography>
+            <Typography variant="body2">ECTS: {props.ects}</Typography>
         </Box>
     );
 }

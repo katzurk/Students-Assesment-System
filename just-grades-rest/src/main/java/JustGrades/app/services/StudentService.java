@@ -62,7 +62,7 @@ public class StudentService {
     }
 
     public List<Course> getAllStudentCourses() {
-        return courseRegistrationRepository.findCoursesByStudentEmail(authHelper.getCurrentUser().getEmail());
+        return courseRegistrationRepository.findCoursesByStudentEmailAndStatus(authHelper.getCurrentUser().getEmail(), "ACTIVE");
     }
 
     public List<Grade> getStudentGradesByCourse(Long courseId) {
