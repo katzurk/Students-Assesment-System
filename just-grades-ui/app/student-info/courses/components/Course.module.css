@@ -8,3 +8,57 @@
     border-radius: 10px;
     margin: 5px;
 }
+
+.classes_button {
+    background: var(--foreground) !important;
+    color: var(--background) !important;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 128px;
+    justify-content: center;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    margin: 5px !important;
+  }
+
+.classes_button:hover {
+    background: var(--button-primary-hover) !important;
+    border-color: transparent;
+  }
+
+.grades_button {
+    background: #8258b5 !important;
+    color: var(--background) !important;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 128px;
+    justify-content: center;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    margin: 5px !important;
+  }
+
+.grades_button:hover {
+    background: #704d9a !important;
+    border-color: transparent;
+  }
+
+.report_button {
+    background: #486ec7 !important;
+    color: var(--background) !important;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 128px;
+    justify-content: center;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    margin: 5px !important;
+  }
+
+.report_button:hover {
+    background: #4d5d97 !important;
+    border-color: transparent;
+  }

@@ -9,6 +9,48 @@ import lombok.Setter;
 
 import java.util.Date;
 
+
+@NamedStoredProcedureQuery(
+    name = "getGradesCrossSectionProcedure",
+    procedureName = "get_grades_cross_section",
+    parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_course_id", type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_grade_type", type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "p_cursor", type = void.class)
+    },
+    resultSetMappings = "GradeCrossSectionDTOMapping"
+)
+@SqlResultSetMapping(
+    name = "GradeCrossSectionDTOMapping",
+    classes = @ConstructorResult(
+        targetClass = GradesCrossSectionDTO.class,
+        columns = {
+            @ColumnResult(name = "grade", type = Integer.class),
+            @ColumnResult(name = "students_count", type = Integer.class)
+        }
+    )
+)
+
+@NamedStoredProcedureQuery(
+    name = "getFinalGradesDistributionProcedure",
+    procedureName = "get_final_grades_distribution",
+    parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_course_id", type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "p_cursor", type = void.class)
+    },
+    resultSetMappings = "FinalGradesDistributionDTOMapping"
+)
+@SqlResultSetMapping(
+    name = "FinalGradesDistributionDTOMapping",
+    classes = @ConstructorResult(
+        targetClass = FinalGradesDistributionDTO.class,
+        columns = {
+            @ColumnResult(name = "grade_status", type = String.class),
+            @ColumnResult(name = "students_count", type = Integer.class)
+        }
+    )
+)
+
 @Entity
 @Table(name = "grades")
 @Getter
