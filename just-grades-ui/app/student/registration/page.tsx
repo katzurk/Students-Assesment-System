@@ -51,7 +51,7 @@ export default function Registration() {
     return (
         <Container maxWidth="xl">
             <AlertSnackbar status={snackbarStatus} onClose={() => setSnackbarStatus(null)} />
-            <Box display="flex" flexDirection="row" gap={100}>
+            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
                 <Typography variant="h4">Registration</Typography>
                 <FilterButtons filter={filter} setFilter={setFilter}/>
             </Box>
