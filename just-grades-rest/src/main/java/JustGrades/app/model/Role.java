@@ -1,10 +1,7 @@
 package JustGrades.app.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -24,4 +22,8 @@ public class Role {
     private String roleName;
     @OneToMany(mappedBy = "role")
     private List<User> users = new ArrayList<>();
+
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
 }
