@@ -24,6 +24,6 @@ public class AuthHelper {
                 && authentication.getPrincipal() instanceof UserDetails userDetails) {
             return userService.findByEmail(userDetails.getUsername());
         }
-        return null;
+        throw new IllegalStateException("No user logged in.");
     }
 }

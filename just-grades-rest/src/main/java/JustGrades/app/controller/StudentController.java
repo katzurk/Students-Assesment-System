@@ -49,7 +49,6 @@ public class StudentController {
 
     @GetMapping("/student-info/final-grades")
     public Map<String, Double> getAllStudentFinalGrades() {
-        System.out.println("Controller correct!!!");
         return studentService.getFinalGrades();
     }
 }

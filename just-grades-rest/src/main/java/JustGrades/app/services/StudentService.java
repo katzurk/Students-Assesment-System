@@ -71,16 +71,12 @@ public class StudentService {
 
 
     public Map<String, Double> getFinalGrades() {
-        System.out.println("Start getFinal grades");
         Student student = studentRepository.findByEmail(authHelper.getCurrentUser().getEmail());
-        System.out.println("Find student correct!!!!!!!");
         Map<String, Double> finalGrades = new HashMap<>();
         List<CourseRegistration> courses = courseRegistrationRepository.findByStudentIdAndStatus(student.getUserId(), "ACTIVE");
-        System.out.println("CourseRegistration correct!!!");
         courses.forEach(e -> System.out.println(e.getCourse().getName()+e.getCourse().getId()));
         for(CourseRegistration course : courses) {
             Optional<Double> grade = studentRepository.getFinalGrade(student.getUserId(), course.getCourse().getId());
-            System.out.println("Find grade correct!!!!!!");
             grade.ifPresent(aDouble -> finalGrades.put(course.getCourse().getName(), aDouble));
         }
         return finalGrades;
