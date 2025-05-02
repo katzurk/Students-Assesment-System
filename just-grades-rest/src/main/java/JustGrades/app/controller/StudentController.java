@@ -23,9 +23,6 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 public class StudentController {
-
-    private final GradeRepository gradeRepository;
-    private final StudentRepository studentRepository;
     private final StudentService studentService;
 
 

@@ -21,6 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class StudentServiceTest {
@@ -232,5 +234,32 @@ public class StudentServiceTest {
         List<Grade> result = studentService.getStudentGradesByCourse(1L);
         assertThat(result).isEmpty();
     }
+
+    /*
+        SAVE STUDENT
+     */
+
+    @Test
+    void saveStudent_shouldCreateAndSaveStudentCorrectly() {
+
+        User user = new User();
+        user.setFirstName("Anna");
+        user.setLastName("Nowak");
+        user.setEmail("anna@test.com");
+        user.setPassword("secret");
+        Role role = new Role("ROLE_STUDENT");
+        user.setRole(role);
+
+
+        Student savedStudent = new Student();
+        when(studentRepository.save(any(Student.class))).thenReturn(savedStudent);
+
+        Student result = studentService.saveStudent(user);
+
+
+        assertThat(result).isNotNull();
+        verify(studentRepository).save(any(Student.class));
+    }
+
 
 }
