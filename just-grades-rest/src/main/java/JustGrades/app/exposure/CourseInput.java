@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Setter;
 
 public class CourseInput {
     private Long id;
@@ -14,9 +15,11 @@ public class CourseInput {
     @NotNull(message = "ects points are mandatory")
     private Integer ects;
 
+    @Setter
     @NotNull(message = "at least one completion requirement is mandatory")
     private List<CompletionRequirementInput> completionRequirements;
 
+    @Setter
     private List<EnrollRequirementInput> enrollRequirements;
 
     public CourseInput() {
@@ -47,6 +50,7 @@ public class CourseInput {
     public void setEcts(Integer new_ects) {
         this.ects = new_ects;
     }
+
 
     public List<CompletionRequirementInput> getCompletionRequirements() {
         return completionRequirements;
