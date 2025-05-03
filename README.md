@@ -77,8 +77,8 @@ role i uprawnienia:
 Projekt jest realizowany w 3 zasadniczych etapach:
 
 1. zdefiniowanie modelu pojęciowego, (done)
-2. zdefiniowanie logicznego modelu danych dla bazy relacyjnej oraz projekt aplikacji, przy czym część logiki aplikacyjnej powinna być zrealizowana w formie procedur składowanych w bazie danych;
-3. stworzenie modelu fizycznego, implementacja bazy danych i aplikacji, zapewnienie danych testowych, testy.
+2. zdefiniowanie logicznego modelu danych dla bazy relacyjnej oraz projekt aplikacji, przy czym część logiki aplikacyjnej powinna być zrealizowana w formie procedur składowanych w bazie danych; (done)
+3. stworzenie modelu fizycznego, implementacja bazy danych i aplikacji, zapewnienie danych testowych, testy.(done)
 
 ## Wymagania projektu
 W ramach projektu wymagane jest wykonanie następujących zadań i produktów:
@@ -86,12 +86,12 @@ W ramach projektu wymagane jest wykonanie następujących zadań i produktów:
 1. opracowanie modelu pojęciowego (E-R), (D)
 2. na podstawie modelu pojęciowego opracowanie relacyjnego logicznego modelu danych, (D)
 3. zaprojektowanie funkcjonalności aplikacji: części operacyjnej (transakcyjnej) oraz części analityczno-raportowej,(wszyscy)
-4. optymalizacja modelu logicznego (w szczególności denormalizacja) w celu maksymalizacji wydajności systemu,
+4. optymalizacja modelu logicznego (w szczególności denormalizacja) w celu maksymalizacji wydajności systemu,(W)
 5. opracowanie elementów funkcjonalnych na poziomie bazy danych (triggery, procedury składowane),(A)
 6. dobór technologii bazodanowej, instalacja i konfiguracja środowiska, (D)
 7. dobór technologii realizacji aplikacji, instalacja i konfiguracja środowiska rozwojowego, (W)
-8. opracowanie, wdrożenie i optymalizacja modelu fizycznego,
-9. opracowanie scenariuszy i danych testowych, (D)
+8. opracowanie, wdrożenie (wszyscy) i optymalizacja modelu fizycznego,
+9. opracowanie scenariuszy i danych testowych, (D i A)
 10. opracowanie dokumentacji analityczno-projektowej (w szczególności diagramów modeli danych z opisami),
 11. opracowanie dokumentacji użytkowej aplikacji.
 
