@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "../page.module.css";
+import styles from "./admin.module.css";
 import Link from "next/link";
 
 export default function Home() {
@@ -14,13 +14,14 @@ export default function Home() {
                 priority
             />
             <main className={styles.main}>
-                <ol>
-                    Welcome Admin!
-                </ol>
-                <Link href="/student-special">
-                    <button>add student specialization</button>
-                </Link>
+                <p>Welcome Admin!</p>
 
+                <Link href="/student-special">
+                    <button className={styles.button}>Add Student Specialization</button>
+                </Link>
+                <button className={styles.button}>Open Semester</button>
+                <button className={styles.button}>Close Semester</button>
+                <button className={styles.button}>Close All Courses</button>
             </main>
         </div>
     );
