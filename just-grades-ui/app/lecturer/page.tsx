@@ -1,5 +1,6 @@
 import Image from "next/image";
-import styles from "../page.module.css";
+import styles from "./lecturer.module.css";
+import Link from "next/link";
 
 export default function Home() {
     return (
@@ -16,7 +17,9 @@ export default function Home() {
                 <ol>
                     Welcome Lecturer!
                 </ol>
-
+                <Link href="/courses">
+                    <button className={styles.button}>View Courses</button>
+                </Link>
             </main>
         </div>
     );
