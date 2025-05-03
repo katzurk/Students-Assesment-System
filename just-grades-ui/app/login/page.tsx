@@ -28,7 +28,7 @@ export default function LoginPage() {
                     router.push('/student-info');
                     break;
                 case 'LECTURER':
-                    router.push('/courses');
+                    router.push('/lecturer');
                     break;
                 case 'ADMIN':
                     router.push('/admin');
