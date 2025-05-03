@@ -92,7 +92,7 @@ W ramach projektu wymagane jest wykonanie następujących zadań i produktów:
 7. dobór technologii realizacji aplikacji, instalacja i konfiguracja środowiska rozwojowego, (W)
 8. opracowanie, wdrożenie i optymalizacja modelu fizycznego,
 9. opracowanie scenariuszy i danych testowych, (D)
-10. opracowanie dokumentacji analityczno-projektowej (w szczególności diagramów modeli danych z opisami),
+10. opracowanie dokumentacji analityczno-projektowej (w szczególności diagramów modeli danych z opisami)(D),
 11. opracowanie dokumentacji użytkowej aplikacji.
 
 ## Ocena projektu
