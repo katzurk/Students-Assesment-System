@@ -37,7 +37,7 @@ function CompletionRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Coll
         className={styles.toggle_button}
       >
         {"to pass info."}
-        <span style={{ transform: isOpen ? "rotate(0deg)" : "rotate(90deg)", transition: "transform 0.3s ease", marginLeft: "10px"}}>
+        <span style={{ transform: isOpen ? "rotate(0deg)" : "rotate(90deg)", transition: "transform 0.3s ease", marginLeft: "10px" }}>
           {"▼"}
         </span>
       </Button >
@@ -52,22 +52,22 @@ function CompletionRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Coll
         }}
       >
         <div>
-        <Table className={styles.table}>
-          <TableHead>
-            <TableRow className={styles.headerRow}>
-              <TableCell className={styles.headerCell}>Type</TableCell>
-              <TableCell className={styles.headerCell}>Min. score</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            { course.completionRequirements.map((requirement, index) => (
-              <TableRow key={index} className={styles.row}>
-                <TableCell className={styles.cell}>{requirement.type}</TableCell>
-                <TableCell className={styles.cell}>{requirement.minScore}</TableCell>
+          <Table className={styles.table}>
+            <TableHead>
+              <TableRow className={styles.headerRow}>
+                <TableCell className={styles.headerCell}>Type</TableCell>
+                <TableCell className={styles.headerCell}>Min. score</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {course.completionRequirements.map((requirement, index) => (
+                <TableRow key={index} className={styles.row}>
+                  <TableCell className={styles.cell}>{requirement.type}</TableCell>
+                  <TableCell className={styles.cell}>{requirement.minScore}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
       </div>
     </div>
@@ -82,7 +82,7 @@ function EnrollRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Collapsi
         className={styles.toggle_button}
       >
         {"to enroll info."}
-        <span style={{ transform: isOpen ? "rotate(0deg)" : "rotate(90deg)", transition: "transform 0.3s ease", marginLeft: "10px"}}>
+        <span style={{ transform: isOpen ? "rotate(0deg)" : "rotate(90deg)", transition: "transform 0.3s ease", marginLeft: "10px" }}>
           {"▼"}
         </span>
       </Button >
@@ -99,12 +99,12 @@ function EnrollRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Collapsi
         <div>
           {course.enrollRequirements && course.enrollRequirements.length > 0 ? (
             course.enrollRequirements
-            .map((requirement, index) => (
-              <React.Fragment key={index}>
-              {requirement.minEcts && <li style={{ marginBottom: "5px" }}>min ects: {requirement.minEcts}</li>}
-              {requirement.complitedCourse && <li style={{ marginBottom: "5px" }}>complited course: {requirement.complitedCourse.name}</li>}
-              </React.Fragment>
-          ))): (
+              .map((requirement, index) => (
+                <React.Fragment key={index}>
+                  {requirement.minEcts && <li style={{ marginBottom: "5px" }}>min ects: {requirement.minEcts}</li>}
+                  {requirement.complitedCourse && <li style={{ marginBottom: "5px" }}>complited course: {requirement.complitedCourse.name}</li>}
+                </React.Fragment>
+              ))) : (
             <Typography>No enrollment requirements are needed</Typography>
           )}
         </div>
@@ -141,14 +141,15 @@ export default function CoursesTable() {
   if (error) return <Typography>--Error: {error}</Typography>;
 
   const togglePanel = (index: number): void => {
-    setOpenPanel((prevIndex: number | null) => (prevIndex === index ? null : index))};
+    setOpenPanel((prevIndex: number | null) => (prevIndex === index ? null : index))
+  };
 
   const courseDetails = async (id: number) => {
-    window.location.href =("/course/" + id + "/grades");
+    window.location.href = ("/course/" + id + "/grades");
   }
 
   const courseReport = async (id: number) => {
-    window.location.href =("/course/" + id + "/coursereport");
+    window.location.href = ("/course/" + id + "/coursereport");
   }
 
   const removeCourse = async (id: number) => {
@@ -156,34 +157,63 @@ export default function CoursesTable() {
       fetch("http://localhost:8080/courses/" + id, {
         method: "DELETE"
       })
-      .then ((response)  => {
-        if (!response.ok) {
-          throw new Error('Can not delete course, it is needed to complete another course');
-        }
-        fetch('http://localhost:8080/courses')
-          .then((resp) => {
-            if (!resp.ok) {
-              throw new Error('Network response was not ok');
-            }
-            console.info("fetch after del", resp);
-            return resp.json();
-          })
-          .then((data) => {
-            setCourses(data || []);
-            setLoading(false);
-          })
-          .catch((error) => {
-            setError(error.message);
-            setLoading(false);
-          });
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Can not delete course, it is needed to complete another course');
+          }
+          fetch('http://localhost:8080/courses')
+            .then((resp) => {
+              if (!resp.ok) {
+                throw new Error('Network response was not ok');
+              }
+              console.info("fetch after del", resp);
+              return resp.json();
+            })
+            .then((data) => {
+              setCourses(data || []);
+              setLoading(false);
+            })
+            .catch((error) => {
+              setError(error.message);
+              setLoading(false);
+            });
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
     } catch (error) {
       console.error("Error:", error);
     }
   }
+
+  const openRegistration = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:8080/courses/${id}/open-registration`, {
+        method: "POST",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to open registration.");
+      }
+      alert("Registration opened successfully.");
+    } catch (error) {
+      alert((error as Error).message);
+    }
+  };
+
+  const closeRegistration = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:8080/courses/${id}/close-registration`, {
+        method: "POST",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to close registration.");
+      }
+      alert("Registration closed successfully.");
+    } catch (error) {
+      alert((error as Error).message);
+    }
+  };
+
 
 
   return (
@@ -229,13 +259,18 @@ export default function CoursesTable() {
                 />
               </TableCell>
               <TableCell className={styles.cell}>
-                <Button  className={styles.report_button} onClick={() => courseReport(course.id)}>Report</Button >
+                <Button className={styles.report_button} onClick={() => courseReport(course.id)}>Report</Button >
               </TableCell>
               <TableCell className={styles.cell}>
-                <Button  className={styles.delete_button} onClick={() => removeCourse(course.id)}>Delete</Button >
-                <br></br>
-                <Button  className={styles.details_button} onClick={() => courseDetails(course.id)}>Details</Button >
+                <Button className={styles.delete_button} onClick={() => removeCourse(course.id)}>Delete</Button>
+                <br />
+                <Button className={styles.details_button} onClick={() => courseDetails(course.id)}>Details</Button>
+                <br />
+                <Button className={styles.open_button} onClick={() => openRegistration(course.id)}>Open Registration</Button>
+                <br />
+                <Button className={styles.close_button} onClick={() => closeRegistration(course.id)}>Close Registration</Button>
               </TableCell>
+
             </TableRow>
           ))}
         </TableBody>
