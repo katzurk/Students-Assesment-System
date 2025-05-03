@@ -93,7 +93,7 @@ W ramach projektu wymagane jest wykonanie następujących zadań i produktów:
 8. opracowanie, wdrożenie (wszyscy) i optymalizacja modelu fizycznego,
 9. opracowanie scenariuszy i danych testowych, (D i A)
 10. opracowanie dokumentacji analityczno-projektowej (w szczególności diagramów modeli danych z opisami),
-11. opracowanie dokumentacji użytkowej aplikacji.
+11. opracowanie dokumentacji użytkowej aplikacji. (K)
 
 ## Ocena projektu
 Ocenie podlegają głównie:
