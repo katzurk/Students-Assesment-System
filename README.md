@@ -90,10 +90,10 @@ W ramach projektu wymagane jest wykonanie następujących zadań i produktów:
 5. opracowanie elementów funkcjonalnych na poziomie bazy danych (triggery, procedury składowane),(A)
 6. dobór technologii bazodanowej, instalacja i konfiguracja środowiska, (D)
 7. dobór technologii realizacji aplikacji, instalacja i konfiguracja środowiska rozwojowego, (W)
-8. opracowanie, wdrożenie (wszyscy) i optymalizacja modelu fizycznego,
+8. opracowanie, wdrożenie (wszyscy) i optymalizacja modelu fizycznego, (K)
 9. opracowanie scenariuszy i danych testowych, (D i A)
 10. opracowanie dokumentacji analityczno-projektowej (w szczególności diagramów modeli danych z opisami) (D),
-11. opracowanie dokumentacji użytkowej aplikacji. (K)
+11. opracowanie dokumentacji użytkowej aplikacji.
 
 ## Ocena projektu
 Ocenie podlegają głównie:
