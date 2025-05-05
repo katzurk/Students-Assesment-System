@@ -1,5 +1,6 @@
 package JustGrades.app.services;
 
+import JustGrades.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -9,18 +10,19 @@ import javax.sql.DataSource;
 @Service
 public class AdminService {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AdminService(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public AdminService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public void openSemester() {
-        jdbcTemplate.execute("CALL open_semester()");
+        userRepository.openSemester();
+        System.out.println("oooooo");
     }
 
     public void closeSemester() {
-        jdbcTemplate.execute("CALL close_semester()");
+        userRepository.closeSemester();
     }
 }
