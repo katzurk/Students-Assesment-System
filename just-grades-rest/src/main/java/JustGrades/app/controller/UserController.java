@@ -6,6 +6,8 @@ import JustGrades.app.model.User;
 import JustGrades.app.repository.StudentRepository;
 import JustGrades.app.services.StudentService;
 import JustGrades.app.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@Tag(name = "User", description = "Endpoints for user authentication and registration")
 @RestController
 @AllArgsConstructor
 public class UserController {
@@ -32,6 +35,7 @@ public class UserController {
 
 
 
+    @Operation(summary = "Authenticate user and start session")
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user, HttpServletRequest request) {
         try {
@@ -51,8 +55,9 @@ public class UserController {
     }
 
 
+    @Operation(summary = "Register a new user")
     @PostMapping("/register")
-    public String register(@RequestBody Map<String, String> request) {
+    public ResponseEntity<String> register(@RequestBody Map<String, String> request) {
         String email = request.get("email");
         String password = request.get("password");
         String firstName = request.get("firstName");
@@ -60,7 +65,7 @@ public class UserController {
         String roleName = request.getOrDefault("role", "ROLE_STUDENT");
 
         if (userService.findByEmail(email) != null) {
-            return "Email already exists";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists");
         }
 
         User user = new User();
@@ -70,7 +75,7 @@ public class UserController {
         user.setLastName(lastName);
 
         userService.saveUser(user, roleName);
-        return "User registered successfully";
+        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
     }
 
 }

@@ -41,6 +41,8 @@ w przeglądarce wchodzimy na stronę:
 
  lockalhost:3000
 
+dokumentacja swagger: http://localhost:8080/swagger-ui/index.html#/   
+
 ## Harmonogram prac
 * 10.03.2025 - początek
 * 20.03 - uzgodnienie funkcjonalności projektu

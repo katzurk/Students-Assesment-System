@@ -1,6 +1,8 @@
 package JustGrades.app.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -25,6 +27,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Tag(name = "Courses", description = "Endpoints related to course management")
 @RestController
 public class CourseController {
     Logger logger = LoggerFactory.getLogger(CourseController.class);
@@ -32,11 +35,13 @@ public class CourseController {
     @Autowired
     private CourseRepository courseRepository;
 
+    @Operation(summary = "Get all courses sorted by name (ascending)")
     @GetMapping("/courses")
     public List<Course> getCoursesSortedByNameAsc() {
         return courseRepository.findAllByOrderByNameAsc();
     }
 
+    @Operation(summary = "Delete course by ID")
     @DeleteMapping("/courses/{id}")
     public ResponseEntity<String> deleteCourse(@PathVariable("id") long courseId) {
         try {
@@ -49,6 +54,7 @@ public class CourseController {
         }
     }
 
+    @Operation(summary = "Add a new course with its requirements")
     @PostMapping("/addcourse")
     public ResponseEntity<String> addCourse(@RequestBody @Valid CourseInput courseIn, BindingResult result) {
         if (result.hasErrors()) {

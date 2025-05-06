@@ -3,6 +3,8 @@ package JustGrades.app.controller;
 import java.util.List;
 import java.util.Optional;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import JustGrades.app.repository.GradeRepository;
 import JustGrades.app.repository.StudentRepository;
 import jakarta.validation.Valid;
 
+@Tag(name = "Grades", description = "Endpoints for managing student grades")
 @RestController
 public class GradeController {
     Logger logger = LoggerFactory.getLogger(CourseController.class);
@@ -35,11 +38,13 @@ public class GradeController {
     @Autowired
     private CourseRepository courseRepository;
 
+    @Operation(summary = "Get list of grades for a course, ordered by student last name")
     @GetMapping("/course/{id}/grades")
     public List<Grade> getGradesList(@PathVariable("id") long courseId) {
         return gradeRepository.findByCourseIdOrderByStudentLastNameAsc(courseId);
     }
 
+    @Operation(summary = "Delete a specific grade by course ID and grade ID")
     @DeleteMapping("/course/{courseId}/grades/{gradeId}")
     public ResponseEntity<String> deleteGrade(@PathVariable("courseId") long courseId, @PathVariable("gradeId") long gradeId) {
         try {
@@ -52,6 +57,7 @@ public class GradeController {
         }
     }
 
+    @Operation(summary = "Add a new grade for a student in a given course")
     @PostMapping("/course/{courseId}/addgrades")
     public ResponseEntity<String> addGrade(@RequestBody @Valid GradeInput gradeIn, @PathVariable("courseId") Long courseId, BindingResult result) {
         if (result.hasErrors()) {
