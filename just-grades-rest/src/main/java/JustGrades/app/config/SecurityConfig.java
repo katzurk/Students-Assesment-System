@@ -53,7 +53,9 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/login", "/register", "/error",
                                     "/courses", "/courses/*", "/addcourse",
-                                        "/student/**", "/student-info/**", "/course/**", "/registration/**").permitAll()
+                                        "/student/**", "/student-info/**", "/course/**",
+                                        "/registration/**", "/v3/api-docs/**", "/swagger-ui/**",
+                                        "/swagger-ui.html").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex
