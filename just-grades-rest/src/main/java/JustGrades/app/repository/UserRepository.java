@@ -19,14 +19,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(@Param("email") String email);
 
     User findUserByUserId(long l);
-
-    @Modifying
-    @Transactional
-    @Query(value = "CALL open_semester()", nativeQuery = true)
-    void openSemester();
-
-    @Modifying
-    @Transactional
-    @Query(value = "CALL close_semester()", nativeQuery = true)
-    void closeSemester();
 }

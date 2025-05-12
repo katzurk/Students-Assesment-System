@@ -59,6 +59,28 @@ export default function Home() {
             setError(err.message);
         }
     };
+
+    const handleCloseAllCourses = async () => {
+        setMessage(null);
+        setError(null);
+        try {
+            const response = await fetch("http://localhost:8080/api/admin/close-all-courses", {
+                method: "POST",
+                credentials: "include"
+            });
+    
+            const text = await response.text();
+    
+            if (text.includes("ORA-20001")) {
+                throw new Error(cleanOracleError(text));
+            }
+    
+            setMessage(text);
+        } catch (err: any) {
+            setError(err.message);
+        }
+    };
+    
     
     
     return (
@@ -80,7 +102,7 @@ export default function Home() {
 
                 <button className={styles.button} onClick={handleOpenSemester}>Open Semester</button>
                 <button className={styles.button} onClick={handleCloseSemester}>Close Semester</button>
-                <button className={styles.button}>Close All Courses</button>
+                <button className={styles.button} onClick={handleCloseAllCourses}>Close All Courses</button>
 
                 {message && <p style={{ color: "green", marginTop: "16px" }}>{message}</p>}
                 {error && <p style={{ color: "red", marginTop: "16px" }}>{error}</p>}
