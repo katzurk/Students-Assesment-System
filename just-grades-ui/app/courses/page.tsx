@@ -2,6 +2,7 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from './CoursesTable.module.css';
 import React from 'react';
+import axios from 'axios';
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 
 interface CompletionRequirement {
@@ -188,13 +189,8 @@ export default function CoursesTable() {
 
   const openRegistration = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8080/courses/${id}/open-registration`, {
-        method: "POST",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to open registration.");
-      }
-      alert("Registration opened successfully.");
+      const response = await axios.post("http://localhost:8080/courses/" + id + "/open-registration");
+      alert(response.data);
     } catch (error) {
       alert((error as Error).message);
     }
@@ -202,15 +198,20 @@ export default function CoursesTable() {
 
   const closeRegistration = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8080/courses/${id}/close-registration`, {
-        method: "POST",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to close registration.");
-      }
-      alert("Registration closed successfully.");
+      const response = await axios.post("http://localhost:8080/courses/" + id + "/close-registration");
+      alert(response.data);
     } catch (error) {
       alert((error as Error).message);
+    }
+  };
+
+  const closeCourse = async (id: number) => {
+    try {
+      const response = await axios.post("http://localhost:8080/courses/" + id + "/close");
+      alert(response.data);
+    } catch (error) {
+      console.error('Error closing course:', error);
+      alert('Failed to close course');
     }
   };
 
@@ -269,6 +270,8 @@ export default function CoursesTable() {
                 <Button className={styles.open_button} onClick={() => openRegistration(course.id)}>Open Registration</Button>
                 <br />
                 <Button className={styles.close_button} onClick={() => closeRegistration(course.id)}>Close Registration</Button>
+                <br />
+                <Button className={styles.close_course_button} onClick={() => closeCourse(course.id)}>Close Course</Button>
               </TableCell>
 
             </TableRow>
