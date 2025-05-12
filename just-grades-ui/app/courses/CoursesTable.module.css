@@ -189,3 +189,21 @@
   background: #d32f2f !important; /* тёмно-красный */
   border-color: transparent;
 }
+
+.close_course_button {
+  background: #f49b36 !important; /* красный */
+  color: var(--background) !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 3px !important;
+  border-radius: 128px;
+  justify-content: center;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.close_course_button:hover {
+  background: #f49b36 !important; /* тёмно-красный */
+  border-color: transparent;
+}
