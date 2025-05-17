@@ -31,7 +31,7 @@ CREATE TABLE course_lecturers (
     lecturer_id INTEGER,
     PRIMARY KEY (course_id, lecturer_id),
     CONSTRAINT course_lecturers_course_fk FOREIGN KEY (course_id) REFERENCES courses(course_id),
-    CONSTRAINT course_lecturers_lecturer_fk FOREIGN KEY (lecturer_id) REFERENCES lecturers(user_id)
+    CONSTRAINT course_lecturers_lecturer_fk FOREIGN KEY (lecturer_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE grades (
@@ -42,9 +42,9 @@ CREATE TABLE grades (
     course_id INTEGER,
     student_id INTEGER,
     type VARCHAR2(50),
-    CONSTRAINT grades_lecturer_fk FOREIGN KEY (lecturer_id) REFERENCES lecturers(user_id),
+    CONSTRAINT grades_lecturer_fk FOREIGN KEY (lecturer_id) REFERENCES users(user_id),
     CONSTRAINT grades_course_fk FOREIGN KEY (course_id) REFERENCES courses(course_id),
-    CONSTRAINT grades_student_fk FOREIGN KEY (student_id) REFERENCES students(user_id)
+    CONSTRAINT grades_student_fk FOREIGN KEY (student_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE course_registrations (
@@ -53,7 +53,7 @@ CREATE TABLE course_registrations (
     course_id INTEGER,
     student_id INTEGER,
     CONSTRAINT course_registrations_course_fk FOREIGN KEY (course_id) REFERENCES courses(course_id),
-    CONSTRAINT course_registrations_student_fk FOREIGN KEY (student_id) REFERENCES students(user_id)
+    CONSTRAINT course_registrations_student_fk FOREIGN KEY (student_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE classes (
@@ -78,7 +78,7 @@ CREATE TABLE student_specializations (
     student_id INTEGER,
     PRIMARY KEY (specialization_id, student_id),
     CONSTRAINT student_specializations_spec_fk FOREIGN KEY (specialization_id) REFERENCES specializations(specialization_id),
-    CONSTRAINT student_specializations_student_fk FOREIGN KEY (student_id) REFERENCES students(user_id)
+    CONSTRAINT student_specializations_student_fk FOREIGN KEY (student_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE completion_requirements (
