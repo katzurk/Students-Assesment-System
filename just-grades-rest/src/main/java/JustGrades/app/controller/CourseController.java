@@ -64,6 +64,7 @@ public class CourseController {
         Course course = mapToCourse(courseIn);
         course = courseRepository.save(course);
         mapEnrollRequirements(courseIn, course);
+        mapCompletionRequirements(courseIn, course);
         course = courseRepository.save(course);
 
         return ResponseEntity.ok("Form submitted successfully");
@@ -73,9 +74,6 @@ public class CourseController {
         Course c = new Course();
         c.setEcts(courseIn.getEcts());
         c.setName(courseIn.getName());
-        for (CompletionRequirementInput compReq : courseIn.getCompletionRequirements()) {
-            c.getCompletionRequirements().add(new CompletionRequirement(compReq.getMinScore(), compReq.getType()));
-        }
         return c;
     }
 
@@ -89,6 +87,13 @@ public class CourseController {
                 enrReq.setComplitedCourse(reqCourse);
             }
             course.getEnrollRequirements().add(enrReq);
+        }
+    }
+
+    private void mapCompletionRequirements(CourseInput courseIn, Course course) {
+        for (CompletionRequirementInput comIn : courseIn.getCompletionRequirements()) {
+            CompletionRequirement comReq = new CompletionRequirement(comIn.getMinScore(), comIn.getType(), course.getId());
+            course.getCompletionRequirements().add(comReq);
         }
     }
 }

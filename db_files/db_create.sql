@@ -84,15 +84,15 @@ CREATE TABLE student_specializations (
 CREATE TABLE completion_requirements (
     completion_req_id INTEGER PRIMARY KEY,
     min_score NUMBER,
-    is_mandatory VARCHAR2(20)
+    is_mandatory VARCHAR2(20),
+    course_id INTEGER
 );
 
-CREATE TABLE course_requirement (
+CREATE TABLE enroll_requirements (
+    reg_id INTEGER PRIMARY KEY,
     course_id INTEGER,
-    completion_req_id INTEGER,
-    PRIMARY KEY (course_id, completion_req_id),
-    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE,
-    FOREIGN KEY (completion_req_id) REFERENCES completion_requirements(completion_req_id) ON DELETE CASCADE
+    min_ects NUMBER,
+    COMPLITED_COURSE_ID INTEGER
 );
 
 CREATE TABLE semester_ects (

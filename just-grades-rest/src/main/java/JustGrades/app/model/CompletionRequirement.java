@@ -25,11 +25,15 @@ public class CompletionRequirement {
     @NotBlank(message = "type is mandatory")
     private String type;
 
+    @Column(name = "course_id")
+    private Long courseId;
+
     public CompletionRequirement() {
     }
 
-    public CompletionRequirement(int minScore, String type) {
+    public CompletionRequirement(int minScore, String type, Long courseId) {
         this.minScore = minScore;
         this.type = type;
+        this.courseId = courseId;
     }
 }
