@@ -4,21 +4,11 @@ CREATE TABLE users (
     last_name VARCHAR2(50),
     email VARCHAR2(100),
     password VARCHAR2(255),
-    role_name VARCHAR2(255)
-);
-
-CREATE TABLE lecturers (
-    user_id INTEGER PRIMARY KEY,
+    role_name VARCHAR2(255),
     academic_title VARCHAR2(50),
-    CONSTRAINT lecturers_users_fk FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
-
-CREATE TABLE students (
-    user_id INTEGER PRIMARY KEY,
     student_number VARCHAR2(20) UNIQUE,
     status VARCHAR2(50),
-    library_card_number VARCHAR2(20),
-    CONSTRAINT students_users_fk FOREIGN KEY (user_id) REFERENCES users(user_id)
+    library_card_number VARCHAR2(20)
 );
 
 CREATE TABLE courses (

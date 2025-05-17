@@ -8,12 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "students")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name = "user_id")
+@DiscriminatorValue("STUDENT")
 public class Student extends User {
     @Column(name = "student_number")
     @NotBlank(message = "student number is mandatory")
@@ -26,4 +25,8 @@ public class Student extends User {
     @Column(name = "library_card_number")
     @NotBlank(message = "value is mandatory")
     private String libraryCardNumber;
+
+    @Transient
+    @Enumerated(EnumType.STRING)
+    protected Role role = Role.STUDENT;
 }
