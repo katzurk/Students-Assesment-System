@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -40,9 +38,9 @@ public class User {
     @NotBlank(message = "password is mandatory")
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
-    @JoinColumn(name = "role_id")
+    @Column(name = "role_name")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override

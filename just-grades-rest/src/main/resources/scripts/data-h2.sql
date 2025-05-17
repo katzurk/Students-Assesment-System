@@ -1,8 +1,8 @@
 -- SELECT NEXT VALUE FOR USERS_SEQ;
 INSERT INTO roles (role_id, role_name) VALUES
-    (1, 'ROLE_STUDENT'),
-    (2, 'ROLE_LECTURER'),
-    (3, 'ROLE_ADMIN');
+    (1, 'STUDENT'),
+    (2, 'LECTURER'),
+    (3, 'ADMIN');
 
 SELECT NEXT VALUE FOR USERS_SEQ;
 INSERT INTO USERS

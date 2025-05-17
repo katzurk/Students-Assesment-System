@@ -1,28 +1,26 @@
 package JustGrades.app.controller;
 
-import JustGrades.app.model.Grade;
-import JustGrades.app.model.Student;
-import JustGrades.app.model.Course;
-import JustGrades.app.repository.CourseRegistrationRepository;
-import JustGrades.app.repository.GradeRepository;
-import JustGrades.app.repository.StudentRepository;
-import JustGrades.app.services.StudentService;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-import java.util.Map;
-
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import JustGrades.app.model.Course;
+import JustGrades.app.model.Student;
+import JustGrades.app.repository.CourseRegistrationRepository;
+import JustGrades.app.services.StudentService;
 
 @SpringBootTest
 @AutoConfigureMockMvc

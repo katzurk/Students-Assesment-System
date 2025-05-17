@@ -38,7 +38,7 @@ class AuthControllerTest {
         User mockUser = new User();
         mockUser.setEmail("test@test.com");
         mockUser.setPassword("password");
-        mockUser.setRole(new Role("ROLE_STUDENT"));
+        mockUser.setRole(Role.STUDENT);
 
         when(authenticationManager.authenticate(any())).thenReturn(mock(Authentication.class));
         when(userService.findByEmail("test@test.com")).thenReturn(mockUser);
@@ -47,7 +47,7 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\": \"test@test.com\", \"password\": \"password\"}"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("ROLE_STUDENT"));
+                .andExpect(content().string("STUDENT"));
     }
 
     @Test
@@ -96,7 +96,7 @@ class AuthControllerTest {
                           "password": "password",
                           "firstName": "Anna",
                           "lastName": "Nowak",
-                          "role": "ROLE_STUDENT"
+                          "role": "STUDENT"
                         }
                     """))
                 .andExpect(status().isOk())
@@ -115,7 +115,7 @@ class AuthControllerTest {
                         {
                           "email": "existing@test.com",
                           "password": "password",
-                          "role": "ROLE_STUDENT"
+                          "role": "STUDENT"
                         }
                     """))
                 .andExpect(status().isOk())

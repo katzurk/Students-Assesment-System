@@ -15,7 +15,7 @@ BEGIN
   SET status = 'closed registration'
   WHERE course_id = (SELECT MIN(course_id) FROM courses);
 
-  DELETE FROM course_registrations 
+  DELETE FROM course_registrations
   WHERE course_id = (SELECT MIN(course_id) FROM courses);
 
   DECLARE
@@ -110,7 +110,7 @@ BEGIN
     INSERT INTO course_registrations (course_id, student_id)
     VALUES ((SELECT MIN(course_id) FROM courses), i);
   END LOOP;
-  
+
   open_semester;
 
   DECLARE
@@ -385,7 +385,7 @@ BEGIN
 
     UPDATE courses
     SET status = 'closed registration'
-    WHERE MOD(course_id, 2) = 0; 
+    WHERE MOD(course_id, 2) = 0;
 
     BEGIN
       close_semester;
@@ -402,7 +402,7 @@ END;
 
 
 -----------------------------------------------------
--- TESTS TO TRIGGER update_avg_grade_after_closing  
+-- TESTS TO TRIGGER update_avg_grade_after_closing
 -----------------------------------------------------
 
 --TEST 1: Checking the recalculation of the average grade when there are several FINAL grades
@@ -424,7 +424,7 @@ BEGIN
     SELECT grade INTO v_avg_grade
     FROM grades
     WHERE student_id = 101 AND type = 'AVG';
-  
+
     IF v_avg_grade = 85 THEN
       DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED: AVG grade correctly recalculated.');
     ELSE
@@ -539,12 +539,12 @@ END;
 -------------------------------------
 -- TESTS TO TRIGGER add_avg_grade
 -------------------------------------
--- TEST 1: User with role_id = 1 ➔ a row should be added to grades
+-- TEST 1: User with role_name = STUDENT ➔ a row should be added to grades
 BEGIN
   SAVEPOINT test1_start;
 
-  INSERT INTO users (user_id, role_id, first_name)
-  VALUES (99901, 1, 'test_student');
+  INSERT INTO users (user_id, role_name, first_name)
+  VALUES (99901, 'STUDENT', 'test_student');
 
   DECLARE
     v_count NUMBER;
@@ -567,12 +567,12 @@ END;
 /
 
 
--- TEST 2: User with role_id ≠ 1 ➔ should not add an entry to grades
+-- TEST 2: User with role_name ≠ STUDENT ➔ should not add an entry to grades
 BEGIN
   SAVEPOINT test2_start;
 
-  INSERT INTO users (user_id, role_id, first_name)
-  VALUES (99902, 2, 'test_teacher');
+  INSERT INTO users (user_id, role_name, first_name)
+  VALUES (99902, 'LECTURER', 'test_teacher');
 
   DECLARE
     v_count NUMBER;
@@ -599,11 +599,11 @@ END;
 BEGIN
   SAVEPOINT test3_start;
 
-  INSERT INTO users (user_id, role_id, first_name)
-  VALUES (99903, 1, 'student_one');
+  INSERT INTO users (user_id, role_name, first_name)
+  VALUES (99903, 'STUDENT', 'student_one');
 
-  INSERT INTO users (user_id, role_id, first_name)
-  VALUES (99904, 1, 'student_two');
+  INSERT INTO users (user_id, role_name, first_name)
+  VALUES (99904, 'STUDENT', 'student_two');
 
   DECLARE
     v_count NUMBER;
@@ -630,8 +630,8 @@ END;
 BEGIN
   SAVEPOINT test4_start;
 
-  INSERT INTO users (user_id, role_id, first_name)
-  VALUES (99905, 1, 'student_test');
+  INSERT INTO users (user_id, role_name, first_name)
+  VALUES (99905, 'STUDENT', 'student_test');
 
   DECLARE
     v_grade NUMBER;
@@ -940,12 +940,12 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('TEST 1 FAILED: Course status is ' || v_status);
     END IF;
   END;
-  
+
   delete from course_requirement where course_id = 9001;
   delete from course_registrations where course_id = 9001;
   delete from courses where course_id = 9001;
   delete from completion_requirements where completion_req_id = 10001;
-  
+
   ROLLBACK;
 END;
 /
@@ -1010,7 +1010,7 @@ BEGIN
 
   INSERT INTO course_requirement (course_id, completion_req_id)
   VALUES (9003, 10003);
-  
+
   FOR i IN 1..15 LOOP
     INSERT INTO users (user_id)
     VALUES (3000 + i);
@@ -1097,7 +1097,7 @@ BEGIN
   INSERT INTO course_requirement (course_id, completion_req_id) VALUES (99101, 910001);
 
   FOR i IN 1..10 LOOP
-    INSERT INTO users (user_id, role_id) VALUES (103000 + i, 1);
+    INSERT INTO users (user_id, role_name) VALUES (103000 + i, 'STUDENT');
     INSERT INTO students (user_id) VALUES (103000 + i);
     INSERT INTO student_specializations (student_id, specialization_id) VALUES (103000 + i, 99501);
     INSERT INTO grades (grade_id, student_id, type, grade)
@@ -1135,7 +1135,7 @@ BEGIN
   INSERT INTO courses_special (course_id, specialization_id) VALUES (99102, 99502);
 
   FOR i IN 1..10 LOOP
-    INSERT INTO users (user_id, role_id) VALUES (104000 + i, 1);
+    INSERT INTO users (user_id, role_name) VALUES (104000 + i, 'STUDENT');
     INSERT INTO students (user_id) VALUES (104000 + i);
     INSERT INTO grades (grade_id, student_id, type, grade)
       VALUES (300 + i, 104000 + i, 'AVG', 3 + MOD(i, 2));
@@ -1172,7 +1172,7 @@ BEGIN
   INSERT INTO courses_special (course_id, specialization_id) VALUES (99103, 99503);
 
   FOR i IN 1..20 LOOP
-    INSERT INTO users (user_id, role_id) VALUES (105000 + i, 1);
+    INSERT INTO users (user_id, role_name) VALUES (105000 + i, 'STUDENT');
     INSERT INTO students (user_id) VALUES (105000 + i);
     INSERT INTO student_specializations (student_id, specialization_id) VALUES (105000 + i, 99503);
     INSERT INTO grades (grade_id, student_id, type, grade)
@@ -1212,7 +1212,7 @@ BEGIN
   INSERT INTO courses_special (course_id, specialization_id) VALUES (99104, 99505);
 
   FOR i IN 1..10 LOOP
-    INSERT INTO users (user_id, role_id) VALUES (106000 + i, 1);
+    INSERT INTO users (user_id, role_name) VALUES (106000 + i, 'STUDENT');
     INSERT INTO students (user_id) VALUES (106000 + i);
     IF MOD(i, 2) = 0 THEN
       INSERT INTO student_specializations (student_id, specialization_id) VALUES (106000 + i, 99504);

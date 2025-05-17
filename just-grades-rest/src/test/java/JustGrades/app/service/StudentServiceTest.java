@@ -247,8 +247,7 @@ public class StudentServiceTest {
         user.setLastName("Nowak");
         user.setEmail("anna@test.com");
         user.setPassword("secret");
-        Role role = new Role("ROLE_STUDENT");
-        user.setRole(role);
+        user.setRole(Role.STUDENT);
 
 
         Student savedStudent = new Student();

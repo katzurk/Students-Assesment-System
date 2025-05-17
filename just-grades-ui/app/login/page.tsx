@@ -24,13 +24,13 @@ export default function LoginPage() {
 
             // ✅ ZAMIANA window.location.href → router.push
             switch (role) {
-                case 'ROLE_STUDENT':
+                case 'STUDENT':
                     router.push('/student-info');
                     break;
-                case 'ROLE_LECTURER':
+                case 'LECTURER':
                     router.push('/courses');
                     break;
-                case 'ROLE_ADMIN':
+                case 'ADMIN':
                     router.push('/admin');
                     break;
                 default:

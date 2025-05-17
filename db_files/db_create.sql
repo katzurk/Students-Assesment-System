@@ -1,16 +1,10 @@
-CREATE TABLE roles (
-    role_id INTEGER PRIMARY KEY,
-    role_name VARCHAR2(50) UNIQUE NOT NULL
-);
-
 CREATE TABLE users (
     user_id INTEGER PRIMARY KEY,
     first_name VARCHAR2(50),
     last_name VARCHAR2(50),
     email VARCHAR2(100),
     password VARCHAR2(255),
-    role_id INTEGER,
-    CONSTRAINT users_roles_fk FOREIGN KEY (role_id) REFERENCES roles(role_id)
+    role_name VARCHAR2(255)
 );
 
 CREATE TABLE lecturers (
