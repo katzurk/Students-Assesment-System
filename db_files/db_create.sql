@@ -8,7 +8,8 @@ CREATE TABLE users (
     academic_title VARCHAR2(50),
     student_number VARCHAR2(20) UNIQUE,
     status VARCHAR2(50),
-    library_card_number VARCHAR2(20)
+    library_card_number VARCHAR2(20),
+    specialization VARCHAR2(255)
 );
 
 CREATE TABLE courses (
@@ -20,10 +21,9 @@ CREATE TABLE courses (
 
 CREATE TABLE courses_special (
     course_id INTEGER,
-    specialization_id INTEGER,
-    PRIMARY KEY (course_id, specialization_id),
-    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE,
-    FOREIGN KEY (specialization_id) REFERENCES specializations(specialization_id) ON DELETE CASCADE
+    specialization VARCHAR2(255),
+    PRIMARY KEY (course_id, specialization),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 );
 
 CREATE TABLE course_lecturers (
@@ -68,18 +68,6 @@ CREATE TABLE classes (
     CONSTRAINT classes_course_fk FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
 
-CREATE TABLE specializations (
-    specialization_id INTEGER PRIMARY KEY,
-    name VARCHAR2(100)
-);
-
-CREATE TABLE student_specializations (
-    specialization_id INTEGER,
-    student_id INTEGER,
-    PRIMARY KEY (specialization_id, student_id),
-    CONSTRAINT student_specializations_spec_fk FOREIGN KEY (specialization_id) REFERENCES specializations(specialization_id),
-    CONSTRAINT student_specializations_student_fk FOREIGN KEY (student_id) REFERENCES users(user_id)
-);
 
 CREATE TABLE completion_requirements (
     completion_req_id INTEGER PRIMARY KEY,
@@ -99,8 +87,7 @@ CREATE TABLE semester_ects (
     semester_ects_id INTEGER PRIMARY KEY,
     semester INTEGER,
     ects_amount INTEGER,
-    specialization_id INTEGER,
-    CONSTRAINT semester_ects_specialization_fk FOREIGN KEY (specialization_id) REFERENCES specializations(specialization_id)
+    specialization  varchar2(255)
 );
 
 

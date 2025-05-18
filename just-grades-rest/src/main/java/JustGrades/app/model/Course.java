@@ -47,11 +47,7 @@ public class Course {
     @NotNull(message = "at least one completion requirement is mandatory")
     private Set<CompletionRequirement> completionRequirements = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "courses_special",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "specialization_id")
-    )
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "courseId", cascade = CascadeType.ALL,  orphanRemoval = true)
     private Set<Specialization> specializations = new HashSet<>();
 
 

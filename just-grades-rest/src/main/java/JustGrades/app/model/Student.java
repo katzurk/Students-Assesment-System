@@ -26,6 +26,9 @@ public class Student extends User {
     @NotBlank(message = "value is mandatory")
     private String libraryCardNumber;
 
+    @Column (name = "specialization")
+    private String specializationName;
+
     @Transient
     @Enumerated(EnumType.STRING)
     protected Role role = Role.STUDENT;

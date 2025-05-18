@@ -48,5 +48,11 @@
 1747520046345|62|statement|select s1_0.course_id,s1_1.specialization_id,s1_1.name from courses_special s1_0 join specializations s1_1 on s1_1.specialization_id=s1_0.specialization_id where s1_0.course_id=2033
 1747520046419|52|rollback|
 
--------- Course 3
+-------- Course 3 - deleted specializations and made courses_special as OnetoMany
 
+1747581133333|133|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,er1_0.complited_course_id,er1_0.min_ects,c1_0.name,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id order by c1_0.name
+1747581134326|63|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=41
+1747581134378|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2033
+1747581134443|47|rollback|
+
+--------

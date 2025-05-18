@@ -17,13 +17,13 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "SPECIALIZATIONS")
+@Table(name = "COURSES_SPECIAL")
 public class Specialization {
     @Id
-    @Column(name = "SPECIALIZATION_ID")
+    @Column(name = "COURSE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long specializationId;
+    private Long courseId;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "SPECIALIZATION", nullable = false, unique = true)
     private String name;
 }

@@ -19,8 +19,8 @@ BEGIN
   WHERE course_id = (SELECT MIN(course_id) FROM courses);
 
   DECLARE
-    CURSOR cur_students IS SELECT user_id FROM students WHERE ROWNUM <= 10;
-    v_student_id students.user_id%TYPE;
+    CURSOR cur_students IS SELECT user_id FROM users WHERE ROWNUM <= 10;
+    v_student_id users.user_id%TYPE;
     v_course_id courses.course_id%TYPE;
   BEGIN
     SELECT MIN(course_id) INTO v_course_id FROM courses;
@@ -770,11 +770,8 @@ BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
   VALUES (9001, 'Test Course 1', 6, 'active');
 
-  INSERT INTO completion_requirements (completion_req_id, min_score, type)
-  VALUES (6001, 30, 'exam');
-
-  INSERT INTO course_requirement (course_id, completion_req_id)
-  VALUES (9001, 6001);
+  INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id)
+  VALUES (6001, 30, 'exam', 9001);
 
   INSERT INTO grades (grade_id, student_id, course_id, grade, type)
   VALUES (grades_seq.NEXTVAL, 1001, 9001, 10, 'EXAM');
@@ -809,11 +806,8 @@ BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
   VALUES (9002, 'Test Course 2', 6, 'active');
 
-  INSERT INTO completion_requirements (completion_req_id, min_score, type)
-  VALUES (6002, 25, 'exam');
-
-  INSERT INTO course_requirement (course_id, completion_req_id)
-  VALUES (9002, 6002);
+  INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id)
+  VALUES (6002, 25, 'exam', 9002);
 
   INSERT INTO grades (grade_id, student_id, course_id, grade, type)
   VALUES (grades_seq.NEXTVAL, 1002, 9002, 25, 'PROJECT');
@@ -848,11 +842,8 @@ BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
   VALUES (9003, 'Test Course 3', 6, 'active');
 
-  INSERT INTO completion_requirements (completion_req_id, min_score, type)
-  VALUES (6003, 20, 'exam');
-
-  INSERT INTO course_requirement (course_id, completion_req_id)
-  VALUES (9003, 6003);
+  INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id)
+  VALUES (6003, 20, 'exam', 9003);
 
   INSERT INTO grades (grade_id, student_id, course_id, grade, type)
   VALUES (grades_seq.NEXTVAL, 1003, 9003, 38, 'PROJECT');
@@ -916,11 +907,8 @@ BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
   VALUES (9001, 'Test Course 1', 5, 'active');
 
-  INSERT INTO completion_requirements (completion_req_id, min_score, type)
-  VALUES (10001, 20, 'exam');
-
-  INSERT INTO course_requirement (course_id, completion_req_id)
-  VALUES (9001, 10001);
+  INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id)
+  VALUES (10001, 20, 'exam', 9001);
 
   FOR i IN 1..5 LOOP
     INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
@@ -956,19 +944,11 @@ BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
   VALUES (9002, 'Test Course 2', 5, 'closed');
 
-  INSERT INTO completion_requirements (completion_req_id, min_score, type)
-  VALUES (10002, 20, 'exam');
-
-  INSERT INTO course_requirement (course_id, completion_req_id)
-  VALUES (9002, 10002);
+  INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id)
+  VALUES (10002, 20, 'exam', 9002);
 
   FOR i IN 1..10 LOOP
     INSERT INTO users (user_id)
-    VALUES (2000 + i);
-  END LOOP;
-
-  FOR i IN 1..10 LOOP
-    INSERT INTO students (user_id)
     VALUES (2000 + i);
   END LOOP;
 
@@ -994,7 +974,6 @@ BEGIN
   delete from course_registrations where course_id = 9002;
   delete from courses where course_id = 9002;
   delete from completion_requirements where completion_req_id = 10002;
-  delete from students where user_id between 2001 and 2010;
   delete from users where user_id between 2001 and 2010;
 END;
 /
@@ -1005,19 +984,11 @@ BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
   VALUES (9003, 'Test Course 2', 5, 'closed');
 
-  INSERT INTO completion_requirements (completion_req_id, min_score, type)
-  VALUES (10003, 20, 'exam');
-
-  INSERT INTO course_requirement (course_id, completion_req_id)
-  VALUES (9003, 10003);
+  INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id)
+  VALUES (10003, 20, 'exam', 9003);
 
   FOR i IN 1..15 LOOP
     INSERT INTO users (user_id)
-    VALUES (3000 + i);
-  END LOOP;
-
-  FOR i IN 1..15 LOOP
-    INSERT INTO students (user_id)
     VALUES (3000 + i);
   END LOOP;
 
@@ -1044,7 +1015,6 @@ BEGIN
   delete from course_registrations where course_id = 9003;
   delete from courses where course_id = 9003;
   delete from completion_requirements where completion_req_id = 10003;
-  delete from students where user_id between 3001 and 3015;
   delete from users where user_id between 3001 and 3015;
 END;
 /
@@ -1056,11 +1026,8 @@ BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
   VALUES (9004, 'Test Course 4', 5, 'active');
 
-  INSERT INTO completion_requirements (completion_req_id, min_score, type)
-  VALUES (10004, 20, 'exam');
-
-  INSERT INTO course_requirement (course_id, completion_req_id)
-  VALUES (9004, 10004);
+  INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id)
+  VALUES (10004, 20, 'exam', 9004);
 
   EXECUTE IMMEDIATE 'BEGIN close_registration(9004); END;';
 
@@ -1090,16 +1057,13 @@ BEGIN
   SAVEPOINT test1_start;
 
   INSERT INTO courses (course_id, name, ects_points, status) VALUES (99101, 'Test Course 1', 5, 'closed');
-  INSERT INTO specializations (specialization_id, name) VALUES (99501, 'TestSpec1');
-  INSERT INTO courses_special (course_id, specialization_id) VALUES (99101, 99501);
+  INSERT INTO courses_special (course_id, specialization) VALUES (99101, 'TestSpec1');
 
-  INSERT INTO completion_requirements (completion_req_id, min_score, type) VALUES (910001, 20, 'exam');
-  INSERT INTO course_requirement (course_id, completion_req_id) VALUES (99101, 910001);
+  INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id) VALUES (910001, 20, 'exam', 99101);
 
   FOR i IN 1..10 LOOP
     INSERT INTO users (user_id, role_name) VALUES (103000 + i, 'STUDENT');
-    INSERT INTO students (user_id) VALUES (103000 + i);
-    INSERT INTO student_specializations (student_id, specialization_id) VALUES (103000 + i, 99501);
+    INSERT INTO users (user_id, specialization) VALUES (103000 + i, 'TestSpec1');
     INSERT INTO grades (grade_id, student_id, type, grade)
       VALUES (30+i, 103000 + i, 'AVG', 3 + MOD(i, 3));
     INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
@@ -1131,12 +1095,10 @@ BEGIN
   SAVEPOINT test2_start;
 
   INSERT INTO courses (course_id, name, ects_points, status) VALUES (99102, 'Test Course 2', 5, 'closed');
-  INSERT INTO specializations (specialization_id, name) VALUES (99502, 'Spec2');
-  INSERT INTO courses_special (course_id, specialization_id) VALUES (99102, 99502);
+  INSERT INTO courses_special (course_id, specialization) VALUES (99102, 'Spec2');
 
   FOR i IN 1..10 LOOP
     INSERT INTO users (user_id, role_name) VALUES (104000 + i, 'STUDENT');
-    INSERT INTO students (user_id) VALUES (104000 + i);
     INSERT INTO grades (grade_id, student_id, type, grade)
       VALUES (300 + i, 104000 + i, 'AVG', 3 + MOD(i, 2));
     INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
@@ -1168,13 +1130,10 @@ BEGIN
   SAVEPOINT test3_start;
 
   INSERT INTO courses (course_id, name, ects_points, status) VALUES (99103, 'Test Course 3', 5, 'closed');
-  INSERT INTO specializations (specialization_id, name) VALUES (99503, 'Spec3');
-  INSERT INTO courses_special (course_id, specialization_id) VALUES (99103, 99503);
+  INSERT INTO courses_special (course_id, specialization) VALUES (99103, 'Spec3');
 
   FOR i IN 1..20 LOOP
-    INSERT INTO users (user_id, role_name) VALUES (105000 + i, 'STUDENT');
-    INSERT INTO students (user_id) VALUES (105000 + i);
-    INSERT INTO student_specializations (student_id, specialization_id) VALUES (105000 + i, 99503);
+    INSERT INTO users (user_id, role_name, specialization) VALUES (105000 + i, 'STUDENT', 'Spec2');
     INSERT INTO grades (grade_id, student_id, type, grade)
       VALUES (400 + i, 105000 + i, 'AVG', 2 + MOD(i, 4)); -- Разные оценки
     INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
@@ -1206,18 +1165,14 @@ BEGIN
   SAVEPOINT test4_start;
 
   INSERT INTO courses (course_id, name, ects_points, status) VALUES (99104, 'Test Course 4', 5, 'closed');
-  INSERT INTO specializations (specialization_id, name) VALUES (99504, 'Spec4a');
-  INSERT INTO specializations (specialization_id, name) VALUES (99505, 'Spec4b');
-  INSERT INTO courses_special (course_id, specialization_id) VALUES (99104, 99504);
-  INSERT INTO courses_special (course_id, specialization_id) VALUES (99104, 99505);
+  INSERT INTO courses_special (course_id, specialization) VALUES (99104, 'Spec4a');
+  INSERT INTO courses_special (course_id, specialization) VALUES (99104, 'Spec4b');
 
   FOR i IN 1..10 LOOP
-    INSERT INTO users (user_id, role_name) VALUES (106000 + i, 'STUDENT');
-    INSERT INTO students (user_id) VALUES (106000 + i);
     IF MOD(i, 2) = 0 THEN
-      INSERT INTO student_specializations (student_id, specialization_id) VALUES (106000 + i, 99504);
+      INSERT INTO users (user_id, role_name, specialization) VALUES (106000 + i, 'STUDENT', 'Spec4a');
     ELSE
-      INSERT INTO student_specializations (student_id, specialization_id) VALUES (106000 + i, 99505);
+      INSERT INTO users (user_id, specialization) VALUES (106000 + i, 'STUDENT', 'Spec4b');
     END IF;
     INSERT INTO grades (grade_id, student_id, type, grade)
       VALUES (500 + i, 106000 + i, 'AVG', 3 + MOD(i, 2));
@@ -1249,8 +1204,7 @@ BEGIN
   SAVEPOINT test5_start;
 
   INSERT INTO courses (course_id, name, ects_points, status) VALUES (99105, 'Test Course 5', 5, 'closed');
-  INSERT INTO specializations (specialization_id, name) VALUES (99506, 'Spec5');
-  INSERT INTO courses_special (course_id, specialization_id) VALUES (99105, 99506);
+  INSERT INTO courses_special (course_id, specialization_id) VALUES (99105, 'Spec5');
 
   UPDATE courses SET status = 'active' WHERE course_id = 99105;
 
