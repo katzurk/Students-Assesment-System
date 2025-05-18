@@ -119,6 +119,8 @@ export default function CoursesTable() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [openPanel, setOpenPanel] = useState<number | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  const [messageType, setMessageType] = useState<"success" | "error" | null>(null);
 
   useEffect(() => {
     fetch('http://localhost:8080/courses')
@@ -137,6 +139,16 @@ export default function CoursesTable() {
         setLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    if (message) {
+      const timeout = setTimeout(() => {
+        setMessage(null);
+        setMessageType(null);
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [message]);
 
   if (loading) return <Typography>Loading data...</Typography>;
   if (error) return <Typography>--Error: {error}</Typography>;
@@ -173,6 +185,8 @@ export default function CoursesTable() {
             .then((data) => {
               setCourses(data || []);
               setLoading(false);
+              setMessage("Course successfully deleted");
+              setMessageType("success");
             })
             .catch((error) => {
               setError(error.message);
@@ -180,7 +194,8 @@ export default function CoursesTable() {
             });
         })
         .catch((error) => {
-          alert(error.message);
+          setMessage(error.message);
+          setMessageType("error");
         });
     } catch (error) {
       console.error("Error:", error);
@@ -189,37 +204,87 @@ export default function CoursesTable() {
 
   const openRegistration = async (id: number) => {
     try {
-      const response = await axios.post("http://localhost:8080/courses/" + id + "/open-registration");
-      alert(response.data);
+      const response = await fetch(`http://localhost:8080/courses/${id}/open-registration`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to open registration');
+      }
+  
+      const data = await response.json();
+      setMessage(data.message || 'Registration successfully opened');
+      setMessageType('success');
     } catch (error) {
-      alert((error as Error).message);
+      setMessage(error instanceof Error ? error.message : 'Unknown error occurred');
+      setMessageType('error');
     }
   };
-
+  
   const closeRegistration = async (id: number) => {
     try {
-      const response = await axios.post("http://localhost:8080/courses/" + id + "/close-registration");
-      alert(response.data);
+      const response = await fetch(`http://localhost:8080/courses/${id}/close-registration`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to close registration');
+      }
+  
+      const data = await response.json();
+      setMessage(data.message || 'Registration successfully closed');
+      setMessageType('success');
     } catch (error) {
-      alert((error as Error).message);
+      setMessage(error instanceof Error ? error.message : 'Unknown error occurred');
+      setMessageType('error');
     }
   };
-
+  
   const closeCourse = async (id: number) => {
     try {
-      const response = await axios.post("http://localhost:8080/courses/" + id + "/close");
-      alert(response.data);
+      const response = await fetch(`http://localhost:8080/courses/${id}/close`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to close course');
+      }
+  
+      const data = await response.json();
+      setMessage(data.message || 'Course successfully closed');
+      setMessageType('success');
     } catch (error) {
-      console.error('Error closing course:', error);
-      alert('Failed to close course');
+      setMessage(error instanceof Error ? error.message : 'Unknown error occurred');
+      setMessageType('error');
     }
   };
-
-
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Courses list</h1>
+      {message && (
+        <p style={{ 
+          color: messageType === "success" ? "green" : "red",
+          margin: "10px 0",
+          padding: "10px",
+          border: `1px solid ${messageType === "success" ? "green" : "red"}`,
+          borderRadius: "4px"
+        }}>
+          {message}
+        </p>
+      )}
       <Button
         className={styles.add_button}
         href="/addcourse"
@@ -273,7 +338,6 @@ export default function CoursesTable() {
                 <br />
                 <Button className={styles.close_course_button} onClick={() => closeCourse(course.id)}>Close Course</Button>
               </TableCell>
-
             </TableRow>
           ))}
         </TableBody>
