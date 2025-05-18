@@ -122,7 +122,7 @@ FOR EACH ROW
 DECLARE
     new_grade_id NUMBER;
 BEGIN
-    IF :NEW.role_id = 1 THEN
+    IF :NEW.role_name = 'STUDENT' THEN
         SELECT NVL(MAX(grade_id), 0) + 1 INTO new_grade_id FROM grades;
         INSERT INTO grades(grade_id, student_id, type, grade, received_date)
         VALUES (new_grade_id, :NEW.user_id, 'AVG', 0, SYSDATE);
@@ -191,7 +191,7 @@ BEGIN
         WHERE cr.course_id = :NEW.course_id;
     EXCEPTION
         WHEN NO_DATA_FOUND THEN
-            RAISE_APPLICATION_ERROR(-20010, 'No course requirement defined for this course.');
+            RAISE_APPLICATION_ERROR(-20010, 'No completion requirement defined for this course.');
     END;
 
     v_max_score := (v_min_score - 1) * 2;

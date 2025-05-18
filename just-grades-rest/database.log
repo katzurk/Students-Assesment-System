@@ -56,3 +56,485 @@
 1747581134443|47|rollback|
 
 --------
+1747581498190|74|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,er1_0.complited_course_id,er1_0.min_ects,c1_0.name,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id order by c1_0.name
+1747581499067|56|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=41
+1747581499121|52|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2033
+1747581499185|50|rollback|
+1747581499379|67|statement|select u1_0.user_id,u1_0.role_name,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.academic_title,u1_0.library_card_number,u1_0.specialization,u1_0.status,u1_0.student_number from users u1_0
+1747581500100|48|rollback|
+1747581507193|56|statement|select courses_seq.nextval from dual
+1747581507280|54|statement|select users_seq.nextval from dual
+1747581507331|48|statement|select users_seq.nextval from dual
+1747581507387|52|statement|select grades_seq.nextval from dual
+1747581507445|48|statement|select grades_seq.nextval from dual
+1747581507641|66|statement|insert into courses (ects_points,name,status,course_id) values (4,'Science','active',101)
+1747581507874|222|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('student@test.com','John','Zebra','securepass123','LC123456',NULL,'ACTIVE','100','STUDENT',341)
+1747581507964|49|rollback|
+1747581508060|58|statement|select users_seq.nextval from dual
+1747581508111|48|statement|select courses_seq.nextval from dual
+1747581508163|48|statement|select grades_seq.nextval from dual
+1747581508273|101|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('student@test.com','John','Doe','securepass123','LC123456',NULL,'ACTIVE','12345','STUDENT',343)
+1747581508337|51|rollback|
+1747581508654|123|statement|{call get_final_grades_distribution(1,NULL)}
+1747581508798|47|rollback|
+1747581508887|76|statement|{call get_grades_cross_section(1,'FINAL',NULL)}
+1747581508994|48|rollback|
+1747581509373|50|statement|select users_seq.nextval from dual
+1747581509424|49|statement|select courses_seq.nextval from dual
+1747581509484|54|statement|select registration_seq.nextval from dual
+1747581509605|106|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('s3@test.com','First','Last','pass','123',NULL,'active','12345','STUDENT',344)
+1747581509661|48|rollback|
+1747581509756|49|statement|select users_seq.nextval from dual
+1747581509811|48|statement|select courses_seq.nextval from dual
+1747581509861|47|statement|select registration_seq.nextval from dual
+1747581509974|103|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('s1@test.com','First','Last','pass','123',NULL,'active','12345','STUDENT',345)
+1747581510048|47|rollback|
+1747581510136|54|statement|select users_seq.nextval from dual
+1747581510189|51|statement|select courses_seq.nextval from dual
+1747581510243|51|statement|select registration_seq.nextval from dual
+1747581510370|109|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('s4@test.com','First','Last','pass','123',NULL,'active','12345','STUDENT',346)
+1747581510430|48|rollback|
+1747581510503|49|statement|select users_seq.nextval from dual
+1747581510552|48|statement|select courses_seq.nextval from dual
+1747581510602|48|statement|select registration_seq.nextval from dual
+1747581510723|101|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('s2@test.com','First','Last','pass','123',NULL,'active','12345','STUDENT',347)
+1747581510783|52|rollback|
+1747582076131|59|statement|select courses_seq.nextval from dual
+1747582076223|47|statement|select users_seq.nextval from dual
+1747582076275|48|statement|select users_seq.nextval from dual
+1747582076327|48|statement|select grades_seq.nextval from dual
+1747582076381|47|statement|select grades_seq.nextval from dual
+1747582076572|54|statement|insert into courses (ects_points,name,status,course_id) values (4,'Science','active',107)
+1747582076673|97|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('student@test.com','John','Zebra','securepass123','LC123456',NULL,'ACTIVE','100','STUDENT',348)
+1747582076738|47|rollback|
+1747582434558|58|statement|select courses_seq.nextval from dual
+1747582434641|48|statement|select users_seq.nextval from dual
+1747582434692|49|statement|select users_seq.nextval from dual
+1747582434755|58|statement|select grades_seq.nextval from dual
+1747582434812|55|statement|select grades_seq.nextval from dual
+1747582434975|55|statement|insert into courses (ects_points,name,status,course_id) values (4,'Science','active',108)
+1747582435041|63|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('student@test.com','John','Zebra','securepass123','LC123456',NULL,'ACTIVE','100','STUDENT',350)
+1747582435093|49|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('student2@test.com','John','Alpha','securepass123','LC123456',NULL,'ACTIVE','101','STUDENT',351)
+1747582435145|50|statement|insert into grades (course_id,grade,lecturer_id,received_date,student_id,type,grade_id) values (108,3,NULL,NULL,350,NULL,1665)
+1747582435196|50|statement|insert into grades (course_id,grade,lecturer_id,received_date,student_id,type,grade_id) values (108,4,NULL,NULL,351,NULL,1666)
+1747582435326|107|statement|select g1_0.grade_id,g1_0.course_id,g1_0.grade,g1_0.lecturer_id,g1_0.received_date,g1_0.student_id,g1_0.type from grades g1_0 left join courses c1_0 on c1_0.course_id=g1_0.course_id left join (select * from users t where t.role_name='STUDENT') s1_0 on s1_0.user_id=g1_0.student_id where c1_0.course_id=108 order by s1_0.last_name
+1747582435486|49|rollback|
+1747582466759|55|statement|select users_seq.nextval from dual
+1747582466832|50|statement|select courses_seq.nextval from dual
+1747582466896|48|statement|select grades_seq.nextval from dual
+1747582467067|59|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('student@test.com','John','Doe','securepass123','LC123456',NULL,'ACTIVE','12345','STUDENT',352)
+1747582467123|51|statement|insert into courses (ects_points,name,status,course_id) values (4,'Math','active',109)
+1747582467174|48|statement|insert into grades (course_id,grade,lecturer_id,received_date,student_id,type,grade_id) values (109,5,NULL,NULL,352,NULL,1667)
+1747582467269|84|statement|select g1_0.grade_id,g1_0.course_id,g1_0.grade,g1_0.lecturer_id,g1_0.received_date,g1_0.student_id,g1_0.type from grades g1_0 left join (select * from users t where t.role_name='STUDENT') s1_0 on s1_0.user_id=g1_0.student_id left join courses c1_0 on c1_0.course_id=g1_0.course_id where s1_0.email='student@test.com' and c1_0.course_id=109
+1747582467416|53|rollback|
+1747582494992|61|statement|select courses_seq.nextval from dual
+1747582495080|49|statement|select users_seq.nextval from dual
+1747582495133|49|statement|select users_seq.nextval from dual
+1747582495199|51|statement|select grades_seq.nextval from dual
+1747582495264|51|statement|select grades_seq.nextval from dual
+1747582495452|54|statement|insert into courses (ects_points,name,status,course_id) values (4,'Science','active',110)
+1747582495512|49|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('student@test.com','John','Zebra','securepass123','LC123456',NULL,'ACTIVE','100','STUDENT',353)
+1747582495562|49|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('student2@test.com','John','Alpha','securepass123','LC123456',NULL,'ACTIVE','101','STUDENT',354)
+1747582495613|49|statement|insert into grades (course_id,grade,lecturer_id,received_date,student_id,type,grade_id) values (110,3,NULL,NULL,353,NULL,1668)
+1747582495663|48|statement|insert into grades (course_id,grade,lecturer_id,received_date,student_id,type,grade_id) values (110,4,NULL,NULL,354,NULL,1669)
+1747582495744|69|statement|select g1_0.grade_id,g1_0.course_id,g1_0.grade,g1_0.lecturer_id,g1_0.received_date,g1_0.student_id,g1_0.type from grades g1_0 left join courses c1_0 on c1_0.course_id=g1_0.course_id left join (select * from users t where t.role_name='STUDENT') s1_0 on s1_0.user_id=g1_0.student_id where c1_0.course_id=110 order by s1_0.last_name
+1747582495829|50|rollback|
+1747582495891|53|statement|select users_seq.nextval from dual
+1747582495941|48|statement|select courses_seq.nextval from dual
+1747582495993|50|statement|select grades_seq.nextval from dual
+1747582496051|50|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('student@test.com','John','Doe','securepass123','LC123456',NULL,'ACTIVE','12345','STUDENT',355)
+1747582496101|48|statement|insert into courses (ects_points,name,status,course_id) values (4,'Math','active',111)
+1747582496151|48|statement|insert into grades (course_id,grade,lecturer_id,received_date,student_id,type,grade_id) values (111,5,NULL,NULL,355,NULL,1670)
+1747582496211|58|statement|select g1_0.grade_id,g1_0.course_id,g1_0.grade,g1_0.lecturer_id,g1_0.received_date,g1_0.student_id,g1_0.type from grades g1_0 left join (select * from users t where t.role_name='STUDENT') s1_0 on s1_0.user_id=g1_0.student_id left join courses c1_0 on c1_0.course_id=g1_0.course_id where s1_0.email='student@test.com' and c1_0.course_id=111
+1747582496266|49|rollback|
+1747582496402|65|statement|{call get_final_grades_distribution(1,NULL)}
+1747582496531|50|rollback|
+1747582496599|60|statement|{call get_grades_cross_section(1,'FINAL',NULL)}
+1747582496701|48|rollback|
+1747582496966|52|statement|select users_seq.nextval from dual
+1747582497019|51|statement|select courses_seq.nextval from dual
+1747582497069|48|statement|select registration_seq.nextval from dual
+1747582497130|49|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('s3@test.com','First','Last','pass','123',NULL,'active','12345','STUDENT',356)
+1747582497185|52|statement|insert into courses (ects_points,name,status,course_id) values (5,'Bazy danych','opened',112)
+1747582497240|53|statement|insert into course_registrations (course_id,status,student_id,course_reg_id) values (112,'ACTIVE',356,125)
+1747582497312|70|statement|select c1_0.course_id,c1_0.ects_points,c1_0.name,c1_0.status from course_registrations cr1_0 join courses c1_0 on c1_0.course_id=cr1_0.course_id join users s1_0 on s1_0.user_id=cr1_0.student_id where s1_0.email='s3@test.com' and cr1_0.status='ACTIVE'
+1747582497372|50|rollback|
+1747582497430|49|statement|select users_seq.nextval from dual
+1747582497481|48|statement|select courses_seq.nextval from dual
+1747582497531|48|statement|select registration_seq.nextval from dual
+1747582497588|49|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('s1@test.com','First','Last','pass','123',NULL,'active','12345','STUDENT',357)
+1747582497637|48|statement|insert into courses (ects_points,name,status,course_id) values (5,'Bazy danych','opened',113)
+1747582497692|52|statement|insert into course_registrations (course_id,status,student_id,course_reg_id) values (113,'ACTIVE',357,126)
+1747582497757|63|statement|select cr1_0.course_reg_id,cr1_0.course_id,cr1_0.status,cr1_0.student_id from course_registrations cr1_0 where cr1_0.student_id=357
+1747582497816|51|rollback|
+1747582497873|48|statement|select users_seq.nextval from dual
+1747582497923|48|statement|select courses_seq.nextval from dual
+1747582497975|50|statement|select registration_seq.nextval from dual
+1747582498032|49|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('s4@test.com','First','Last','pass','123',NULL,'active','12345','STUDENT',358)
+1747582498083|50|statement|insert into courses (ects_points,name,status,course_id) values (5,'Bazy danych','opened',114)
+1747582498135|50|statement|insert into course_registrations (course_id,status,student_id,course_reg_id) values (114,'done',358,127)
+1747582498210|72|statement|select cr1_0.course_reg_id,cr1_0.course_id,cr1_0.status,cr1_0.student_id from course_registrations cr1_0 left join (select * from users t where t.role_name='STUDENT') s1_0 on s1_0.user_id=cr1_0.student_id left join courses c1_0 on c1_0.course_id=cr1_0.course_id where s1_0.email='s4@test.com' and c1_0.course_id=114
+1747582498268|50|rollback|
+1747582498326|49|statement|select users_seq.nextval from dual
+1747582498375|48|statement|select courses_seq.nextval from dual
+1747582498427|50|statement|select registration_seq.nextval from dual
+1747582498512|51|statement|insert into users (email,first_name,last_name,password,library_card_number,specialization,status,student_number,role_name,user_id) values ('s2@test.com','First','Last','pass','123',NULL,'active','12345','STUDENT',359)
+1747582498563|50|statement|insert into courses (ects_points,name,status,course_id) values (5,'Bazy danych','opened',115)
+1747582498613|48|statement|insert into course_registrations (course_id,status,student_id,course_reg_id) values (115,'ACTIVE',359,128)
+1747582498690|63|statement|SELECT * FROM course_registrations WHERE student_id = 359 AND status LIKE 'ACTIVE'
+1747582498757|51|rollback|
+1747582590594|77|statement|select u1_0.user_id,u1_0.role_name,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.academic_title,u1_0.library_card_number,u1_0.specialization,u1_0.status,u1_0.student_number from users u1_0 where u1_0.email='1@gmail.com'
+1747582590799|56|statement|select u1_0.user_id,u1_0.role_name,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.academic_title,u1_0.library_card_number,u1_0.specialization,u1_0.status,u1_0.student_number from users u1_0 where u1_0.email='1@gmail.com'
+1747582594293|64|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,er1_0.complited_course_id,er1_0.min_ects,c1_0.name,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id order by c1_0.name
+1747582594364|66|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,er1_0.complited_course_id,er1_0.min_ects,c1_0.name,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id order by c1_0.name
+1747582595044|52|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=41
+1747582595059|52|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=41
+1747582595099|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2033
+1747582595112|51|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2033
+1747582595164|59|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2001
+1747582595174|61|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2001
+1747582595227|61|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2042
+1747582595237|62|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2042
+1747582595289|60|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2044
+1747582595300|61|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2044
+1747582595352|61|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2113
+1747582595362|60|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2113
+1747582595415|61|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2032
+1747582595425|61|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2032
+1747582595478|62|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2002
+1747582595482|55|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2002
+1747582595530|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2003
+1747582595533|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2003
+1747582595578|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2065
+1747582595581|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2065
+1747582595626|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2082
+1747582595630|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2082
+1747582595675|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2023
+1747582595679|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2023
+1747582595723|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2016
+1747582595727|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2016
+1747582595772|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2105
+1747582595775|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2105
+1747582595822|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2116
+1747582595825|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2116
+1747582595869|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2120
+1747582595873|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2120
+1747582595917|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2045
+1747582595922|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2045
+1747582595974|55|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2055
+1747582595978|55|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2055
+1747582596030|54|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2057
+1747582596033|53|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2057
+1747582596081|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2059
+1747582596086|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2059
+1747582596130|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2056
+1747582596133|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2056
+1747582596180|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2119
+1747582596183|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2119
+1747582596230|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2062
+1747582596233|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2062
+1747582596278|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2028
+1747582596281|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2028
+1747582596326|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2085
+1747582596329|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2085
+1747582596375|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2087
+1747582596379|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2087
+1747582596424|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2010
+1747582596427|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2010
+1747582596471|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2073
+1747582596475|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2073
+1747582596520|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2039
+1747582596523|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2039
+1747582596569|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2036
+1747582596573|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2036
+1747582596618|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2007
+1747582596622|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2007
+1747582596666|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2068
+1747582596670|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2068
+1747582596716|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2006
+1747582596719|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2006
+1747582596764|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2069
+1747582596767|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2069
+1747582596813|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2060
+1747582596817|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2060
+1747582596862|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2048
+1747582596865|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2048
+1747582596916|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2051
+1747582596916|53|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2051
+1747582596963|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2058
+1747582596963|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2058
+1747582597012|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2076
+1747582597012|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2076
+1747582597060|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2086
+1747582597060|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2086
+1747582597110|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2088
+1747582597118|57|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2088
+1747582597160|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2070
+1747582597169|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2070
+1747582597209|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2081
+1747582597219|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2081
+1747582597257|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2074
+1747582597268|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2074
+1747582597305|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2102
+1747582597315|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2102
+1747582597353|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2103
+1747582597363|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2103
+1747582597401|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2005
+1747582597412|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2005
+1747582597449|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2004
+1747582597461|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2004
+1747582597497|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2021
+1747582597510|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2021
+1747582597547|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2096
+1747582597557|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2096
+1747582597595|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2112
+1747582597605|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2112
+1747582597643|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2018
+1747582597655|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2018
+1747582597693|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2020
+1747582597712|55|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2020
+1747582597745|51|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2009
+1747582597763|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2009
+1747582597796|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2011
+1747582597812|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2011
+1747582597844|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2078
+1747582597862|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2078
+1747582597899|53|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2092
+1747582597914|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2092
+1747582597949|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2080
+1747582597964|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2080
+1747582597999|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2071
+1747582598016|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2071
+1747582598047|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2008
+1747582598066|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2008
+1747582598097|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2090
+1747582598116|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2090
+1747582598145|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2104
+1747582598166|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2104
+1747582598193|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2066
+1747582598217|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2066
+1747582598249|54|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2014
+1747582598268|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2014
+1747582598303|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2012
+1747582598317|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2012
+1747582598351|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2098
+1747582598369|51|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2098
+1747582598399|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2110
+1747582598422|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2110
+1747582598447|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2097
+1747582598472|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2097
+1747582598501|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2099
+1747582598520|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2099
+1747582598550|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2084
+1747582598568|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2084
+1747582598599|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2089
+1747582598617|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2089
+1747582598648|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2111
+1747582598665|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2111
+1747582598697|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2108
+1747582598714|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2108
+1747582598746|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2025
+1747582598761|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2025
+1747582598793|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2047
+1747582598809|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2047
+1747582598842|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2027
+1747582598857|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2027
+1747582598889|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2122
+1747582598910|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2122
+1747582598937|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2029
+1747582598958|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2029
+1747582598986|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2101
+1747582599007|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2101
+1747582599033|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2124
+1747582599056|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2124
+1747582599083|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2100
+1747582599103|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2100
+1747582599131|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2030
+1747582599152|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2030
+1747582599179|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2063
+1747582599201|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2063
+1747582599227|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2125
+1747582599249|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2125
+1747582599275|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2121
+1747582599299|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2121
+1747582599323|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2123
+1747582599347|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2123
+1747582599371|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2083
+1747582599396|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2083
+1747582599419|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2034
+1747582599449|52|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2034
+1747582599468|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2050
+1747582599498|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2050
+1747582599516|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2013
+1747582599548|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2013
+1747582599564|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2053
+1747582599596|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2053
+1747582599615|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2052
+1747582599646|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2052
+1747582599663|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2026
+1747582599702|54|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2026
+1747582599717|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2022
+1747582599755|51|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2022
+1747582599769|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2019
+1747582599806|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2019
+1747582599820|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2038
+1747582599856|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2038
+1747582599875|54|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2024
+1747582599905|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2024
+1747582599929|52|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2043
+1747582599953|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2043
+1747582599978|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2091
+1747582600005|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2091
+1747582600029|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2094
+1747582600055|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2094
+1747582600078|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2107
+1747582600103|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2107
+1747582600143|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2046
+1747582600154|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2046
+1747582600194|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2015
+1747582600208|52|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2015
+1747582600241|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2115
+1747582600256|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2115
+1747582600290|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2109
+1747582600303|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2109
+1747582600337|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2037
+1747582600354|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2037
+1747582600385|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2061
+1747582600402|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2061
+1747582600433|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2075
+1747582600458|55|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2075
+1747582600481|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2079
+1747582600505|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2079
+1747582600529|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2040
+1747582600554|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2040
+1747582600577|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2049
+1747582600601|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2049
+1747582600626|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2054
+1747582600649|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2054
+1747582600677|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2117
+1747582600698|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2117
+1747582600726|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2114
+1747582600745|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2114
+1747582600773|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2064
+1747582600794|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2064
+1747582600821|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2106
+1747582600846|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2106
+1747582600872|49|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2077
+1747582600897|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2077
+1747582600923|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2035
+1747582600949|51|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2035
+1747582600973|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2072
+1747582601000|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2072
+1747582601021|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2095
+1747582601050|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2095
+1747582601069|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2031
+1747582601097|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2031
+1747582601118|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2041
+1747582601145|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2041
+1747582601167|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2067
+1747582601195|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2067
+1747582601217|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2118
+1747582601243|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2118
+1747582601265|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2017
+1747582601298|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2017
+1747582601316|48|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2093
+1747582601346|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2093
+1747582601363|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=27
+1747582601396|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=27
+1747582601413|47|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=29
+1747582601443|46|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=29
+1747582727482|86|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,er1_0.complited_course_id,er1_0.min_ects,c1_0.name,s1_0.course_id,s1_0.specialization,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id left join courses_special s1_0 on c1_0.course_id=s1_0.course_id order by c1_0.name
+1747582743480|72|statement|select g1_0.grade_id,g1_0.course_id,g1_0.grade,g1_0.lecturer_id,g1_0.received_date,g1_0.student_id,g1_0.type from grades g1_0 left join courses c1_0 on c1_0.course_id=g1_0.course_id left join (select * from users t where t.role_name='STUDENT') s1_0 on s1_0.user_id=g1_0.student_id where c1_0.course_id=2082 order by s1_0.last_name
+1747582743603|107|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,cc1_0.course_id,cr2_0.course_id,cr2_0.completion_req_id,cr2_0.min_score,cr2_0.type,cc1_0.ects_points,cc1_0.name,s1_0.course_id,s1_0.specialization,cc1_0.status,er1_0.min_ects,c1_0.name,s2_0.course_id,s2_0.specialization,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id left join courses cc1_0 on cc1_0.course_id=er1_0.complited_course_id left join completion_requirements cr2_0 on cc1_0.course_id=cr2_0.course_id left join courses_special s1_0 on cc1_0.course_id=s1_0.course_id left join courses_special s2_0 on c1_0.course_id=s2_0.course_id where c1_0.course_id=2082
+1747582743681|71|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1019
+1747582743751|67|statement|select l1_0.user_id,l1_0.email,l1_0.first_name,l1_0.last_name,l1_0.password,l1_0.academic_title from users l1_0 where l1_0.role_name='LECTURER' and l1_0.user_id=1102
+1747582743815|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1022
+1747582743877|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1016
+1747582743942|63|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1027
+1747582744004|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1023
+1747582744117|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1004
+1747582744178|59|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1014
+1747582744242|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1017
+1747582744303|59|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1012
+1747582744364|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1026
+1747582744473|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1013
+1747582744535|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1028
+1747582744596|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1030
+1747582744665|63|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1005
+1747582744732|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1029
+1747582744842|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1002
+1747582744902|59|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1020
+1747582744963|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1031
+1747582745025|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1018
+1747582745136|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1024
+1747582745200|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1025
+1747582745269|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1003
+1747582745331|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1010
+1747582745392|59|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1006
+1747582745503|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1021
+1747582745574|69|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1008
+1747582753887|69|statement|select g1_0.grade_id,g1_0.course_id,g1_0.grade,g1_0.lecturer_id,g1_0.received_date,g1_0.student_id,g1_0.type from grades g1_0 left join courses c1_0 on c1_0.course_id=g1_0.course_id left join (select * from users t where t.role_name='STUDENT') s1_0 on s1_0.user_id=g1_0.student_id where c1_0.course_id=2082 order by s1_0.last_name
+1747582753959|70|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,cc1_0.course_id,cr2_0.course_id,cr2_0.completion_req_id,cr2_0.min_score,cr2_0.type,cc1_0.ects_points,cc1_0.name,s1_0.course_id,s1_0.specialization,cc1_0.status,er1_0.min_ects,c1_0.name,s2_0.course_id,s2_0.specialization,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id left join courses cc1_0 on cc1_0.course_id=er1_0.complited_course_id left join completion_requirements cr2_0 on cc1_0.course_id=cr2_0.course_id left join courses_special s1_0 on cc1_0.course_id=s1_0.course_id left join courses_special s2_0 on c1_0.course_id=s2_0.course_id where c1_0.course_id=2082
+1747582754023|62|statement|select l1_0.user_id,l1_0.email,l1_0.first_name,l1_0.last_name,l1_0.password,l1_0.academic_title from users l1_0 where l1_0.role_name='LECTURER' and l1_0.user_id=1102
+1747582754086|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1019
+1747582754149|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1022
+1747582754211|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1016
+1747582754278|65|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1027
+1747582754342|63|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1023
+1747582754452|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1004
+1747582754513|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1014
+1747582754576|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1017
+1747582754638|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1012
+1747582754700|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1026
+1747582754811|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1013
+1747582754874|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1028
+1747582754938|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1030
+1747582755002|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1005
+1747582755070|66|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1029
+1747582755181|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1002
+1747582755245|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1020
+1747582755311|64|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1031
+1747582755380|67|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1018
+1747582755490|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1024
+1747582755553|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1025
+1747582755617|63|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1003
+1747582755681|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1010
+1747582755754|71|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1006
+1747582755874|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1021
+1747582755935|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1008
+1747582758577|69|statement|{call get_grades_cross_section(2082,'TEST',NULL)}
+1747582758705|48|commit|
+1747582764810|68|statement|select g1_0.grade_id,g1_0.course_id,g1_0.grade,g1_0.lecturer_id,g1_0.received_date,g1_0.student_id,g1_0.type from grades g1_0 left join courses c1_0 on c1_0.course_id=g1_0.course_id left join (select * from users t where t.role_name='STUDENT') s1_0 on s1_0.user_id=g1_0.student_id where c1_0.course_id=2082 order by s1_0.last_name
+1747582764882|69|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,cc1_0.course_id,cr2_0.course_id,cr2_0.completion_req_id,cr2_0.min_score,cr2_0.type,cc1_0.ects_points,cc1_0.name,s1_0.course_id,s1_0.specialization,cc1_0.status,er1_0.min_ects,c1_0.name,s2_0.course_id,s2_0.specialization,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id left join courses cc1_0 on cc1_0.course_id=er1_0.complited_course_id left join completion_requirements cr2_0 on cc1_0.course_id=cr2_0.course_id left join courses_special s1_0 on cc1_0.course_id=s1_0.course_id left join courses_special s2_0 on c1_0.course_id=s2_0.course_id where c1_0.course_id=2082
+1747582764948|64|statement|select l1_0.user_id,l1_0.email,l1_0.first_name,l1_0.last_name,l1_0.password,l1_0.academic_title from users l1_0 where l1_0.role_name='LECTURER' and l1_0.user_id=1102
+1747582765013|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1019
+1747582765077|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1022
+1747582765141|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1016
+1747582765205|63|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1027
+1747582765268|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1023
+1747582765379|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1004
+1747582765442|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1014
+1747582765503|59|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1017
+1747582765566|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1012
+1747582765629|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1026
+1747582765740|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1013
+1747582765804|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1028
+1747582765865|60|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1030
+1747582765933|67|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1005
+1747582765998|63|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1029
+1747582766110|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1002
+1747582766173|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1020
+1747582766236|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1031
+1747582766312|75|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1018
+1747582766426|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1024
+1747582766489|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1025
+1747582766551|61|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1003
+1747582766616|63|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1010
+1747582766680|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1006
+1747582766800|68|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1021
+1747582766864|62|statement|select s1_0.user_id,s1_0.email,s1_0.first_name,s1_0.last_name,s1_0.password,s1_0.library_card_number,s1_0.specialization,s1_0.status,s1_0.student_number from users s1_0 where s1_0.role_name='STUDENT' and s1_0.user_id=1008
+1747582768618|68|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,er1_0.complited_course_id,er1_0.min_ects,c1_0.name,s1_0.course_id,s1_0.specialization,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id left join courses_special s1_0 on c1_0.course_id=s1_0.course_id order by c1_0.name
+1747582785947|58|statement|select u1_0.user_id,u1_0.role_name,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.academic_title,u1_0.library_card_number,u1_0.specialization,u1_0.status,u1_0.student_number from users u1_0 where u1_0.email='1@gmail.com'
+1747582786118|57|statement|select u1_0.user_id,u1_0.role_name,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.academic_title,u1_0.library_card_number,u1_0.specialization,u1_0.status,u1_0.student_number from users u1_0 where u1_0.email='1@gmail.com'
+1747582786467|67|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,er1_0.complited_course_id,er1_0.min_ects,c1_0.name,s1_0.course_id,s1_0.specialization,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id left join courses_special s1_0 on c1_0.course_id=s1_0.course_id order by c1_0.name
+1747582786520|60|statement|select c1_0.course_id,cr1_0.course_id,cr1_0.completion_req_id,cr1_0.min_score,cr1_0.type,c1_0.ects_points,er1_0.course_id,er1_0.reg_id,er1_0.complited_course_id,er1_0.min_ects,c1_0.name,s1_0.course_id,s1_0.specialization,c1_0.status from courses c1_0 left join completion_requirements cr1_0 on c1_0.course_id=cr1_0.course_id left join enroll_requirements er1_0 on c1_0.course_id=er1_0.course_id left join courses_special s1_0 on c1_0.course_id=s1_0.course_id order by c1_0.name

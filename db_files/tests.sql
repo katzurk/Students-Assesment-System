@@ -404,26 +404,25 @@ END;
 -----------------------------------------------------
 -- TESTS TO TRIGGER update_avg_grade_after_closing
 -----------------------------------------------------
-
 --TEST 1: Checking the recalculation of the average grade when there are several FINAL grades
 BEGIN
   SAVEPOINT test1_start;
 
-  INSERT INTO courses (course_id, status) VALUES (9991, 'closed registration');
-  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9991, 101, 9991, 80, 'FINAL');
-  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9992, 101, 9991, 90, 'FINAL');
-  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9993, 101, 9991, 0, 'AVG'); -- стартовое значение
+  INSERT INTO courses (course_id, status) VALUES (9992, 'closed registration');
+  INSERT INTO users (user_id, first_name, specialization, role_name) VALUES (102, 'Test Student', 'Test Specialization', 'STUDENT');
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9991, 102, 9992, 80, 'FINAL');
+  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9992, 102, 9992, 90, 'FINAL');
 
   UPDATE courses
   SET status = 'closed'
-  WHERE course_id = 9991;
+  WHERE course_id = 9992;
 
   DECLARE
     v_avg_grade NUMBER;
   BEGIN
     SELECT grade INTO v_avg_grade
     FROM grades
-    WHERE student_id = 101 AND type = 'AVG';
+    WHERE student_id = 102 AND type = 'AVG';
 
     IF v_avg_grade = 85 THEN
       DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED: AVG grade correctly recalculated.');
@@ -441,7 +440,7 @@ BEGIN
   SAVEPOINT test2_start;
 
   INSERT INTO courses (course_id, status) VALUES (9992, 'closed registration');
-  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9999, 102, 9992, 0, 'AVG');
+  INSERT INTO users (user_id, first_name, specialization, role_name) VALUES (102, 'Test Student', 'Test Specialization', 'STUDENT');
 
   UPDATE courses
   SET status = 'closed'
@@ -471,12 +470,12 @@ BEGIN
   SAVEPOINT test3_start;
 
   INSERT INTO courses (course_id, status) VALUES (9993, 'closed registration');
+  INSERT INTO users (user_id, first_name, specialization, role_name) VALUES (103, 'Test Student', 'Test Specialization', 'STUDENT');
   INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9999, 103, 9993, 75, 'FINAL');
-  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9998, 103, 9993, 0, 'AVG');
 
   UPDATE courses
-  SET status = 'closed'
-  WHERE course_id = 9993;
+    SET status = 'closed'
+    WHERE course_id = 9993;
 
   DECLARE
     v_avg_grade NUMBER;
@@ -502,8 +501,8 @@ BEGIN
   SAVEPOINT test4_start;
 
   INSERT INTO courses (course_id, status) VALUES (9994, 'closed registration');
+  INSERT INTO users (user_id, first_name, specialization, role_name) VALUES (104, 'Test Student', 'Test Specialization', 'STUDENT');
   INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9999, 104, 2001, 70, 'FINAL'); -- другой курс
-  INSERT INTO grades (grade_id, student_id, course_id, grade, type) VALUES (9998, 104, null, 0, 'AVG');
 
   DECLARE
     v_old_avg NUMBER;
@@ -664,6 +663,8 @@ BEGIN
 
   INSERT INTO courses (course_id, status)
   VALUES (88801, 'active');
+  INSERT INTO completion_requirements (course_id, completion_req_id, min_score, type)
+  VALUES (88801, 221, 30, 'test');
 
   BEGIN
     close_course(88801);
@@ -697,6 +698,8 @@ BEGIN
 
   INSERT INTO courses (course_id, status)
   VALUES (88802, 'closed');
+  INSERT INTO completion_requirements (course_id, completion_req_id, min_score, type)
+  VALUES (88802, 221, 30, 'test');
 
   BEGIN
     close_course(88802);
@@ -742,6 +745,8 @@ BEGIN
 
   INSERT INTO courses (course_id, status)
   VALUES (88803, 'opened registration');
+  INSERT INTO completion_requirements (course_id, completion_req_id, min_score, type)
+  VALUES (88803, 221, 30, 'test');
 
   BEGIN
     close_course(88803);
@@ -905,22 +910,22 @@ END;
 -- TEST 1: Less than 10 applications ➔ course is closed (status = 'closed')
 BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
-  VALUES (9001, 'Test Course 1', 5, 'active');
+  VALUES (9077, 'Test Course 33', 5, 'active');
 
   INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id)
-  VALUES (10001, 20, 'exam', 9001);
+  VALUES (10011, 20, 'exam', 9077);
 
   FOR i IN 1..5 LOOP
     INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
-    VALUES (9000 + i, 1000 + i, 9001, 'application submitted');
+    VALUES (9000 + i, 1000 + i, 9077, 'application submitted');
   END LOOP;
 
-  close_registration(9001);
+  close_registration(9077);
 
   DECLARE
     v_status VARCHAR2(25);
   BEGIN
-    SELECT status INTO v_status FROM courses WHERE course_id = 9001;
+    SELECT status INTO v_status FROM courses WHERE course_id = 9077;
 
     IF v_status = 'closed' THEN
       DBMS_OUTPUT.PUT_LINE('TEST 1 PASSED: Course correctly closed.');
@@ -929,10 +934,9 @@ BEGIN
     END IF;
   END;
 
-  delete from course_requirement where course_id = 9001;
-  delete from course_registrations where course_id = 9001;
-  delete from courses where course_id = 9001;
-  delete from completion_requirements where completion_req_id = 10001;
+  delete from course_registrations where course_id = 9077;
+  delete from courses where course_id = 9077;
+  delete from completion_requirements where completion_req_id = 10021;
 
   ROLLBACK;
 END;
@@ -940,29 +944,30 @@ END;
 
 
 -- TEST 2: Exactly 10 applications ➔ course active (status = 'active')
+--!!!!!!!!!!!!!!
 BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
-  VALUES (9002, 'Test Course 2', 5, 'closed');
+  VALUES (9980, 'Test Course 1234', 5, 'closed');
 
   INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id)
-  VALUES (10002, 20, 'exam', 9002);
+  VALUES (10092, 20, 'exam', 9980);
 
   FOR i IN 1..10 LOOP
-    INSERT INTO users (user_id)
-    VALUES (2000 + i);
+    INSERT INTO users (user_id, role_name)
+    VALUES (50000 + i, 'STUDENT');
   END LOOP;
 
   FOR i IN 1..10 LOOP
     INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
-    VALUES (9200 + i, 2000 + i, 9002, 'application submitted');
+    VALUES (13200 + i, 50000 + i, 9980, 'application submitted');
   END LOOP;
 
-  close_registration(9002);
+  close_registration(9980);
 
   DECLARE
     v_status VARCHAR2(25);
   BEGIN
-    SELECT status INTO v_status FROM courses WHERE course_id = 9002;
+    SELECT status INTO v_status FROM courses WHERE course_id = 9980;
 
     IF v_status = 'active' THEN
       DBMS_OUTPUT.PUT_LINE('TEST 2 PASSED: Course correctly activated.');
@@ -970,16 +975,17 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('TEST 2 FAILED: Course status is ' || v_status);
     END IF;
   END;
-  delete from course_requirement where course_id = 9002;
-  delete from course_registrations where course_id = 9002;
-  delete from courses where course_id = 9002;
-  delete from completion_requirements where completion_req_id = 10002;
-  delete from users where user_id between 2001 and 2010;
+  delete from course_registrations where course_id = 9980;
+  delete from courses where course_id = 9980;
+  delete from completion_requirements where completion_req_id = 10092;
+  delete from grades where student_id  between 50001 and 50010;
+  delete from users where user_id between 50001 and 50010;
 END;
 /
 
 
 -- TEST 3: More than 10 applications ➔ course is active (status = 'active')
+--!!!!!!!!!!!
 BEGIN
   INSERT INTO courses (course_id, name, ects_points, status)
   VALUES (9003, 'Test Course 2', 5, 'closed');
@@ -1011,10 +1017,10 @@ BEGIN
     END IF;
   END;
 
-  delete from course_requirement where course_id = 9003;
   delete from course_registrations where course_id = 9003;
   delete from courses where course_id = 9003;
   delete from completion_requirements where completion_req_id = 10003;
+  delete from grades where student_id  between 3001 and 3010;
   delete from users where user_id between 3001 and 3015;
 END;
 /
@@ -1042,7 +1048,6 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('TEST 4 FAILED: Course status is ' || v_status);
     END IF;
   END;
-  delete from course_requirement where course_id = 9004;
   delete from courses where course_id = 9004;
   delete from completion_requirements where completion_req_id = 10004;
 END;
@@ -1062,8 +1067,7 @@ BEGIN
   INSERT INTO completion_requirements (completion_req_id, min_score, type, course_id) VALUES (910001, 20, 'exam', 99101);
 
   FOR i IN 1..10 LOOP
-    INSERT INTO users (user_id, role_name) VALUES (103000 + i, 'STUDENT');
-    INSERT INTO users (user_id, specialization) VALUES (103000 + i, 'TestSpec1');
+    INSERT INTO users (user_id, role_name, specialization) VALUES (103000 + i, 'STUDENT', 'TestSpec1');
     INSERT INTO grades (grade_id, student_id, type, grade)
       VALUES (30+i, 103000 + i, 'AVG', 3 + MOD(i, 3));
     INSERT INTO course_registrations (course_reg_id, student_id, course_id, status)
@@ -1172,7 +1176,7 @@ BEGIN
     IF MOD(i, 2) = 0 THEN
       INSERT INTO users (user_id, role_name, specialization) VALUES (106000 + i, 'STUDENT', 'Spec4a');
     ELSE
-      INSERT INTO users (user_id, specialization) VALUES (106000 + i, 'STUDENT', 'Spec4b');
+      INSERT INTO users (user_id, role_name, specialization) VALUES (106000 + i, 'STUDENT', 'Spec4b');
     END IF;
     INSERT INTO grades (grade_id, student_id, type, grade)
       VALUES (500 + i, 106000 + i, 'AVG', 3 + MOD(i, 2));
@@ -1204,7 +1208,7 @@ BEGIN
   SAVEPOINT test5_start;
 
   INSERT INTO courses (course_id, name, ects_points, status) VALUES (99105, 'Test Course 5', 5, 'closed');
-  INSERT INTO courses_special (course_id, specialization_id) VALUES (99105, 'Spec5');
+  INSERT INTO courses_special (course_id, specialization) VALUES (99105, 'Spec5');
 
   UPDATE courses SET status = 'active' WHERE course_id = 99105;
 

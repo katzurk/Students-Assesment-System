@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Long>{
 
-    @EntityGraph(attributePaths = {"completionRequirements", "enrollRequirements"})
+    @EntityGraph(attributePaths = {"completionRequirements", "enrollRequirements", "specializations"})
     List<Course> findAllByOrderByNameAsc();
 }
