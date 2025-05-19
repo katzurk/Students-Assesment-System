@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -27,10 +27,10 @@ class AuthControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private AuthenticationManager authenticationManager;
 
-    @MockBean
+    @MockitoBean
     private UserService userService;
 
     @Test
@@ -38,7 +38,7 @@ class AuthControllerTest {
         User mockUser = new User();
         mockUser.setEmail("test@test.com");
         mockUser.setPassword("password");
-        mockUser.setRole(new Role("ROLE_STUDENT"));
+        mockUser.setRole(Role.STUDENT);
 
         when(authenticationManager.authenticate(any())).thenReturn(mock(Authentication.class));
         when(userService.findByEmail("test@test.com")).thenReturn(mockUser);
@@ -47,7 +47,7 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\": \"test@test.com\", \"password\": \"password\"}"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("ROLE_STUDENT"));
+                .andExpect(content().string("STUDENT"));
     }
 
     @Test
@@ -96,10 +96,10 @@ class AuthControllerTest {
                           "password": "password",
                           "firstName": "Anna",
                           "lastName": "Nowak",
-                          "role": "ROLE_STUDENT"
+                          "role": "STUDENT"
                         }
                     """))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().string("User registered successfully"));
     }
 
@@ -115,10 +115,10 @@ class AuthControllerTest {
                         {
                           "email": "existing@test.com",
                           "password": "password",
-                          "role": "ROLE_STUDENT"
+                          "role": "STUDENT"
                         }
                     """))
-                .andExpect(status().isOk())
+                .andExpect(status().isConflict())
                 .andExpect(content().string("Email already exists"));
     }
 

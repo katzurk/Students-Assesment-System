@@ -142,7 +142,7 @@ public class RegistrationServiceTest {
         User user = new User();
         user.setEmail("test@test.com");
         user.setPassword("password");
-        user.setRole(new Role("ROLE_STUDENT"));
+        user.setRole(Role.STUDENT);
 
         when(authHelper.getCurrentUser()).thenReturn(user);
         when(registrationRepository.findByStudentEmailAndCourseId("test@test.com", courseId)).thenReturn(reg);

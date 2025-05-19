@@ -61,9 +61,9 @@ export default function RegisterPage() {
                     placeholder="Password"
                 />
                 <select className="input" value={role} onChange={e => setRole(e.target.value)}>
-                    <option value="ROLE_STUDENT">Student</option>
-                    <option value="ROLE_LECTURER">Lecturer</option>
-                    <option value="ROLE_ADMIN">Admin</option>
+                    <option value="STUDENT">Student</option>
+                    <option value="LECTURER">Lecturer</option>
+                    <option value="ADMIN">Admin</option>
                 </select>
                 <button className="button" type="submit">Register</button>
             </form>

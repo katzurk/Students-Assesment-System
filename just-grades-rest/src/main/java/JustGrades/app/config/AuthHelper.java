@@ -2,7 +2,6 @@ package JustGrades.app.config;
 
 import JustGrades.app.model.User;
 import JustGrades.app.services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

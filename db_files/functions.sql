@@ -122,7 +122,7 @@ FOR EACH ROW
 DECLARE
     new_grade_id NUMBER;
 BEGIN
-    IF :NEW.role_id = 1 THEN
+    IF :NEW.role_name = 'STUDENT' THEN
         SELECT NVL(MAX(grade_id), 0) + 1 INTO new_grade_id FROM grades;
         INSERT INTO grades(grade_id, student_id, type, grade, received_date)
         VALUES (new_grade_id, :NEW.user_id, 'AVG', 0, SYSDATE);
@@ -188,16 +188,14 @@ BEGIN
         SELECT cr.min_score
         INTO v_min_score
         FROM completion_requirements cr
-        JOIN course_requirement link
-          ON cr.completion_req_id = link.completion_req_id
-        WHERE link.course_id = :NEW.course_id;
+        WHERE cr.course_id = :NEW.course_id;
     EXCEPTION
         WHEN NO_DATA_FOUND THEN
-            RAISE_APPLICATION_ERROR(-20010, 'No course requirement defined for this course.');
+            RAISE_APPLICATION_ERROR(-20010, 'No completion requirement defined for this course.');
     END;
 
-    v_max_score := (v_min_score - 1) * 2; 
-    v_step := v_max_score / 10;       
+    v_max_score := (v_min_score - 1) * 2;
+    v_step := v_max_score / 10;
 
     FOR r IN c_students LOOP
         DELETE FROM grades
@@ -234,11 +232,9 @@ WHERE course_id = 2082;
 
 delete from grades where course_id = 2082 and type = 'FINAL';
 
-INSERT INTO completion_requirements (completion_req_id, min_score, type)
-VALUES (2082, 10, 'exam');
+INSERT INTO completion_requirements (course_id, completion_req_id, min_score, type)
+VALUES (2082, 2082, 10, 'exam');
 
-INSERT INTO course_requirement (course_id, completion_req_id)
-VALUES (2082, 2082);
 */
 
 CREATE OR REPLACE PROCEDURE close_registration(p_course_id IN courses.course_id%TYPE)
@@ -282,7 +278,7 @@ DECLARE
 
     v_program_count INTEGER;
 BEGIN
-    SELECT COUNT(DISTINCT specialization_id)
+    SELECT COUNT(DISTINCT specialization)
     INTO v_program_count
     FROM courses_special
     WHERE course_id = v_course_id;
@@ -296,9 +292,9 @@ BEGIN
               AND cr.status = 'application submitted'
               AND EXISTS (
                   SELECT 1
-                  FROM student_specializations sp
-                  JOIN courses_special cs ON cs.specialization_id = sp.specialization_id
-                  WHERE sp.student_id = cr.student_id AND cs.course_id = cr.course_id
+                  FROM users u
+                  JOIN courses_special cs ON u.specialization = cs.specialization
+                  WHERE u.user_id = cr.student_id AND cs.course_id = cr.course_id
               )
             ORDER BY avg_grade DESC;
 
@@ -327,9 +323,9 @@ BEGIN
                   AND cr.status = 'application submitted'
                   AND NOT EXISTS (
                       SELECT 1
-                      FROM student_specializations sp
-                      JOIN courses_special cs ON cs.specialization_id = sp.specialization_id
-                      WHERE sp.student_id = cr.student_id AND cs.course_id = cr.course_id
+                      FROM users u
+                      JOIN courses_special cs ON u.specialization = cs.specialization
+                      WHERE u.user_id = cr.student_id AND cs.course_id = cr.course_id
                   )
                 ORDER BY avg_grade DESC
             ) LOOP

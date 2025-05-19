@@ -1,18 +1,7 @@
 package JustGrades.app.controller;
 
-import JustGrades.app.config.SecurityConfig;
-import JustGrades.app.model.Student;
-import JustGrades.app.model.User;
-import JustGrades.app.repository.StudentRepository;
-import JustGrades.app.services.StudentService;
-import JustGrades.app.services.UserService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,11 +9,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import JustGrades.app.model.User;
+import JustGrades.app.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 
 @Tag(name = "User", description = "Endpoints for user authentication and registration")
 @RestController
@@ -46,8 +40,7 @@ public class UserController {
             context.setAuthentication(authentication);
             request.getSession(true).setAttribute("SPRING_SECURITY_CONTEXT", context);
             User existingUser = userService.findByEmail(user.getEmail());
-            String role = existingUser.getRole().getRoleName();
-            return ResponseEntity.ok(role);
+            return ResponseEntity.ok(existingUser.getRole().name());
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
@@ -62,7 +55,7 @@ public class UserController {
         String password = request.get("password");
         String firstName = request.get("firstName");
         String lastName = request.get("lastName");
-        String roleName = request.getOrDefault("role", "ROLE_STUDENT");
+        String roleName = request.getOrDefault("role", "STUDENT");
 
         if (userService.findByEmail(email) != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists");

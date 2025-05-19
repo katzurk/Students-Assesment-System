@@ -1,36 +1,25 @@
 package JustGrades.app.controller;
 
-import JustGrades.app.config.AuthHelper;
-import JustGrades.app.config.SecurityConfig;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import JustGrades.app.model.Course;
 import JustGrades.app.model.Grade;
 import JustGrades.app.model.Student;
-import JustGrades.app.model.User;
-import JustGrades.app.repository.CourseRegistrationRepository;
-import JustGrades.app.repository.GradeRepository;
-import JustGrades.app.repository.StudentRepository;
-import JustGrades.app.repository.UserRepository;
 import JustGrades.app.services.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import JustGrades.app.model.Course;
-
-import java.util.List;
-import java.util.Map;
 
 @Tag(name = "Student", description = "Endpoints related to student data and grades")
 @RestController
 @AllArgsConstructor
 public class StudentController {
     private final StudentService studentService;
-
-
-    @Autowired
-    private CourseRegistrationRepository courseRegistrationRepository;
 
     @Operation(summary = "Get information about the currently logged-in student")
     @GetMapping("/student-info")

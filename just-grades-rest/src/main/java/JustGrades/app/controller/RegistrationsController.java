@@ -1,18 +1,19 @@
 package JustGrades.app.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import JustGrades.app.dto.CourseRegisteredDTO;
-import JustGrades.app.model.Course;
-import JustGrades.app.repository.CourseRegistrationRepository;
-import JustGrades.app.repository.CourseRepository;
 import JustGrades.app.services.RegistrationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Tag(name = "Registrations", description = "Endpoints for course registration and deregistration")
 @RestController

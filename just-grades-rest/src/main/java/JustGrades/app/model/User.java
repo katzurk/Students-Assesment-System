@@ -1,6 +1,5 @@
 package JustGrades.app.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -8,11 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "role_name")
+@DiscriminatorValue("ADMIN")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -40,10 +39,9 @@ public class User {
     @NotBlank(message = "password is mandatory")
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnore
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @Transient
+    @Enumerated(EnumType.STRING)
+    protected Role role = Role.ADMIN;
 
     @Override
     public String toString() {

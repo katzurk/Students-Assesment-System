@@ -1,16 +1,16 @@
 package JustGrades.app.repository;
 
-import JustGrades.app.dto.CourseRegisteredDTO;
-import JustGrades.app.model.Course;
-import JustGrades.app.model.CourseRegistration;
-import JustGrades.app.model.Student;
-import jakarta.validation.constraints.NotBlank;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import JustGrades.app.dto.CourseRegisteredDTO;
+import JustGrades.app.model.Course;
+import JustGrades.app.model.CourseRegistration;
+import JustGrades.app.model.Student;
 
 @Repository
 public interface CourseRegistrationRepository extends JpaRepository<CourseRegistration, Long> {
