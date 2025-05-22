@@ -311,7 +311,7 @@ left join courses cc1_0 on cc1_0.course_id=er1_0.complited_course_id
 where er1_0.course_id=:1
 ```
 
-Plan wykonania: EDIT
+Plan wykonania:
 ```
 Plan hash value: 1664145947
  
