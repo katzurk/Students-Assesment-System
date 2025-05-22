@@ -40,15 +40,14 @@ public class Course {
     @Column(name = "status")
     private String status = "active";
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "courseId", cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "courseId", cascade = CascadeType.ALL, orphanRemoval = true)
     @NotNull(message = "at least one completion requirement is mandatory")
     private Set<CompletionRequirement> completionRequirements = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "courseId", cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "courseId", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Specialization> specializations = new HashSet<>();
 
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "courseId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "courseId", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EnrollRequirement> enrollRequirements = new HashSet<>();
 
     public Course() {

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
@@ -17,6 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @DiscriminatorValue("LECTURER")
+@Where(clause = "role_name = 'LECTURER'")
 public class Lecturer extends User {
     @Column(name = "ACADEMIC_TITLE")
     String academic_title;
