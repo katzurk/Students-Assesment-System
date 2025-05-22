@@ -26,7 +26,9 @@ public interface CourseRegistrationRepository extends JpaRepository<CourseRegist
 
     @Query("SELECT new JustGrades.app.dto.CourseRegisteredDTO(c, cr.status) " +
             "FROM Course c " +
-            "LEFT JOIN CourseRegistration cr ON cr.course.id = c.id AND cr.student.email = :email " +
-            "WHERE c.status = 'opened' ORDER BY c.name ASC")
+            "LEFT JOIN CourseRegistration cr ON cr.course = c " +
+            "LEFT JOIN cr.student s " +
+            "WHERE c.status = 'opened' AND (s.email = :email OR s.email IS NULL) " +
+            "ORDER BY c.name ASC")
     List<CourseRegisteredDTO> findCoursesRegisteredByStudentEmail(String email);
 }
