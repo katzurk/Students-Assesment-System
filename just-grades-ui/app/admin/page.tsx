@@ -95,11 +95,6 @@ export default function Home() {
             />
             <main className={styles.main}>
                 <p>Welcome Admin!</p>
-
-                <Link href="/student-special">
-                    <button className={styles.button}>Add Student Specialization</button>
-                </Link>
-
                 <button className={styles.button} onClick={handleOpenSemester}>Open Semester</button>
                 <button className={styles.button} onClick={handleCloseSemester}>Close Semester</button>
                 <button className={styles.button} onClick={handleCloseAllCourses}>Close All Courses</button>
