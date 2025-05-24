@@ -1,57 +1,51 @@
 package JustGrades.app.controller;
 
-import JustGrades.app.services.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
+import JustGrades.app.services.CourseService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.dao.DataAccessException;
+import JustGrades.app.services.AdminService;
+import JustGrades.app.services.CourseService;
 import java.util.Map;
-
-
 
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
+    private final CourseService courseService;
+
+    public AdminController(AdminService adminService, CourseService courseService) {
+        this.adminService = adminService;
+        this.courseService = courseService;
+    }
 
     @PostMapping("/open-semester")
-    public String openSemester() {
+    public ResponseEntity<?> openSemester() {
         try {
             adminService.openSemester();
-            return "Semester opened successfully";
-        } catch (DataAccessException ex) {
-            Throwable root = ex.getRootCause();
-            return root != null ? root.getMessage() : "Unknown database error";
+            return ResponseEntity.ok().body(Map.of("message", "Semester opened successfully"));
         } catch (Exception e) {
-            return "Unexpected error: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("message", e.getMessage()));
         }
     }
 
     @PostMapping("/close-semester")
-    public String closeSemester() {
+    public ResponseEntity<?> closeSemester() {
         try {
             adminService.closeSemester();
-            return "Semester closed successfully";
-        } catch (DataAccessException ex) {
-            Throwable root = ex.getRootCause();
-            return root != null ? root.getMessage() : "Unknown database error";
+            return ResponseEntity.ok().body(Map.of("message", "Semester closed successfully"));
         } catch (Exception e) {
-            return "Unexpected error: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("message", e.getMessage()));
         }
     }
 
     @PostMapping("/close-all-courses")
-    public String closeAllCourses() {
-        try {
-            adminService.closeAllCourses();
-            return "All courses closed successfully";
-        } catch (DataAccessException ex) {
-            Throwable root = ex.getRootCause();
-            return root != null ? root.getMessage() : "Unknown database error";
-        } catch (Exception e) {
-            return "Unexpected error: " + e.getMessage();
-        }
+    public ResponseEntity<Void> closeAllCourses() {
+        courseService.closeAllCoursesIndividually();
+        return ResponseEntity.ok().build();
     }
-
 }
+

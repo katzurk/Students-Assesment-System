@@ -2,21 +2,12 @@
 
 import Image from "next/image";
 import styles from "./admin.module.css";
-import Link from "next/link";
 import { useState } from "react";
 
 export default function Home() {
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    const cleanOracleError = (message: string): string => {
-        const match = message.match(/ORA-20001:\s*(.*)/);
-        if (match) {
-            return match[1].trim();
-        }
-        return message.split("\n")[0];
-    };
-    
     const handleOpenSemester = async () => {
         setMessage(null);
         setError(null);
@@ -25,18 +16,20 @@ export default function Home() {
                 method: "POST",
                 credentials: "include"
             });
-    
-            const text = await response.text();
 
-            if (text.includes("ORA-20001")) {
-                throw new Error(cleanOracleError(text));
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => null);
+                const errorMessage = errorData?.message || `Error: ${response.statusText}`;
+                setError(errorMessage);
+                return;
             }
-    
-            setMessage(text);
+
+            setMessage("Semester is opened successfully");
         } catch (err: any) {
-            setError(err.message);
+            setError(err.message || "Unexpected error");
         }
     };
+
     
     
     const handleCloseSemester = async () => {
@@ -47,18 +40,20 @@ export default function Home() {
                 method: "POST",
                 credentials: "include"
             });
-    
-            const text = await response.text();
 
-            if (text.includes("ORA-20001")) {
-                throw new Error(cleanOracleError(text));
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => null);
+                const errorMessage = errorData?.message || `Error: ${response.status} ${response.statusText}`;
+                setError(errorMessage);
+                return;
             }
-    
-            setMessage(text);
+
+            setMessage("Semester is closed successfully");
         } catch (err: any) {
-            setError(err.message);
+            setError(err.message || "Unexpected error");
         }
     };
+
 
     const handleCloseAllCourses = async () => {
         setMessage(null);
@@ -68,14 +63,7 @@ export default function Home() {
                 method: "POST",
                 credentials: "include"
             });
-    
-            const text = await response.text();
-    
-            if (text.includes("ORA-20001")) {
-                throw new Error(cleanOracleError(text));
-            }
-    
-            setMessage(text);
+            setMessage("All courses are closed sucsessfully");
         } catch (err: any) {
             setError(err.message);
         }

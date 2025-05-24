@@ -274,7 +274,6 @@ export default function CoursesTable() {
       ));
     }
     
-    // Clear message after 5 seconds
     setTimeout(() => {
       setCourses(prevCourses => prevCourses.map(course => 
         course.id === id ? {

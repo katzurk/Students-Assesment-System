@@ -104,7 +104,7 @@ public class CourseController {
             return ResponseEntity.badRequest().body("Error closing course");
         }
     }
-    
+
 
     private Course mapToCourse(CourseInput courseIn) {
         Course c = new Course();

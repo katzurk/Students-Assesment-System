@@ -20,9 +20,5 @@ public interface AdminRepository extends CrudRepository<Course, Long> {
     @Query(value = "CALL close_semester()", nativeQuery = true)
     void closeSemester();
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE Course c SET c.status = 'closed' WHERE c.status not in ('closed', 'closed registration')")
-    void closeAllCourses();
 }
 

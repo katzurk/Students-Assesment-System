@@ -33,4 +33,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Transactional
     @Query(value = "CALL close_course(:id)", nativeQuery = true)
     void closeCourse(@Param("id") Long id);
+
+    @Query("SELECT c.id FROM Course c WHERE c.status NOT IN ('closed', 'closed registration')")
+    List<Long> findCoursesToClose();
 }
