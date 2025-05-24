@@ -76,6 +76,7 @@
   color: var(--background) !important;
   padding-left: 8px;
   padding-right: 8px;
+  margin-bottom: 3px !important;
   border-radius: 128px;
   justify-content: center;
   text-align: center;
@@ -123,7 +124,7 @@
 }
 
 .toggle_button {
-  color:  var(--foreground) !important;
+  color: var(--foreground) !important;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -151,4 +152,58 @@
 .pieChartContainer {
   margin: 20%;
   margin-top: 10px;
+}
+
+.open_button {
+  background: #4caf50 !important; /* зелёный */
+  color: var(--background) !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 3px !important;
+  border-radius: 128px;
+  justify-content: center;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.open_button:hover {
+  background: #388e3c !important; /* тёмно-зелёный */
+  border-color: transparent;
+}
+
+.close_button {
+  background: #f44336 !important; /* красный */
+  color: var(--background) !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 3px !important;
+  border-radius: 128px;
+  justify-content: center;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.close_button:hover {
+  background: #d32f2f !important; /* тёмно-красный */
+  border-color: transparent;
+}
+
+.close_course_button {
+  background: #f49b36 !important; /* красный */
+  color: var(--background) !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 3px !important;
+  border-radius: 128px;
+  justify-content: center;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.close_course_button:hover {
+  background: #f49b36 !important; /* тёмно-красный */
+  border-color: transparent;
 }

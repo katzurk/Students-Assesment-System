@@ -70,6 +70,42 @@ public class CourseController {
         return ResponseEntity.ok("Form submitted successfully");
     }
 
+        @PostMapping("/courses/{id}/open-registration")
+    public ResponseEntity<String> openRegistration(@PathVariable("id") long courseId) {
+        try {
+            courseRepository.openRegistration(courseId);
+            return ResponseEntity.ok("Registration opened for course " + courseId);
+        } catch (Exception e) {
+            logger.error("Failed to open registration", e);
+            return ResponseEntity.badRequest().body("Error opening registration");
+
+        }
+    }
+
+    @PostMapping("/courses/{id}/close-registration")
+    public ResponseEntity<String> closeRegistration(@PathVariable("id") long courseId) {
+        try {
+            courseRepository.closeRegistration(courseId);
+            return ResponseEntity.ok("Registration closed for course " + courseId);
+        } catch (Exception e) {
+            logger.error("Failed to close registration", e);
+            return ResponseEntity.badRequest().body("Error closing registration");
+        }
+    }
+
+    @PostMapping("/courses/{id}/close")
+    public ResponseEntity<String> closeCourse(@PathVariable("id") long courseId) {
+        try {
+            System.out.println(courseId);
+            courseRepository.closeCourse(courseId);
+            return ResponseEntity.ok("Course closed with id " + courseId);
+        } catch (Exception e) {
+            logger.error("Failed to close course", e);
+            return ResponseEntity.badRequest().body("Error closing course");
+        }
+    }
+
+
     private Course mapToCourse(CourseInput courseIn) {
         Course c = new Course();
         c.setEcts(courseIn.getEcts());

@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login", "/register", "/error",
-                                    "/courses", "/courses/*", "/addcourse",
+                                    "/courses", "/courses/**", "/addcourse",
                                         "/student/**", "/student-info/**", "/course/**",
                                         "/registration/**", "/v3/api-docs/**", "/swagger-ui/**",
                                         "/swagger-ui.html").permitAll()
