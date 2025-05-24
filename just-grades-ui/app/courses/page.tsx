@@ -23,11 +23,15 @@ interface Course {
   enrollRequirements: Array<EnrollRequirement> | null;
 }
 
+interface CourseWithMessages extends Course {
+  message: string | null;
+  messageType: "success" | "error" | null;
+}
 
 interface CollapsiblePanelProps {
   isOpen: boolean;
   toggle: () => void;
-  course: Course;
+  course: CourseWithMessages;
 }
 
 function CompletionRequiermentsCollapsiblePanel({ isOpen, toggle, course }: CollapsiblePanelProps) {
@@ -115,12 +119,10 @@ function EnrollRequiermentsCollapsiblePanel({ isOpen, toggle, course }: Collapsi
 }
 
 export default function CoursesTable() {
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [courses, setCourses] = useState<CourseWithMessages[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [openPanel, setOpenPanel] = useState<number | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-  const [messageType, setMessageType] = useState<"success" | "error" | null>(null);
 
   useEffect(() => {
     fetch('http://localhost:8080/courses')
@@ -131,7 +133,12 @@ export default function CoursesTable() {
         return response.json();
       })
       .then((data) => {
-        setCourses(data || []);
+        const coursesWithMessages = (data || []).map((course: Course) => ({
+          ...course,
+          message: null,
+          messageType: null
+        }));
+        setCourses(coursesWithMessages);
         setLoading(false);
       })
       .catch((error) => {
@@ -139,16 +146,6 @@ export default function CoursesTable() {
         setLoading(false);
       });
   }, []);
-
-  useEffect(() => {
-    if (message) {
-      const timeout = setTimeout(() => {
-        setMessage(null);
-        setMessageType(null);
-      }, 5000);
-      return () => clearTimeout(timeout);
-    }
-  }, [message]);
 
   if (loading) return <Typography>Loading data...</Typography>;
   if (error) return <Typography>--Error: {error}</Typography>;
@@ -179,14 +176,16 @@ export default function CoursesTable() {
               if (!resp.ok) {
                 throw new Error('Network response was not ok');
               }
-              console.info("fetch after del", resp);
               return resp.json();
             })
             .then((data) => {
-              setCourses(data || []);
+              const coursesWithMessages = (data || []).map((course: Course) => ({
+                ...course,
+                message: null,
+                messageType: null
+              }));
+              setCourses(coursesWithMessages);
               setLoading(false);
-              setMessage("Course successfully deleted");
-              setMessageType("success");
             })
             .catch((error) => {
               setError(error.message);
@@ -194,8 +193,13 @@ export default function CoursesTable() {
             });
         })
         .catch((error) => {
-          setMessage(error.message);
-          setMessageType("error");
+          setCourses(prevCourses => prevCourses.map(course => 
+            course.id === id ? {
+              ...course,
+              message: error.message,
+              messageType: "error"
+            } : course
+          ));
         });
     } catch (error) {
       console.error("Error:", error);
@@ -206,85 +210,125 @@ export default function CoursesTable() {
     try {
       const response = await fetch(`http://localhost:8080/courses/${id}/open-registration`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        credentials: "include"
       });
   
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to open registration');
+        throw new Error('Failed to open registration');
       }
   
-      const data = await response.json();
-      setMessage(data.message || 'Registration successfully opened');
-      setMessageType('success');
+      setCourses(prevCourses => prevCourses.map(course => 
+        course.id === id ? {
+          ...course,
+          message: 'Registration successfully opened',
+          messageType: 'success'
+        } : course
+      ));
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Unknown error occurred');
-      setMessageType('error');
+      setCourses(prevCourses => prevCourses.map(course => 
+        course.id === id ? {
+          ...course,
+          message: error instanceof Error ? error.message : 'Unknown error occurred',
+          messageType: 'error'
+        } : course
+      ));
     }
+    
+    // Clear message after 5 seconds
+    setTimeout(() => {
+      setCourses(prevCourses => prevCourses.map(course => 
+        course.id === id ? {
+          ...course,
+          message: null,
+          messageType: null
+        } : course
+      ));
+    }, 5000);
   };
   
   const closeRegistration = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:8080/courses/${id}/close-registration`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        credentials: "include"
       });
   
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to close registration');
+        throw new Error('Failed to close registration');
       }
   
-      const data = await response.json();
-      setMessage(data.message || 'Registration successfully closed');
-      setMessageType('success');
+      setCourses(prevCourses => prevCourses.map(course => 
+        course.id === id ? {
+          ...course,
+          message: 'Registration successfully closed',
+          messageType: 'success'
+        } : course
+      ));
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Unknown error occurred');
-      setMessageType('error');
+      setCourses(prevCourses => prevCourses.map(course => 
+        course.id === id ? {
+          ...course,
+          message: error instanceof Error ? error.message : 'Unknown error occurred',
+          messageType: 'error'
+        } : course
+      ));
     }
+    
+    // Clear message after 5 seconds
+    setTimeout(() => {
+      setCourses(prevCourses => prevCourses.map(course => 
+        course.id === id ? {
+          ...course,
+          message: null,
+          messageType: null
+        } : course
+      ));
+    }, 5000);
   };
   
   const closeCourse = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:8080/courses/${id}/close`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        credentials: "include"
       });
   
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to close course');
+        throw new Error('Failed to close course, course is not active');
       }
   
-      const data = await response.json();
-      setMessage(data.message || 'Course successfully closed');
-      setMessageType('success');
+      setCourses(prevCourses => prevCourses.map(course => 
+        course.id === id ? {
+          ...course,
+          message: 'Course successfully closed',
+          messageType: 'success'
+        } : course
+      ));
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Unknown error occurred');
-      setMessageType('error');
+      setCourses(prevCourses => prevCourses.map(course => 
+        course.id === id ? {
+          ...course,
+          message: error instanceof Error ? error.message : 'Unknown error occurred',
+          messageType: 'error'
+        } : course
+      ));
     }
+    
+    // Clear message after 5 seconds
+    setTimeout(() => {
+      setCourses(prevCourses => prevCourses.map(course => 
+        course.id === id ? {
+          ...course,
+          message: null,
+          messageType: null
+        } : course
+      ));
+    }, 5000);
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Courses list</h1>
-      {message && (
-        <p style={{ 
-          color: messageType === "success" ? "green" : "red",
-          margin: "10px 0",
-          padding: "10px",
-          border: `1px solid ${messageType === "success" ? "green" : "red"}`,
-          borderRadius: "4px"
-        }}>
-          {message}
-        </p>
-      )}
       <Button
         className={styles.add_button}
         href="/addcourse"
@@ -305,40 +349,53 @@ export default function CoursesTable() {
         </TableHead>
         <TableBody>
           {courses.map((course, index) => (
-            <TableRow key={index} className={styles.row}>
-              <TableCell className={styles.cell}>{course.name}</TableCell>
-              <TableCell className={styles.cell}>{course.ects}</TableCell>
-              <TableCell>
-                <CompletionRequiermentsCollapsiblePanel
-                  key={index}
-                  course={course}
-                  isOpen={openPanel === index}
-                  toggle={() => togglePanel(index)}
-                />
-              </TableCell>
-              <TableCell>
-                <EnrollRequiermentsCollapsiblePanel
-                  key={index}
-                  course={course}
-                  isOpen={openPanel === index}
-                  toggle={() => togglePanel(index)}
-                />
-              </TableCell>
-              <TableCell className={styles.cell}>
-                <Button className={styles.report_button} onClick={() => courseReport(course.id)}>Report</Button >
-              </TableCell>
-              <TableCell className={styles.cell}>
-                <Button className={styles.delete_button} onClick={() => removeCourse(course.id)}>Delete</Button>
-                <br />
-                <Button className={styles.details_button} onClick={() => courseDetails(course.id)}>Details</Button>
-                <br />
-                <Button className={styles.open_button} onClick={() => openRegistration(course.id)}>Open Registration</Button>
-                <br />
-                <Button className={styles.close_button} onClick={() => closeRegistration(course.id)}>Close Registration</Button>
-                <br />
-                <Button className={styles.close_course_button} onClick={() => closeCourse(course.id)}>Close Course</Button>
-              </TableCell>
-            </TableRow>
+            <React.Fragment key={index}>
+              <TableRow className={styles.row}>
+                <TableCell className={styles.cell}>{course.name}</TableCell>
+                <TableCell className={styles.cell}>{course.ects}</TableCell>
+                <TableCell>
+                  <CompletionRequiermentsCollapsiblePanel
+                    key={index}
+                    course={course}
+                    isOpen={openPanel === index}
+                    toggle={() => togglePanel(index)}
+                  />
+                </TableCell>
+                <TableCell>
+                  <EnrollRequiermentsCollapsiblePanel
+                    key={index}
+                    course={course}
+                    isOpen={openPanel === index}
+                    toggle={() => togglePanel(index)}
+                  />
+                </TableCell>
+                <TableCell className={styles.cell}>
+                  <Button className={styles.report_button} onClick={() => courseReport(course.id)}>Report</Button >
+                </TableCell>
+                <TableCell className={styles.cell}>
+                  <Button className={styles.delete_button} onClick={() => removeCourse(course.id)}>Delete</Button>
+                  <br />
+                  <Button className={styles.details_button} onClick={() => courseDetails(course.id)}>Details</Button>
+                  <br />
+                  <Button className={styles.open_button} onClick={() => openRegistration(course.id)}>Open Registration</Button>
+                  <br />
+                  <Button className={styles.close_button} onClick={() => closeRegistration(course.id)}>Close Registration</Button>
+                  <br />
+                  <Button className={styles.close_course_button} onClick={() => closeCourse(course.id)}>Close Course</Button>
+                </TableCell>
+              </TableRow>
+              {course.message && (
+                <TableRow>
+                  <TableCell colSpan={6} style={{ 
+                    color: course.messageType === "success" ? "green" : "red",
+                    padding: "10px",
+                    backgroundColor: course.messageType === "success" ? "rgba(0, 255, 0, 0.1)" : "rgba(255, 0, 0, 0.1)"
+                  }}>
+                    {course.message}
+                  </TableCell>
+                </TableRow>
+              )}
+            </React.Fragment>
           ))}
         </TableBody>
       </Table>
