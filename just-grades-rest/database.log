@@ -55,5 +55,4 @@
 1747581134378|50|statement|select s1_0.course_id,s1_0.specialization from courses_special s1_0 where s1_0.course_id=2033
 1747581134443|47|rollback|
 
--------- Course 4 - fixes
-
+--------
