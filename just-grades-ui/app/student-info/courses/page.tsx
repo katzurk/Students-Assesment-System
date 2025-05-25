@@ -21,7 +21,6 @@ export default function StudentCourses() {
                     <Box key={course.id} className={styles.course} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1}}>
                         <Course {...course}/>
                         <Box>
-                            <Button size="small" variant="contained" className={styles.classes_button}>Classes</Button>
                             <Link href={`grades/${course.id}`}>
                                 <Button size="small" variant="contained" className={styles.grades_button}>Grades</Button>
                             </Link>
