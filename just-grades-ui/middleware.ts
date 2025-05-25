@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
     const isLoggedIn = request.cookies.get("JSESSIONID");
 
-    const protectedPaths = ["/student-info"];
+    const protectedPaths = ["/student-info", "/student", "/courses", "/lecturer", "/course", "/admin", "/addcourse"];
     const path = request.nextUrl.pathname;
     const isProtected = protectedPaths.some(p => path.startsWith(p));
 

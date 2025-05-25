@@ -19,7 +19,7 @@ public interface CourseRegistrationRepository extends JpaRepository<CourseRegist
     @Query(value = "SELECT * FROM course_registrations WHERE student_id = :studentId AND status LIKE :status", nativeQuery = true)
     List<CourseRegistration> findByStudentIdAndStatus(@Param("studentId") Long studentId, @Param("status") String status);
 
-    @Query("SELECT r.course FROM CourseRegistration r WHERE r.student.email = :email AND r.status = :status")
+    @Query("SELECT r.course FROM CourseRegistration r WHERE r.student.email = :email AND LOWER(r.status) = LOWER(:status)")
     List<Course> findCoursesByStudentEmailAndStatus(@Param("email") String email, @Param("status") String status);
 
     CourseRegistration findByStudentEmailAndCourseId(String email, Long courseId);
@@ -28,7 +28,7 @@ public interface CourseRegistrationRepository extends JpaRepository<CourseRegist
             "FROM Course c " +
             "LEFT JOIN CourseRegistration cr ON cr.course = c " +
             "LEFT JOIN cr.student s " +
-            "WHERE c.status = 'opened' AND (s.email = :email OR s.email IS NULL) " +
+            "WHERE LOWER(c.status) = LOWER('opened registration') AND (s.email = :email OR s.email IS NULL) " +
             "ORDER BY c.name ASC")
     List<CourseRegisteredDTO> findCoursesRegisteredByStudentEmail(String email);
 }
