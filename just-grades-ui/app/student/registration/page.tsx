@@ -39,8 +39,8 @@ export default function Registration() {
     };
 
     const filteredRegistrations = registrations.filter(course => {
-        if (filter === "registered") return course.status === "ACTIVE";
-        if (filter === "pending") return course.status === "application submitted";
+        if (filter === "registered") return course.status?.toLowerCase() === "active";
+        if (filter === "pending") return course.status?.toLowerCase() === "application submitted";
         if (filter === "not registered") return course.status === null;
         return true;
     });
@@ -57,7 +57,10 @@ export default function Registration() {
             </Box>
             <br></br>
             <Stack spacing={2}>
-                {filteredRegistrations?.map((course: ICourseRegistered) => (
+                {registrations.length === 0 ?
+                    <Typography variant="h6">There are courses in this category.</Typography>
+                :
+                filteredRegistrations?.map((course: ICourseRegistered) => (
                     <Box key={course.id} className={styles.course} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1}}>
                         <Course {...course}/>
                         <ActionButton courseId={course.id} status={course.status} onDeregister={handleDeregister} onRegister={handleRegister}/>
