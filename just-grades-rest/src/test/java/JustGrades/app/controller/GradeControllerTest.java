@@ -47,7 +47,7 @@ class GradeControllerTest {
     @WithMockUser(username = "test@test.com", roles = "LECTURER")
     void getGradesList_shouldReturnGrades() throws Exception {
         Grade g = new Grade();
-        g.setGrade(5);
+        g.setGrade(5.0);
         g.setStudent(new Student());
         when(gradeRepository.findByCourseIdOrderByStudentLastNameAsc(1L)).thenReturn(List.of(g));
 
@@ -67,7 +67,7 @@ class GradeControllerTest {
     @WithMockUser(username = "test@test.com", roles = "LECTURER")
     void addGrade_shouldReturnSuccess() throws Exception {
         GradeInput input = new GradeInput();
-        input.setGrade(4);
+        input.setGrade(4.0);
         input.setStudentNumber("12345");
         input.setType("FINAL");
 
