@@ -25,9 +25,22 @@ public class CourseService {
         List<Long> courseIds = courseRepository.findCoursesToClose();
 
         for (Long courseId : courseIds) {
-            entityManager.createNativeQuery("BEGIN close_course(:id); END;")
+            String status = (String) entityManager
+                    .createNativeQuery("SELECT status FROM courses WHERE course_id = :id")
                     .setParameter("id", courseId)
-                    .executeUpdate();
+                    .getSingleResult();
+
+            if ("opened registration".equalsIgnoreCase(status)) {
+                entityManager.createNativeQuery("BEGIN close_registration(:id); END;")
+                        .setParameter("id", courseId)
+                        .executeUpdate();
+            }
+
+            else {
+                entityManager.createNativeQuery("BEGIN close_course(:id); END;")
+                        .setParameter("id", courseId)
+                        .executeUpdate();
+            }
         }
     }
 }
