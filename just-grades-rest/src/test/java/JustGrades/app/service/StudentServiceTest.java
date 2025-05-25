@@ -207,10 +207,10 @@ public class StudentServiceTest {
         user.setEmail("test@student.com");
 
         Grade grade = new Grade();
-        grade.setGrade(4);
+        grade.setGrade(4.0);
 
         Grade grade2 = new Grade();
-        grade2.setGrade(3);
+        grade2.setGrade(3.0);
 
         when(authHelper.getCurrentUser()).thenReturn(user);
         when(gradeRepository.findByStudentEmailAndCourseId("test@student.com", 1L))

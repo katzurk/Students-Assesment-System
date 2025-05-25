@@ -51,7 +51,7 @@ class GradeRepositoryTest {
         Grade grade = new Grade();
         grade.setStudent(student);
         grade.setCourse(course);
-        grade.setGrade(5);
+        grade.setGrade(5.0);
         gradeRepository.save(grade);
 
         List<Grade> grades = gradeRepository.findByStudentEmailAndCourseId("student@test.com", course.getId());
@@ -90,13 +90,13 @@ class GradeRepositoryTest {
         Grade g1 = new Grade();
         g1.setStudent(s1);
         g1.setCourse(course);
-        g1.setGrade(3);
+        g1.setGrade(3.0);
         gradeRepository.save(g1);
 
         Grade g2 = new Grade();
         g2.setStudent(s2);
         g2.setCourse(course);
-        g2.setGrade(4);
+        g2.setGrade(4.0);
         gradeRepository.save(g2);
 
         List<Grade> result = gradeRepository.findByCourseIdOrderByStudentLastNameAsc(course.getId());
