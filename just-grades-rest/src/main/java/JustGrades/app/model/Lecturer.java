@@ -26,4 +26,5 @@ public class Lecturer extends User {
     @Transient
     @Enumerated(EnumType.STRING)
     protected Role role = Role.LECTURER;
+
 }
