@@ -14,7 +14,7 @@ public class GradeInput {
     private Long id;
 
     @NotNull(message = "grade is mandatory")
-    private Integer grade;
+    private Double grade;
 
     @NotBlank(message = "type is mandatory")
     private String type;
