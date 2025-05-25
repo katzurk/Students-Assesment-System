@@ -191,7 +191,7 @@
 }
 
 .close_course_button {
-  background: #f49b36 !important; /* красный */
+  background: #8f867a !important; /* красный */
   color: var(--background) !important;
   padding-left: 8px;
   padding-right: 8px;
@@ -204,6 +204,6 @@
 }
 
 .close_course_button:hover {
-  background: #f49b36 !important; /* тёмно-красный */
+  background: #706c67 !important; /* тёмно-красный */
   border-color: transparent;
 }

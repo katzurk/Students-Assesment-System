@@ -193,7 +193,7 @@ export default function CoursesTable() {
             });
         })
         .catch((error) => {
-          setCourses(prevCourses => prevCourses.map(course => 
+          setCourses(prevCourses => prevCourses.map(course =>
             course.id === id ? {
               ...course,
               message: error.message,
@@ -212,12 +212,12 @@ export default function CoursesTable() {
         method: 'POST',
         credentials: "include"
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to open registration');
       }
-  
-      setCourses(prevCourses => prevCourses.map(course => 
+
+      setCourses(prevCourses => prevCourses.map(course =>
         course.id === id ? {
           ...course,
           message: 'Registration successfully opened',
@@ -225,7 +225,7 @@ export default function CoursesTable() {
         } : course
       ));
     } catch (error) {
-      setCourses(prevCourses => prevCourses.map(course => 
+      setCourses(prevCourses => prevCourses.map(course =>
         course.id === id ? {
           ...course,
           message: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -233,10 +233,10 @@ export default function CoursesTable() {
         } : course
       ));
     }
-    
+
     // Clear message after 5 seconds
     setTimeout(() => {
-      setCourses(prevCourses => prevCourses.map(course => 
+      setCourses(prevCourses => prevCourses.map(course =>
         course.id === id ? {
           ...course,
           message: null,
@@ -245,19 +245,19 @@ export default function CoursesTable() {
       ));
     }, 5000);
   };
-  
+
   const closeRegistration = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:8080/courses/${id}/close-registration`, {
         method: 'POST',
         credentials: "include"
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to close registration');
       }
-  
-      setCourses(prevCourses => prevCourses.map(course => 
+
+      setCourses(prevCourses => prevCourses.map(course =>
         course.id === id ? {
           ...course,
           message: 'Registration successfully closed',
@@ -265,7 +265,7 @@ export default function CoursesTable() {
         } : course
       ));
     } catch (error) {
-      setCourses(prevCourses => prevCourses.map(course => 
+      setCourses(prevCourses => prevCourses.map(course =>
         course.id === id ? {
           ...course,
           message: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -273,9 +273,9 @@ export default function CoursesTable() {
         } : course
       ));
     }
-    
+
     setTimeout(() => {
-      setCourses(prevCourses => prevCourses.map(course => 
+      setCourses(prevCourses => prevCourses.map(course =>
         course.id === id ? {
           ...course,
           message: null,
@@ -284,19 +284,19 @@ export default function CoursesTable() {
       ));
     }, 5000);
   };
-  
+
   const closeCourse = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:8080/courses/${id}/close`, {
         method: 'POST',
         credentials: "include"
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to close course, course is not active');
       }
-  
-      setCourses(prevCourses => prevCourses.map(course => 
+
+      setCourses(prevCourses => prevCourses.map(course =>
         course.id === id ? {
           ...course,
           message: 'Course successfully closed',
@@ -304,7 +304,7 @@ export default function CoursesTable() {
         } : course
       ));
     } catch (error) {
-      setCourses(prevCourses => prevCourses.map(course => 
+      setCourses(prevCourses => prevCourses.map(course =>
         course.id === id ? {
           ...course,
           message: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -312,10 +312,10 @@ export default function CoursesTable() {
         } : course
       ));
     }
-    
+
     // Clear message after 5 seconds
     setTimeout(() => {
-      setCourses(prevCourses => prevCourses.map(course => 
+      setCourses(prevCourses => prevCourses.map(course =>
         course.id === id ? {
           ...course,
           message: null,
@@ -344,6 +344,7 @@ export default function CoursesTable() {
             <TableCell className={styles.headerCell}>Requirements to enroll</TableCell>
             <TableCell className={styles.headerCell}>Finals Reports</TableCell>
             <TableCell className={styles.headerCell}>Actions</TableCell>
+            <TableCell className={styles.headerCell}>Registration</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -375,7 +376,8 @@ export default function CoursesTable() {
                   <Button className={styles.delete_button} onClick={() => removeCourse(course.id)}>Delete</Button>
                   <br />
                   <Button className={styles.details_button} onClick={() => courseDetails(course.id)}>Details</Button>
-                  <br />
+                </TableCell>
+                <TableCell className={styles.cell}>
                   <Button className={styles.open_button} onClick={() => openRegistration(course.id)}>Open Registration</Button>
                   <br />
                   <Button className={styles.close_button} onClick={() => closeRegistration(course.id)}>Close Registration</Button>
@@ -385,7 +387,7 @@ export default function CoursesTable() {
               </TableRow>
               {course.message && (
                 <TableRow>
-                  <TableCell colSpan={6} style={{ 
+                  <TableCell colSpan={6} style={{
                     color: course.messageType === "success" ? "green" : "red",
                     padding: "10px",
                     backgroundColor: course.messageType === "success" ? "rgba(0, 255, 0, 0.1)" : "rgba(255, 0, 0, 0.1)"
