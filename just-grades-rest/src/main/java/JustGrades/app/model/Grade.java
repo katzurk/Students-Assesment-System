@@ -66,7 +66,7 @@ public class Grade {
 
     @Column(name = "grade")
     @NotNull(message = "grade is mandatory")
-    private Integer grade;
+    private Double grade;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "received_date")
