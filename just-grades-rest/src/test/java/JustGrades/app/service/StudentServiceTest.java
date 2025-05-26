@@ -68,7 +68,7 @@ public class StudentServiceTest {
 
         when(authHelper.getCurrentUser()).thenReturn(mockUser);
         when(studentRepository.findByEmail("test@student.com")).thenReturn(mockStudent);
-        when(courseRegistrationRepository.findByStudentIdAndStatus(1L, "ACTIVE"))
+        when(courseRegistrationRepository.findByStudentIdAndStatus(1L, "FINISHED"))
                 .thenReturn(List.of(reg1));
         when(studentRepository.getFinalGrade(1L, 101L)).thenReturn(Optional.of(4.5));
 
