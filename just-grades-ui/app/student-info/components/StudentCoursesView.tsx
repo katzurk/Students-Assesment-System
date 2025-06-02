@@ -1,4 +1,4 @@
-import {List, ListItem, ListItemText} from "@mui/material";
+import {List, ListItem, ListItemText, Typography} from "@mui/material";
 import styles from '../StudentInfo.module.css';
 import React from "react";
 import {useStudentCourses} from "@/hooks/useStudentCourses";
@@ -11,7 +11,12 @@ export const StudentCoursesView = () => {
 
     return (
         <List>
-            {courses.map((course, index) => (
+            {courses.length === 0 ? (
+                    <Typography variant="h6">
+                        You are not registered for any courses.
+                    </Typography>
+            ):
+            courses.map((course, index) => (
                 <ListItem className={styles.course} key={index}>
                     <ListItemText primary={course.name} />
                 </ListItem>

@@ -72,7 +72,7 @@ public class StudentService {
     public Map<String, Double> getFinalGrades() {
         Student student = studentRepository.findByEmail(authHelper.getCurrentUser().getEmail());
         Map<String, Double> finalGrades = new HashMap<>();
-        List<CourseRegistration> courses = courseRegistrationRepository.findByStudentIdAndStatus(student.getUserId(), "ACTIVE");
+        List<CourseRegistration> courses = courseRegistrationRepository.findByStudentIdAndStatus(student.getUserId(), "FINISHED");
         courses.forEach(e -> System.out.println(e.getCourse().getName()+e.getCourse().getId()));
         for(CourseRegistration course : courses) {
             Optional<Double> grade = studentRepository.getFinalGrade(student.getUserId(), course.getCourse().getId());

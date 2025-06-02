@@ -23,7 +23,7 @@ public class CourseRepositoryTest {
     void findAll_returnCourses() {
         List<Course> courses = courseRepository.findAllByOrderByNameAsc();
 
-        assertThat(courses).hasSize(128);
+        assertThat(courses).hasSize(130);
         assertThat(courses).anyMatch(c -> !c.getSpecializations().isEmpty());
     }
 }

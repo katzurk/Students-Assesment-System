@@ -17,7 +17,10 @@ export default function StudentCourses() {
             <Typography variant="h4">Student Courses</Typography>
             <br></br>
             <Stack spacing={2}>
-                {courses?.map((course: ICourse) => (
+                {(courses.length === 0) ?
+                    <Typography variant="h5">You are not registered for any courses.</Typography>
+                :
+                courses?.map((course: ICourse) => (
                     <Box key={course.id} className={styles.course} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1}}>
                         <Course {...course}/>
                         <Box>
