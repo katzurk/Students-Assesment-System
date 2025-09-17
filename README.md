@@ -1,73 +1,97 @@
-# Temat: JustGrades - system oceniania studentów
-## prowadzący: Wojciech Sitek
-Projekt jest ćwiczeniem zespołowym mającym na celu głównie nabycie umiejętności projektowania baz danych. Rezultatem projektu ma być działający system złożony z bazy danych wraz z prostą aplikacją wykorzystującą tę bazę zarówno do działań operacyjnych jak i analityczno - raportowych.
+# JustGrades - Student Assesment System
 
-## Skład zespołu:
+- [Polish](README-PL.md)
+
+---
+
+## Authors:
 * Diana Pelin
 * Alesia Filinkova
 * Katarzyna Kanicka
 * Weronika Maślana
 
-## Instalacja środowiska
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+## Environment installation
+Install NVM:
 
-install node.js
+```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash```
 
-nvm install 22
+Node.js 22:
 
-npm install -g pnpm@latest-10
+```nvm install 22 && nvm use 22```
 
-nvm use 22
+pnpm:
 
-npm install @mui/material @emotion/react @emotion/styled
+```npm install -g pnpm@latest-10```
 
-npm install chart.js react-chartjs-2
+Dependencies:
 
-## Uruchomienie aplikacji
-* just-grades-rest (spring):
+```pnpm install```
 
- clear && ./mvnw spring-boot:run
+---
 
-ewentualnie w przeglądarce wchodzimy na stronę:
+## Running the application
 
- localhost:8080
+**Just-grades-rest (Spring)**:
 
-* just-grades-ui (react):
+```clear && ./mvnw spring-boot:run```
 
- pnpm dev
+In your browser, go to:
 
-w przeglądarce wchodzimy na stronę:
+```localhost:8080```
 
- localhost:3000
+**Just-grades-ui (React)**:
 
-dokumentacja swagger: http://localhost:8080/swagger-ui/index.html#/   
+```pnpm dev```
 
-## Realizacja projektu:
-* Baza danych typu relacyjnego: Oracle
-* Kod aplikacji napisany w języku java z wykorzystaniem framework'u Spring oraz biblioteki Hibernate
-* Frontend: React
+In your browser, go to:
 
-## Funkcjonalności:
-1. Logowanie użytkownika
-**role i uprawnienia:**
-*Student:*
-2. Przegląd ocen końcowych,
-3. Przegląd zdobytych punktów z przedmiotu,
-4. Zapisywanie się na przedmioty
-5. Wypisywanie się z przedmiotów
-*Wykładowca:*
-6. Wystawienie ocen,
-7. Przegląd profilu studenta z danego przedmiotu (zbiór punktów z przedmiotu dla danego studenta zapisanego na przedmiot)
-8. Utworzenie schematu przedmiotu (np. ilość labów i za ile punktów, czy jest egzamin i za ile punktów, ile punktów trzeba zdobyć by zaliczyć),
-9. Zamknięcie przedmiotu i automatyczne wyliczenie oceny końcowej,
-10. Otwarcie i zamknięcie semestru
-11. Otwarcie i zamknięcie rejestracji
-*Oboje:*
-12. Wyświetlanie raportów (np. przekrój ocen z kolokwium, rozkład ocen końcowych wśród studentów z danego przedmiotu)
+```localhost:3000```
+
+Swagger documentation: 
+
+```http://localhost:8080/swagger-ui/index.html#/ ```   
+
+---
+
+## Project implementation:
+* Relational database: Oracle
+* Application code written in Java using the Spring framework and Hibernate library
+* Frontend: Next.js, React - Typescript
+
+---
+
+## Functionalities
+
+### 1. User login
+
+---
+
+### Roles and permissions
+
+#### Student
+3. View of final grades  
+4. View of points earned in a course  
+5. Enrolling on courses
+6. Withdrawing from courses  
+
+#### Lecturer
+7. Grading students 
+8. Viewing student profiles for a given course  
+   - collection of points for given student enrolled in the course  
+9. Creating a course outline  
+   - e.g., number of labs and points for assignments, whether there is an exam and how many points are needed to pass  
+10. Closing the course and automatically calculating the final grade  
+11. Opening and closing the semester  
+12. Opening and closing the course registration  
+
+#### Both
+13. Displaying reports  
+   - e.g., a breakdown of test scores, distribution of final grades among students in a given course  
 
 
-## Etapy projektu
-1. Zdefiniowanie modelu pojęciowego,
-2. Zdefiniowanie logicznego modelu danych dla bazy relacyjnej oraz projekt aplikacji, przy czym część logiki aplikacyjnej powinna być zrealizowana w formie procedur składowanych w bazie danych,
-3. Stworzenie modelu fizycznego, implementacja bazy danych i aplikacji, zapewnienie danych testowych, testy.
+---
 
+## Project stages
+1. Defining the conceptual model,
+2. Defining the logical data model for the relational database and the application design, with part of the application logic to be implemented in the form of stored procedures in the database,
+3. Creating the physical model, implementing the database and application, providing test data, testing.
